@@ -13,13 +13,13 @@ game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
 
 # turn = ""
 
-def get_turn(game_board)
+def get_player(game_board)
   x_count = game_board.count("X")
   o_count = game_board.count("O")
   x_count > o_count ? "O" : "X"
 end
 
-print get_turn(game_board)
+print get_player(game_board)
 
 # player_1 = "X"
 # player_2 = "O"
