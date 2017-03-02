@@ -34,7 +34,7 @@ wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4,
 # game_board = ["", "X", "X", "X", "O", "X", "O", "O", "O"]  # O win - 6, 7 ,8
 # game_board = ["X", "O", "O", "X", "X", "O", "X", "O", ""]  # X win - 0, 3, 6
 # game_board = ["X", "O", "X", "", "O", "X", "X", "O", "O"]  # O win - 1, 4, 7
-# game_board = ["O", "O", "X", "O", "", "X", "X", "O", "X"]  # X win - 2, 5, 8
+game_board = ["O", "O", "X", "O", "", "X", "X", "O", "X"]  # X win - 2, 5, 8
 # game_board = ["O", "X", "X", "", "O", "X", "X", "O", "O"]  # O win - 0, 4, 8
 # game_board = ["O", "O", "X", "O", "X", "", "X", "O", "X"]  # X win - 2, 4, 6
 
@@ -52,5 +52,5 @@ def game_won?(current_positions)
   return won
 end
 
-puts game_won?(x)
-puts game_won?(o)
+p game_won?(x)
+p game_won?(o)
