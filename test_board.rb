@@ -136,4 +136,35 @@ class TestBoard < Minitest::Test
     assert_equal("O", result)
   end
 
+  def test_20_get_first_move
+    board = Board.new
+    board.get_move(4)
+    result = ["", "", "", "", "X", "", "", "", ""]
+    assert_equal(result, board.game_board)
+  end
+
+  def test_20_get_second_move
+    board = Board.new
+    board.game_board = ["", "", "", "", "X", "", "", "", ""]
+    board.get_move(6)
+    result = ["", "", "", "", "X", "", "O", "", ""]
+    assert_equal(result, board.game_board)
+  end
+
+  def test_21_get_third_move
+    board = Board.new
+    board.game_board = ["", "", "", "", "X", "", "O", "", ""]
+    board.get_move(0)
+    result = ["X", "", "", "", "X", "", "O", "", ""]
+    assert_equal(result, board.game_board)
+  end
+
+  def test_21_get_fourth_move
+    board = Board.new
+    board.game_board = ["X", "", "", "", "X", "", "O", "", ""]
+    board.get_move(2)
+    result = ["X", "", "", "", "X", "", "O", "", "O"]
+    assert_equal(result, board.game_board)
+  end
+
 end
