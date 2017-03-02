@@ -42,6 +42,7 @@ while x_won == false && o_won == false && full == false
   puts location
   board.set_position(location, mark) if board.position_open?(location)
   p board.get_board
+  # break these out into a separate EndGame class
   x_won = board.x_won?
   o_won = board.o_won?
   full = board.board_full?
