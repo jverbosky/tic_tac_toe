@@ -54,4 +54,9 @@ class Board
     x_count > o_count ? "O" : "X"
   end
 
+  def get_move(position)
+    mark = get_player()
+    set_position(position, mark) if position_open?(position)
+  end
+
 end

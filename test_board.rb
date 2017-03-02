@@ -162,7 +162,7 @@ class TestBoard < Minitest::Test
   def test_21_get_fourth_move
     board = Board.new
     board.game_board = ["X", "", "", "", "X", "", "O", "", ""]
-    board.get_move(2)
+    board.get_move(8)
     result = ["X", "", "", "", "X", "", "O", "", "O"]
     assert_equal(result, board.game_board)
   end
