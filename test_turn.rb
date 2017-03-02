@@ -7,7 +7,7 @@ class TestTurn < Minitest::Test
   def test_1_get_player_first_move
     board = Board.new
     turn = Turn.new
-    result = turn.get_player(@game_board)
+    result = turn.get_player(board.game_board)
     assert_equal("X", result)
   end
 
