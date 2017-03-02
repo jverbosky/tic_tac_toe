@@ -23,11 +23,15 @@ intersection_test = [0, 1, 2]
 
 # p game_won?(o, intersection_test)
 
-win_count = 0
-wins.each { |win| win_count = 1 if o & win == win }
+def game_won?(current_positions)
+  wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+  won = false
+  wins.each { |win| won = true if current_positions & win == win }
+  return won
+end
 
-puts win_count
-
+puts game_won?(x)
+puts game_won?(o)
 
 
 
