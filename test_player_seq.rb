@@ -8,7 +8,7 @@ class TestPlayerSequential < Minitest::Test
     p1 = PlayerSequential.new
     turn = Turn.new
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("t1", result)
   end
 
@@ -18,7 +18,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "", "", "", "", "", "", "", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("t2", result)
   end
 
@@ -28,7 +28,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "X", "", "", "", "", "", "", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("t3", result)
   end
 
@@ -38,7 +38,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "X", "X", "", "", "", "", "", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("m1", result)
   end
 
@@ -48,7 +48,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "X", "X", "X", "", "", "", "", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("m2", result)
   end
 
@@ -58,7 +58,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "X", "X", "X", "X", "", "", "", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("m3", result)
   end
 
@@ -68,7 +68,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "X", "X", "X", "X", "X", "", "", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("b1", result)
   end
 
@@ -78,7 +78,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "X", "X", "X", "X", "X", "X", "", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("b2", result)
   end
 
@@ -88,7 +88,7 @@ class TestPlayerSequential < Minitest::Test
     turn = Turn.new
     board.game_board = ["X", "X", "X", "X", "X", "X", "X", "X", ""]
     round = turn.get_round(board.x_count, board.o_count)
-    result = p1.move(round)
+    result = p1.get_move(round)
     assert_equal("b3", result)
   end
 

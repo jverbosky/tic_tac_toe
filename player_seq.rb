@@ -3,11 +3,13 @@ require_relative "turn.rb"
 
 class PlayerSequential
 
+  attr_reader :moves
+
   def initialize
     @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]
   end
 
-  def move(round)
+  def get_move(round)
     m_index = round - 1
     position = @moves[m_index]
   end
@@ -24,4 +26,4 @@ end
 # # board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # b2
 # round = turn.get_round(board.x_count, board.o_count)
 # puts round
-# puts p1.move(round)
+# puts p1.get_move(round)
