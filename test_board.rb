@@ -60,5 +60,18 @@ class TestTicTacToe < Minitest::Test
     assert_equal(false, result)
   end
 
+  def test_9_get_x_positions
+    board = Board.new
+    board.game_board = ["X", "O", "", "X", "O", "O", "O", "X", "X"]
+    result = board.get_x
+    assert_equal([0, 3, 7, 8], result)
+  end
+
+  def test_10_get_o_positions
+    board = Board.new
+    board.game_board = ["X", "O", "", "X", "O", "O", "O", "X", "X"]
+    result = board.get_o
+    assert_equal([1, 4, 5, 6], result)
+  end
 
 end
