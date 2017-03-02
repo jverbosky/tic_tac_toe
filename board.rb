@@ -1,3 +1,5 @@
+require_relative "position.rb"
+
 class Board
 
   # Method to access the variables in the class - attr_ is shorthand syntax for creating getter/setter methods
