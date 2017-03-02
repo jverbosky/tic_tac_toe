@@ -167,16 +167,16 @@ class TestBoard < Minitest::Test
     assert_equal(result, board.game_board)
   end
 
-  def test_22_print_empty_board
+  def test_22_get_empty_board
     board = Board.new
-    result = print_board()
+    result = board.get_board()
     assert_equal(result, board.game_board)
   end
 
-  def test_23_print_populated_board
+  def test_23_get_populated_board
     board = Board.new
     board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]
-    result = print_board()
+    result = board.get_board()
     assert_equal(result, board.game_board)
   end
 

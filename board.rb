@@ -59,4 +59,8 @@ class Board
     set_position(position, mark) if position_open?(position)
   end
 
+  def get_board()
+    return @game_board
+  end
+
 end
