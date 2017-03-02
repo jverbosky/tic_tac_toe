@@ -102,78 +102,44 @@ class TestBoard < Minitest::Test
     assert_equal(true, result)
   end
 
-  # def test_15_get_player_first_move
+  # def test_15_get_first_move
   #   board = Board.new
-  #   result = board.get_player()
-  #   assert_equal("X", result)
+  #   board.get_move(4)
+  #   result = ["", "", "", "", "X", "", "", "", ""]
+  #   assert_equal(result, board.game_board)
   # end
 
-  # def test_16_get_player_second_move
+  # def test_16_get_second_move
   #   board = Board.new
   #   board.game_board = ["", "", "", "", "X", "", "", "", ""]
-  #   result = board.get_player()
-  #   assert_equal("O", result)
+  #   board.get_move(6)
+  #   result = ["", "", "", "", "X", "", "O", "", ""]
+  #   assert_equal(result, board.game_board)
   # end
 
-  # def test_17_get_player_third_move
+  # def test_17_get_third_move
   #   board = Board.new
   #   board.game_board = ["", "", "", "", "X", "", "O", "", ""]
-  #   result = board.get_player()
-  #   assert_equal("X", result)
+  #   board.get_move(0)
+  #   result = ["X", "", "", "", "X", "", "O", "", ""]
+  #   assert_equal(result, board.game_board)
   # end
 
-  # def test_18_get_player_seventh_move
+  # def test_18_get_fourth_move
   #   board = Board.new
-  #   board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]
-  #   result = board.get_player()
-  #   assert_equal("X", result)
+  #   board.game_board = ["X", "", "", "", "X", "", "O", "", ""]
+  #   board.get_move(8)
+  #   result = ["X", "", "", "", "X", "", "O", "", "O"]
+  #   assert_equal(result, board.game_board)
   # end
 
-  # def test_19_get_player_eighth_move
-  #   board = Board.new
-  #   board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]
-  #   result = board.get_player()
-  #   assert_equal("O", result)
-  # end
-
-  def test_20_get_first_move
-    board = Board.new
-    board.get_move(4)
-    result = ["", "", "", "", "X", "", "", "", ""]
-    assert_equal(result, board.game_board)
-  end
-
-  def test_20_get_second_move
-    board = Board.new
-    board.game_board = ["", "", "", "", "X", "", "", "", ""]
-    board.get_move(6)
-    result = ["", "", "", "", "X", "", "O", "", ""]
-    assert_equal(result, board.game_board)
-  end
-
-  def test_21_get_third_move
-    board = Board.new
-    board.game_board = ["", "", "", "", "X", "", "O", "", ""]
-    board.get_move(0)
-    result = ["X", "", "", "", "X", "", "O", "", ""]
-    assert_equal(result, board.game_board)
-  end
-
-  def test_21_get_fourth_move
-    board = Board.new
-    board.game_board = ["X", "", "", "", "X", "", "O", "", ""]
-    board.get_move(8)
-    result = ["X", "", "", "", "X", "", "O", "", "O"]
-    assert_equal(result, board.game_board)
-  end
-
-  def test_22_get_empty_board
+  def test_19_get_empty_board
     board = Board.new
     result = board.get_board()
     assert_equal(result, board.game_board)
   end
 
-  def test_23_get_populated_board
+  def test_20_get_populated_board
     board = Board.new
     board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]
     result = board.get_board()
