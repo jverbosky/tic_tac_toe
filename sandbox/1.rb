@@ -1,9 +1,9 @@
 # Sandbox testing:
-game_board = ["", "", "", "", "", "", "", "", ""]  # X
+# game_board = ["", "", "", "", "", "", "", "", ""]  # X
 # game_board = ["", "", "", "", "X", "", "", "", ""]  # O
 # game_board = ["", "", "", "", "X", "", "O", "", ""]  # X
 # game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]  # X
-# game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
+game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
 
 # player_1 = "X"
 # player_2 = "O"
@@ -14,11 +14,9 @@ game_board = ["", "", "", "", "", "", "", "", ""]  # X
 # turn = ""
 
 def get_turn(game_board)
-  player_1 = "X"
-  player_2 = "O"
   x_count = game_board.count("X")
   o_count = game_board.count("O")
-  x_count == 0 || x_count == o_count ? player_1 : player_2
+  x_count > o_count ? "O" : "X"
 end
 
 print get_turn(game_board)
