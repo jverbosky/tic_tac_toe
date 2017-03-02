@@ -23,9 +23,9 @@ turn = Turn.new
 position = Position.new
 
 # Endgame condition checks
-x_won = board.x_won?
-o_won = board.o_won?
-full = board.board_full?
+x_won = false
+o_won = false
+full = false
 
 while x_won == false && o_won == false && full == false
   x = board.x_count
@@ -35,11 +35,17 @@ while x_won == false && o_won == false && full == false
   mark = turn.get_player(x, o)
   player = p1
   player = p2 if round % 2 == 0
-  move = player.get_move(round)
+  move = player.get_move(board.game_board)
   puts player
   puts move
   location = position.get_index(move)
   puts location
   board.set_position(location, mark) if board.position_open?(location)
   p board.get_board
+  x_won = board.x_won?
+  o_won = board.o_won?
+  full = board.board_full?
+  p x_won
+  p o_won
+  p full
 end
