@@ -3,92 +3,42 @@ require_relative "player_seq.rb"
 
 class TestPlayerSequential < Minitest::Test
 
-  def test_1_verify_first_move
+  def test_1_verify_t1_board_empty
     board = Board.new
     p1 = PlayerSequential.new
-    turn = Turn.new
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
+    result = p1.get_move(board.game_board)
     assert_equal("t1", result)
   end
 
-  def test_2_verify_second_move
+  def test_2_verify_t1_board_not_empty
     board = Board.new
     p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "", "", "", "", "", "", "", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
-    assert_equal("t2", result)
+    board.game_board = ["", "", "", "X", "", "", "O", "", ""]
+    result = p1.get_move(board.game_board)
+    assert_equal("t1", result)
   end
 
-  def test_3_verify_third_move
+  def test_3_verify_m2
     board = Board.new
     p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "X", "", "", "", "", "", "", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
-    assert_equal("t3", result)
-  end
-
-  def test_4_verify_fourth_move
-    board = Board.new
-    p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "X", "X", "", "", "", "", "", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
-    assert_equal("m1", result)
-  end
-
-  def test_5_verify_fifth_move
-    board = Board.new
-    p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "X", "X", "X", "", "", "", "", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
+    board.game_board = ["X", "O", "O", "X", "", "", "", "X", "O"]
+    result = p1.get_move(board.game_board)
     assert_equal("m2", result)
   end
 
-  def test_6_verify_sixth_move
+  def test_4_verify_b1
     board = Board.new
     p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "X", "X", "X", "X", "", "", "", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
-    assert_equal("m3", result)
-  end
-
-  def test_7_verify_seventh_move
-    board = Board.new
-    p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "X", "X", "X", "X", "X", "", "", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
+    board.game_board = ["X", "O", "X", "O", "X", "O", "", "", ""]
+    result = p1.get_move(board.game_board)
     assert_equal("b1", result)
   end
 
-  def test_8_verify_eigth_move
+  def test_5_verify_b3
     board = Board.new
     p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "X", "X", "X", "X", "X", "X", "", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
-    assert_equal("b2", result)
-  end
-
-  def test_9_verify_final_move
-    board = Board.new
-    p1 = PlayerSequential.new
-    turn = Turn.new
-    board.game_board = ["X", "X", "X", "X", "X", "X", "X", "X", ""]
-    round = turn.get_round(board.x_count, board.o_count)
-    result = p1.get_move(round)
+    board.game_board = ["X", "O", "X", "O", "O", "X", "O", "X", ""]
+    result = p1.get_move(board.game_board)
     assert_equal("b3", result)
   end
 

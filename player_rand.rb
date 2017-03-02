@@ -1,5 +1,6 @@
+require_relative "board.rb"
+
 class PlayerRandom
-require_relative "turn.rb"
 
   attr_reader :moves
 
@@ -7,7 +8,7 @@ require_relative "turn.rb"
     @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]
   end
 
-  def get_move(round)  # added round argument as it's required for PlayerSequential get_move method
+  def get_move(game_board)  # added round argument as it's required for PlayerSequential get_move method
     position = @moves.sample
   end
 
