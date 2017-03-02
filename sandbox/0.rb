@@ -5,8 +5,38 @@
 # 3 4 5
 # 6 7 8
 
+# horizontal wins
+# 0 1 2 - 3 4 5 - 6 7 8
+#
+# O O O   O X O     X X
+# X O X   X X X   X O X
+# X X     O O     O O O
+
+# vertical wins
+# 0 3 6 - 1 4 7 - 2 5 8
+#
+# X O O   X O X   O O X
+# X X O     O X   O   X
+# X O     X O O   X O X
+
+# diagonal wins
+# 0 4 8 - 2 4 6
+#
+# O X X   O O X
+#   O X   O X
+# X O O   X O X
+
 wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-game_board = ["O", "O", "O", "X", "", "X", "X", "", ""]
+
+# Sandbox tests
+# game_board = ["O", "O", "O", "X", "O", "X", "X", "X", ""]  # O win - 0, 1, 2
+# game_board = ["O", "X", "O", "X", "X", "X", "O", "O", ""]  # X win - 3, 4, 5
+# game_board = ["", "X", "X", "X", "O", "X", "O", "O", "O"]  # O win - 6, 7 ,8
+# game_board = ["X", "O", "O", "X", "X", "O", "X", "O", ""]  # X win - 0, 3, 6
+# game_board = ["X", "O", "X", "", "O", "X", "X", "O", "O"]  # O win - 1, 4, 7
+# game_board = ["O", "O", "X", "O", "", "X", "X", "O", "X"]  # X win - 2, 5, 8
+# game_board = ["O", "X", "X", "", "O", "X", "X", "O", "O"]  # O win - 0, 4, 8
+# game_board = ["O", "O", "X", "O", "X", "", "X", "O", "X"]  # X win - 2, 4, 6
 
 # Output array positions that match marks
 o = game_board.each_index.select { |position| game_board[position] == "O" }
@@ -14,14 +44,6 @@ x = game_board.each_index.select { |position| game_board[position] == "X" }
 
 p o  # [0, 1, 2] - winner
 p x  # [3, 5, 6] - not a winner
-
-intersection_test = [0, 1, 2]
-
-# def game_won?(current_positions, win)
-#   current_positions & win == win
-# end
-
-# p game_won?(o, intersection_test)
 
 def game_won?(current_positions)
   wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
@@ -32,25 +54,3 @@ end
 
 puts game_won?(x)
 puts game_won?(o)
-
-
-
-
-
-# puts game_board[0..2]
-# puts mark
-
-# game_board.each do |position|
-
-
-# if game_board[0..2] == mark
-#   puts "win"
-# else
-#   puts "keep playing..."
-# end
-
-
-
-# case win
-#   game_board[0..2] = mark
-# end
