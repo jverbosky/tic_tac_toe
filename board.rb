@@ -25,4 +25,12 @@ class Board
     @game_board.count("") == 0
   end
 
+  def get_x()
+    @game_board.each_index.select { |position| @game_board[position] == "X" }
+  end
+
+  def get_o()
+    @game_board.each_index.select { |position| @game_board[position] == "O" }
+  end
+
 end

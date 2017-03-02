@@ -49,28 +49,28 @@ class TestTicTacToe < Minitest::Test
   def test_7_verify_all_spots_full
     board = Board.new
     board.game_board = ["X", "O", "X", "X", "O", "O", "O", "X", "X"]
-    result = board.board_full?
+    result = board.board_full?()
     assert_equal(true, result)
   end
 
   def test_8_verify_board_almost_full
     board = Board.new
     board.game_board = ["X", "O", "", "X", "O", "O", "O", "X", "X"]
-    result = board.board_full?
+    result = board.board_full?()
     assert_equal(false, result)
   end
 
   def test_9_get_x_positions
     board = Board.new
     board.game_board = ["X", "O", "", "X", "O", "O", "O", "X", "X"]
-    result = board.get_x
+    result = board.get_x()
     assert_equal([0, 3, 7, 8], result)
   end
 
   def test_10_get_o_positions
     board = Board.new
     board.game_board = ["X", "O", "", "X", "O", "O", "O", "X", "X"]
-    result = board.get_o
+    result = board.get_o()
     assert_equal([1, 4, 5, 6], result)
   end
 
