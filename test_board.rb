@@ -1,7 +1,7 @@
 require "minitest/autorun"
 require_relative "board.rb"
 
-class TestTicTacToe < Minitest::Test
+class TestBoard < Minitest::Test
 
   def test_1_verify_board_array_exists
     board = Board.new
