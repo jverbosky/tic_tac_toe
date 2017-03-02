@@ -19,11 +19,7 @@ class Board
   end
 
   def set_position(position, mark)
-    if position_open?(position) == true
-      (game_board[position] = mark)
-    else
-      puts "That spot is taken - try again"
-    end
+    @game_board[position] = mark if position_open?(position)
   end
 
   def board_full?

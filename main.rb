@@ -15,7 +15,6 @@ require_relative "turn.rb"
 # get_index(move)
 require_relative "position.rb"
 
-
 # Initialize objects
 board = Board.new
 p1 = PlayerSequential.new
@@ -23,44 +22,24 @@ p2 = PlayerRandom.new
 turn = Turn.new
 position = Position.new
 
-puts "-------------"
-puts "Round 1"
-puts "-------------"
-p board.get_board
-x = board.x_count
-o = board.o_count
-round = turn.get_round(x, o)
-puts "Round: #{round}"
-mark = turn.get_player(x, o)
-puts "Mark: #{mark}"
-move = p1.get_move(round)
-puts "Move: #{move}"
-location = position.get_index(move)
-puts "Location: #{location}"
-board.set_position(location, mark)
-p board.get_board
-
-# Status checking
+# Endgame condition checks
 x_won = board.x_won?
 o_won = board.o_won?
 full = board.board_full?
-p "x win? #{x_won}"
-p "o win? #{o_won}"
-p "board full? #{full}"
 
-puts "-------------"
-puts "Round 2"
-puts "-------------"
-p board.get_board
-x = board.x_count
-o = board.o_count
-round = turn.get_round(x, o)
-puts "Round: #{round}"
-mark = turn.get_player(x, o)
-puts "Mark: #{mark}"
-move = p2.get_move(round)
-puts "Move: #{move}"
-location = position.get_index(move)
-puts "Location: #{location}"
-board.set_position(location, mark)
-p board.get_board
+while x_won == false && o_won == false && full == false
+  x = board.x_count
+  o = board.o_count
+  round = turn.get_round(x, o)
+  puts round
+  mark = turn.get_player(x, o)
+  player = p1
+  player = p2 if round % 2 == 0
+  move = player.get_move(round)
+  puts player
+  puts move
+  location = position.get_index(move)
+  puts location
+  board.set_position(location, mark) if board.position_open?(location)
+  p board.get_board
+end
