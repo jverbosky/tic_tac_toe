@@ -1,5 +1,3 @@
-require_relative "position.rb"
-
 class Board
 
   # Method to access the variables in the class - attr_ is shorthand syntax for creating getter/setter methods
@@ -50,13 +48,30 @@ class Board
     return won
   end
 
-  # def get_move(position)
-  #   mark = get_player()
-  #   set_position(position, mark) if position_open?(position)
-  # end
+  def x_count
+    @game_board.count("X")
+  end
+
+  def o_count
+     @game_board.count("O")
+  end
+
+  def get_move(position)
+    mark = get_player()
+    set_position(position, mark) if position_open?(position)
+  end
 
   def get_board()
     return @game_board
   end
 
 end
+
+# Sandbox testing
+# board = Board.new
+# # board.game_board = ["", "", "", "", "X", "", "", "", ""]  # O
+# # board.game_board = ["", "", "", "", "X", "", "O", "", ""]  # X
+# # board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]  # X
+# # board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
+# puts board.x_count
+# puts board.o_count
