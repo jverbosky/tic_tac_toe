@@ -48,11 +48,11 @@ class Board
     return won
   end
 
-  def get_player()
-    x_count = @game_board.count("X")
-    o_count = @game_board.count("O")
-    x_count > o_count ? "O" : "X"
-  end
+  # def get_player()
+  #   x_count = @game_board.count("X")
+  #   o_count = @game_board.count("O")
+  #   x_count > o_count ? "O" : "X"
+  # end
 
   def get_move(position)
     mark = get_player()
