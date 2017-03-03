@@ -22,14 +22,14 @@ require_relative "../board.rb"
 # - O -
 # - X X
 
-round_5 = ["X", "O", "", "", "O", "", "", "X", "X"]  # variation 1 - O blocks X at
-# round_5 = ["X", "", "", "O", "O", "X", "", "", "X"]  # variation 2 - O blocks X at
-# round_5 = ["X", "", "", "X", "O", "O", "", "", "X"]  # variation 3 - O blocks X at
-# round_5 = ["X", "X", "", "", "O", "", "", "O", "X"]  # variation 4 - O blocks X at
-# round_5 = ["", "O", "X", "", "O", "", "X", "X", ""]  # variation 5 - O blocks X at
-# round_5 = ["", "", "X", "O", "O", "X", "X", "", ""]  # variation 6 - O blocks X at
-# round_5 = ["", "", "X", "X", "O", "O", "X", "", ""]  # variation 7 - O blocks X at
-# round_5 = ["", "X", "X", "", "O", "", "X", "O", ""]  # variation 8 - O blocks X at
+# round_5 = ["X", "O", "", "", "O", "", "", "X", "X"]  # variation 1 - O blocks X at 6
+# round_5 = ["X", "", "", "O", "O", "X", "", "", "X"]  # variation 2 - O blocks X at 2
+# round_5 = ["X", "", "", "X", "O", "O", "", "", "X"]  # variation 3 - O blocks X at 6
+# round_5 = ["X", "X", "", "", "O", "", "", "O", "X"]  # variation 4 - O blocks X at 2
+# round_5 = ["", "O", "X", "", "O", "", "X", "X", ""]  # variation 5 - O blocks X at 8
+# round_5 = ["", "", "X", "O", "O", "X", "X", "", ""]  # variation 6 - O blocks X at 8
+# round_5 = ["", "", "X", "X", "O", "O", "X", "", ""]  # variation 7 - O blocks X at 0
+round_5 = ["", "X", "X", "", "O", "", "X", "O", ""]  # variation 8 - O blocks X at 0
 
 # X O -
 # - O -
@@ -38,11 +38,11 @@ round_5 = ["X", "O", "", "", "O", "", "", "X", "X"]  # variation 1 - O blocks X 
 # round_6 = ["X", "O", "", "", "O", "", "O", "X", "X"]  # variation 1
 # round_6 = ["X", "", "O", "O", "O", "X", "", "", "X"]  # variation 2
 # round_6 = ["X", "", "", "X", "O", "O", "O", "", "X"]  # variation 3
-# round_6 = ["X", "", "", "", "O", "", "", "O", "X"]  # variation 4
-# round_6 = ["", "O", "X", "", "O", "", "X", "X", ""]  # variation 5 = O block same as variation 1
-# round_6 = ["", "", "X", "O", "O", "X", "X", "", ""]  # variation 6 = O block same as variation 2
-# round_6 = ["", "", "X", "X", "O", "O", "X", "", ""]  # variation 7 = O block same as variation 3
-# round_6 = ["", "", "X", "", "O", "", "X", "O", ""]  # variation 8 = O block same as variation 4
+# round_6 = ["X", "X", "O", "", "O", "", "", "O", "X"]  # variation 4
+# round_6 = ["", "O", "X", "", "O", "", "X", "X", "O"]  # variation 5 = O block same as variation 1
+# round_6 = ["", "", "X", "O", "O", "X", "X", "", "O"]  # variation 6 = O block same as variation 2
+# round_6 = ["O", "", "X", "X", "O", "O", "X", "", ""]  # variation 7 = O block same as variation 3
+# round_6 = ["0", "", "X", "", "O", "", "X", "O", ""]  # variation 8 = O block same as variation 4
 
 
 wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
@@ -57,9 +57,9 @@ board = Board.new
 board.game_board = round_5
 # print board  # The board is: ["X", "O", "", "", "O", "", "X", "", ""]
 
-# x_pos = board.get_x
+x_pos = board.get_x
+o_pos = board.get_o
 # p x_pos
-# o_pos = board.get_o
 # p o_pos
 
 # Round 5 - block O
@@ -75,22 +75,43 @@ board.game_board = round_5
 
 # Round 6 - block X
 # v1/5 = [4], v2/6 = [], v3/7 = [], v4/8 = []
-def block_x(wins, o_pos, x_pos) # pos of player to block
+# def block_x(wins, o_pos, x_pos)
+#   block = []
+#   wins.each do |win|
+#     if (win - x_pos).count == 1  # if X is 1 move away from a win
+#         block.push((win - x_pos)[0])  # 
+#         block.pop if (o_pos & block).count == 1
+#     end
+#   end
+#   block  # [6]
+# end
+
+# Method to return position to block, false if none
+def block(wins, blocker, blockee)
   block = []
   wins.each do |win|
-    if (win - x_pos).count == 1
-      block = win - x_pos
+    if (win - blockee).count == 1  # if blockee is 1 move away from a win
+      # block the potential winning position, unless blocker already has a mark there
+      block.push((win - blockee)[0]) unless (blocker & (win - blockee)).count == 1
     end
   end
-  block
+  block.count > 0 ? block[0] : false
 end
 
-win_1 = [0, 4, 8] # O at 4
-win_2 = [6, 7, 8] # nobody at 6
-x_pos = [0, 7, 8]
-o_pos = [1, 4]
 
-# p block_x(wins, o_pos, x_pos)
+# X O -
+# - O -
+# - X X
+
+# win_1 = [0, 4, 8] # O at 4
+# win_2 = [6, 7, 8] # nobody at 6
+# x_pos = [0, 7, 8]
+# o_pos = [1, 4]
+# block = [4]
+
+# if o_pos & block == block
+
+p block(wins, o_pos, x_pos)  # [4]
 
 # Compare current X position against winning position
 # x_pos = [0, 6]
