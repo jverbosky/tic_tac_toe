@@ -1,17 +1,14 @@
-# Lesson learned - x_count and o_count are so dependent on game_board in Board class that they shouldn't be abstracted from it
-
-# class to determine player turn details by looking at board layout
 require_relative "board.rb"
 
+# class to determine current round and mark by looking at board layout
 class Turn
 
   def initialize
-    @p1 = "X"
-    @p2 = "O"
+
   end
 
-  def get_player(x_count, o_count)
-    x_count > o_count ? @p2 : @p1
+  def get_mark(x_count, o_count)
+    x_count > o_count ? "O" : "X"
   end
 
   def get_round(x_count, o_count)

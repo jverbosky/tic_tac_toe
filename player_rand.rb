@@ -1,5 +1,6 @@
 require_relative "board.rb"
 
+# class for computer player that randomly places mark
 class PlayerRandom
 
   attr_reader :moves
@@ -8,7 +9,7 @@ class PlayerRandom
     @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]
   end
 
-  def get_move(game_board)  # added round argument as it's required for PlayerSequential get_move method
+  def get_move(game_board)
     position = @moves.sample
   end
 

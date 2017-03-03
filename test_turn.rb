@@ -6,7 +6,7 @@ class TestTurn < Minitest::Test
   def test_1_get_player_first_move
     board = Board.new
     turn = Turn.new
-    result = turn.get_player(board.x_count, board.o_count)
+    result = turn.get_mark(board.x_count, board.o_count)
     assert_equal("X", result)
   end
 
@@ -14,7 +14,7 @@ class TestTurn < Minitest::Test
     board = Board.new
     board.game_board = ["", "", "", "", "X", "", "", "", ""]
     turn = Turn.new
-    result = turn.get_player(board.x_count, board.o_count)
+    result = turn.get_mark(board.x_count, board.o_count)
     assert_equal("O", result)
   end
 
@@ -22,7 +22,7 @@ class TestTurn < Minitest::Test
     board = Board.new
     board.game_board = ["", "", "", "", "X", "", "O", "", ""]
     turn = Turn.new
-    result = turn.get_player(board.x_count, board.o_count)
+    result = turn.get_mark(board.x_count, board.o_count)
     assert_equal("X", result)
   end
 
@@ -30,7 +30,7 @@ class TestTurn < Minitest::Test
     board = Board.new
     board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]
     turn = Turn.new
-    result = turn.get_player(board.x_count, board.o_count)
+    result = turn.get_mark(board.x_count, board.o_count)
     assert_equal("X", result)
   end
 
@@ -38,7 +38,7 @@ class TestTurn < Minitest::Test
     board = Board.new
     board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]
     turn = Turn.new
-    result = turn.get_player(board.x_count, board.o_count)
+    result = turn.get_mark(board.x_count, board.o_count)
     assert_equal("O", result)
   end
 

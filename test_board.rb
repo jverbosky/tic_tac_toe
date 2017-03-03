@@ -74,41 +74,13 @@ class TestBoard < Minitest::Test
     assert_equal([1, 4, 5, 6], result)
   end
 
-  # def test_11_x_won_false
-  #   board = Board.new
-  #   board.game_board = ["", "X", "", "O", "X", "", "O", "", "X"]
-  #   result = board.x_won?
-  #   assert_equal(false, result)
-  # end
-
-  # def test_12_x_won_true
-  #   board = Board.new
-  #   board.game_board = ["O", "O", "X", "O", "", "X", "X", "O", "X"]
-  #   result = board.x_won?
-  #   assert_equal(true, result)
-  # end
-
-  # def test_13_o_won_false
-  #   board = Board.new
-  #   board.game_board = ["", "X", "", "O", "X", "", "O", "", "X"]
-  #   result = board.o_won?
-  #   assert_equal(false, result)
-  # end
-
-  # def test_14_o_won_true
-  #   board = Board.new
-  #   board.game_board = ["O", "X", "X", "", "O", "X", "X", "O", "O"]
-  #   result = board.o_won?
-  #   assert_equal(true, result)
-  # end
-
-  def test_15_get_empty_board
+  def test_11_get_empty_board
     board = Board.new
     result = board.get_board
     assert_equal(result, board.game_board)
   end
 
-  def test_16_get_populated_board
+  def test_12_get_populated_board
     board = Board.new
     board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]
     result = board.get_board

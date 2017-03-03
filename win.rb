@@ -1,5 +1,6 @@
 require_relative "board.rb"
 
+# class to determine if game was won
 class Win
 
   def initialize

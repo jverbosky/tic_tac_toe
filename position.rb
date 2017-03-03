@@ -13,7 +13,6 @@
 #    - middle = m    - center = 2
 #    - bottom = b    - right = 3
 #    -----------------------------
-
 class Position
 
   def initialize

@@ -59,4 +59,3 @@ class TestWin < Minitest::Test
   end
 
 end
-
