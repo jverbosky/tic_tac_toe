@@ -74,72 +74,41 @@ class TestBoard < Minitest::Test
     assert_equal([1, 4, 5, 6], result)
   end
 
-  def test_11_x_won_false
-    board = Board.new
-    board.game_board = ["", "X", "", "O", "X", "", "O", "", "X"]
-    result = board.x_won?
-    assert_equal(false, result)
-  end
-
-  def test_12_x_won_true
-    board = Board.new
-    board.game_board = ["O", "O", "X", "O", "", "X", "X", "O", "X"]
-    result = board.x_won?
-    assert_equal(true, result)
-  end
-
-  def test_13_o_won_false
-    board = Board.new
-    board.game_board = ["", "X", "", "O", "X", "", "O", "", "X"]
-    result = board.o_won?
-    assert_equal(false, result)
-  end
-
-  def test_14_o_won_true
-    board = Board.new
-    board.game_board = ["O", "X", "X", "", "O", "X", "X", "O", "O"]
-    result = board.o_won?
-    assert_equal(true, result)
-  end
-
-  # def test_15_get_first_move
+  # def test_11_x_won_false
   #   board = Board.new
-  #   board.get_move(4)
-  #   result = ["", "", "", "", "X", "", "", "", ""]
-  #   assert_equal(result, board.game_board)
+  #   board.game_board = ["", "X", "", "O", "X", "", "O", "", "X"]
+  #   result = board.x_won?
+  #   assert_equal(false, result)
   # end
 
-  # def test_16_get_second_move
+  # def test_12_x_won_true
   #   board = Board.new
-  #   board.game_board = ["", "", "", "", "X", "", "", "", ""]
-  #   board.get_move(6)
-  #   result = ["", "", "", "", "X", "", "O", "", ""]
-  #   assert_equal(result, board.game_board)
+  #   board.game_board = ["O", "O", "X", "O", "", "X", "X", "O", "X"]
+  #   result = board.x_won?
+  #   assert_equal(true, result)
   # end
 
-  # def test_17_get_third_move
+  # def test_13_o_won_false
   #   board = Board.new
-  #   board.game_board = ["", "", "", "", "X", "", "O", "", ""]
-  #   board.get_move(0)
-  #   result = ["X", "", "", "", "X", "", "O", "", ""]
-  #   assert_equal(result, board.game_board)
+  #   board.game_board = ["", "X", "", "O", "X", "", "O", "", "X"]
+  #   result = board.o_won?
+  #   assert_equal(false, result)
   # end
 
-  # def test_18_get_fourth_move
+  # def test_14_o_won_true
   #   board = Board.new
-  #   board.game_board = ["X", "", "", "", "X", "", "O", "", ""]
-  #   board.get_move(8)
-  #   result = ["X", "", "", "", "X", "", "O", "", "O"]
-  #   assert_equal(result, board.game_board)
+  #   board.game_board = ["O", "X", "X", "", "O", "X", "X", "O", "O"]
+  #   result = board.o_won?
+  #   assert_equal(true, result)
   # end
 
-  def test_19_get_empty_board
+  def test_15_get_empty_board
     board = Board.new
     result = board.get_board
     assert_equal(result, board.game_board)
   end
 
-  def test_20_get_populated_board
+  def test_16_get_populated_board
     board = Board.new
     board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]
     result = board.get_board
