@@ -3,17 +3,12 @@
 #   (beyond initial setup - player selection, etc.)
 #############################################################
 
-# position_open?(position), set_position(position, mark), board_full?,
-# get_x, get_o, x_won?, o_won?, x_count, o_count, get_board
 require_relative "board.rb"
-# get_move(round)
 require_relative "player_seq.rb"
-# get_move
 require_relative "player_rand.rb"
-# get_player(x_count, o_count), get_round(x_count, o_count)
 require_relative "turn.rb"
-# get_index(move)
 require_relative "position.rb"
+require_relative "win.rb"
 
 # Initialize objects
 board = Board.new
@@ -21,6 +16,7 @@ p1 = PlayerSequential.new
 p2 = PlayerRandom.new
 turn = Turn.new
 position = Position.new
+win = Win.new
 
 # Endgame condition checks
 x_won = false
@@ -28,25 +24,23 @@ o_won = false
 full = false
 
 while x_won == false && o_won == false && full == false
-  x = board.x_count
-  o = board.o_count
-  round = turn.get_round(x, o)
-  puts round
-  mark = turn.get_player(x, o)
-  player = p1
-  player = p2 if round % 2 == 0
+  round = turn.get_round(board.x_count, board.o_count)
+  mark = turn.get_player(board.x_count, board.o_count)
+  round % 2 == 0 ? player = p2 : player = p1
   move = player.get_move(board.game_board)
-  puts player
-  puts move
   location = position.get_index(move)
-  puts location
   board.set_position(location, mark) if board.position_open?(location)
-  p board.get_board
-  # break these out into a separate EndGame class
-  x_won = board.x_won?
-  o_won = board.o_won?
+  x_won = win.x_won?(board.get_x)
+  o_won = win.o_won?(board.get_o)
   full = board.board_full?
-  p x_won
-  p o_won
-  p full
+end
+
+p board.game_board
+
+if x_won == true
+  puts "Player 1 (X) won!"
+elsif o_won == true
+  puts "Player 2 (O) won!"
+else
+  puts "It was a tie!"
 end

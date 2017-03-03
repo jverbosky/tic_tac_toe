@@ -7,7 +7,7 @@ class Board
   def initialize
     # use instance variable if not resetting the value anywhere else
     @game_board = ["", "", "", "", "", "", "", "", ""]
-    @wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    # @wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
   end
 
   def to_s
@@ -34,19 +34,19 @@ class Board
     @game_board.each_index.select { |position| @game_board[position] == "O" }
   end
 
-  def x_won?
-    current_positions = get_x
-    won = false
-    @wins.each { |win| won = true if current_positions & win == win }
-    return won
-  end
+  # def x_won?
+  #   current_positions = get_x
+  #   won = false
+  #   @wins.each { |win| won = true if current_positions & win == win }
+  #   return won
+  # end
 
-  def o_won?
-    current_positions = get_o
-    won = false
-    @wins.each { |win| won = true if current_positions & win == win }
-    return won
-  end
+  # def o_won?
+  #   current_positions = get_o
+  #   won = false
+  #   @wins.each { |win| won = true if current_positions & win == win }
+  #   return won
+  # end
 
   def x_count
     @game_board.count("X")
