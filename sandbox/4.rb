@@ -3,22 +3,6 @@ require_relative "../board.rb"
 # board = ["", "", "", "", "", "", "", "", ""]
 # board_index = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 # --------------------------------------------------------------------
-# Board positions after round 3
-# --------------------------------------------------------------------
-# X - -
-# - O -   # variation 1
-# - - X
-# --------------------------------------------------------------------
-# Block when only 1 potentially winning position
-round_4 = ["X", "", "", "", "O", "", "", "", "X"]  # variation 1 - O takes edge at 
-# round_4 = ["X", "", "", "", "O", "", "", "", "X"]  # variation 2 - O takes edge at 
-# round_4 = ["X", "", "", "", "O", "", "", "", "X"]  # variation 3 - O takes edge at 
-# round_4 = ["X", "", "", "", "O", "", "", "", "X"]  # variation 4 - O takes edge at 
-# round_4 = ["", "", "X", "", "O", "", "X", "", ""]  # variation 5 - O takes edge at 
-# round_4 = ["", "", "X", "", "O", "", "X", "", ""]  # variation 6 - O takes edge at 
-# round_4 = ["", "", "X", "", "O", "", "X", "", ""]  # variation 7 - O takes edge at 
-# round_4 = ["", "", "X", "", "O", "", "X", "", ""]  # variation 8 - O takes edge at 
-# --------------------------------------------------------------------
 # Board positions after round 4
 # --------------------------------------------------------------------
 # X O -
@@ -30,7 +14,7 @@ round_4 = ["X", "", "", "", "O", "", "", "", "X"]  # variation 1 - O takes edge 
 # round_5 = ["X", "", "", "O", "O", "", "", "", "X"]  # variation 2 - X blocks O at 5
 # round_5 = ["X", "", "", "", "O", "O", "", "", "X"]  # variation 3 - X blocks O at 3
 # round_5 = ["X", "", "", "", "O", "", "", "O", "X"]  # variation 4 - X blocks O at 1
-# round_5 = ["", "O", "X", "", "O", "", "X", "", ""]  # variation 5 - X blocks O at 7
+round_5 = ["", "O", "X", "", "O", "", "X", "", ""]  # variation 5 - X blocks O at 7
 # round_5 = ["", "", "X", "O", "O", "", "X", "", ""]  # variation 6 - X blocks O at 5
 # round_5 = ["", "", "X", "", "O", "O", "X", "", ""]  # variation 7 - X blocks O at 3
 # round_5 = ["", "", "X", "", "O", "", "X", "O", ""]  # variation 8 - X blocks O at 1
@@ -81,7 +65,7 @@ round_4 = ["X", "", "", "", "O", "", "", "", "X"]  # variation 1 - O takes edge 
 # round_8 = ["X", "O", "X", "", "O", "", "X", "X", "O"]  # variation 5 - O blocks X at 3
 # round_8 = ["X", "", "X", "O", "O", "X", "X", "", "O"]  # variation 6 - O blocks X at 1
 # round_8 = ["O", "", "X", "X", "O", "O", "X", "", "X"]  # variation 7 - O blocks X at 7
-round_8 = ["O", "X", "X", "", "O", "", "X", "O", ""]  # variation 8 - O wins at 8
+# round_8 = ["O", "X", "X", "", "O", "", "X", "O", ""]  # variation 8 - O wins at 8
 # --------------------------------------------------------------------
 # Board positions after round 8
 # --------------------------------------------------------------------
@@ -103,38 +87,12 @@ round_8 = ["O", "X", "X", "", "O", "", "X", "O", ""]  # variation 8 - O wins at 
 wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
 
 board = Board.new
-board.game_board = round_4  # change round number to test different board layouts
+board.game_board = round_5  # change round number to test different board layouts
 
 x_pos = board.get_x
 o_pos = board.get_o
 # p x_pos
 # p o_pos
-
-# Method to handle x logic for opening rounds
-def opening_x(round, x_pos)
-  position = false
-  case round
-    when 1 then position = [0, 2, 6, 8].sample
-    when 3 then
-      case x_pos
-        when [0] then position = 8
-        when [2] then position = 6
-        when [6] then position = 2
-        when [8] then position = 0
-      end
-  end
-  position
-end
-
-# Method to handle o logic for opening rounds
-def opening_o(round)
-  position = false
-  case round
-    when 2 then position = 4
-    when 4 then position = [1, 3, 5, 7].sample
-  end
-  position
-end
 
 # Method to return position to win, false if none
 def move(wins, player, opponent)
@@ -145,6 +103,7 @@ def move(wins, player, opponent)
       position.push(difference[0]) unless (opponent & difference).count == 1
     end
   end
+  # position.count > 0 ? position[0] : false
   position.count > 0 ? position[0] : false
 end
 
@@ -160,7 +119,8 @@ def block(wins, player, opponent)
   position.count > 0 ? position[0] : move(wins, player, opponent)
 end
 
-# p block(wins, o_pos, x_pos)  # O blocking X (round 6 - working, round 8 - working)
+
+p block(wins, o_pos, x_pos)  # O blocking X (round 6 - working, round 8 - working)
 # p block(wins, x_pos, o_pos)  # X blocking O (round 5 - working, round 7 - working, round 9 - )
 
 # --------------------------------------------------------------------
