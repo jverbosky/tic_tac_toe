@@ -5,6 +5,9 @@ class PlayerPerfect
 
   def initialize
     @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]
+    @corners = [0, 2, 6, 8]
+    @edges = [1, 3, 5, 7]
+    @center = [4]
   end
 
   # Method to return position to win, false if none
@@ -36,33 +39,60 @@ class PlayerPerfect
 
   # Method to handle o logic for opening rounds
   def opening_o(round)
-    position = false
+    # position = false
     case round
       when 2 then position = 4  # take the center
       when 4 then position = [1, 3, 5, 7].sample  # take an edge
     end
-    position
+    # position
+  end
+
+  # Method to get opposite corner when O selects center in round 2
+  def o_center(player)
+    case player
+      when [0] then position = 8
+      when [2] then position = 6
+      when [6] then position = 2
+      when [8] then position = 0
+    end
+  end
+
+  # Method to handle corner selection when O selects a corner in round 2
+  def o_corners(player, opponent)
+    opposites_1 = [0, 8]
+    opposites_2 = [2, 6]
+    compare = player + opponent  # get corners to compare again opposites pairs
+    # if player & opponent corners are opposite, grab an empty corner
+    if (compare - opposites_1).size == 0 || (compare - opposites_2).size == 0
+      taken = player + opponent
+      available = @corners - taken
+      position = available.sample
+    # if not, figure out which corner is the opposite and take it
+    elsif (opposites_1 - player).size == 1
+      position = (opposites_1 - player)[0]
+    else
+      position = (opposites_2 - player)[0]
+    end
   end
 
   # Method to handle x logic for opening rounds
-  def opening_x(round, player, opponent)
-    position = false
-    case round
-      when 1 then position = [0, 2, 6, 8].sample  # take a corner
-      when 3 then  # take the opposite corner
-        case player
-          when [0] then position = 8
-          when [2] then position = 6
-          when [6] then position = 2
-          when [8] then position = 0
-        end
+  def opening_x(wins, player, opponent, round)
+    if round == 1
+      position = [0, 2, 6, 8].sample  # take a corner, any corner
+    elsif round == 3
+      if (opponent & @edges).size > 0  # if O took an edge in round 2, take center
+        position = 4
+      elsif (opponent & @center).size > 0  # if O took center in round 2, take opposite corner
+        position = o_center(player)
+      elsif (opponent & @corners).size > 0  # if O took a corner in round 2, figure out which one
+        position = o_corners(player, opponent)
+      end
     end
-    position
   end
 
   def get_move(game_board, round, mark, wins, x_pos, o_pos)
     if round <= 4
-       mark == "X" ? position = opening_x(round, x_pos, o_pos) : position = opening_o(round)
+       mark == "X" ? position = opening_x(wins, x_pos, o_pos, round) : position = opening_o(round)
     else
       mark == "X" ? position = block(wins, x_pos, o_pos) : position = block(wins, o_pos, x_pos)
     end
@@ -72,38 +102,47 @@ class PlayerPerfect
 end
 
 # Sandbox testing
-# board = Board.new
-# p1 = PlayerPerfect.new
+board = Board.new
+p1 = PlayerPerfect.new
 
-# # board.game_board = ["X", "", "", "", "O", "", "", "", ""]  # round 3 - b3
-# # board.game_board = ["", "", "X", "", "O", "", "", "", ""]  # round 3 - b1
-# # board.game_board = ["", "", "", "", "O", "", "X", "", ""]  # round 3 - t3
-# # board.game_board = ["", "", "", "", "O", "", "", "", "X"]  # round 3 - t1
+# board.game_board = ["X", "", "", "", "O", "", "", "", ""]  # round 3 - b3
+# board.game_board = ["", "", "X", "", "O", "", "", "", ""]  # round 3 - b1
+# board.game_board = ["", "", "", "", "O", "", "X", "", ""]  # round 3 - t3
+# board.game_board = ["", "", "", "", "O", "", "", "", "X"]  # round 3 - t1
 
-# # board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]  # round 5 - X blocks O at b2
-# # board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]  # round 5 - X blocks O at m3
-# # board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]  # round 5 - X blocks O at m1
-# # board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # round 5 - X blocks O at t2
+board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # round 3 - t1
+# board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # round 3 - t1
 
-# # board.game_board = ["X", "O", "", "", "O", "", "O", "X", "X"]  # round 7 - X blocks O at t3
-# # board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]  # round 7 - X blocks O at b1
-# # board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]  # round 7 - X blocks O at t1
-# # board.game_board = ["O", "", "X", "X", "O", "O", "X", "", ""]  # round 7 - X blocks O at b3
-# # board.game_board = ["O", "", "X", "", "O", "", "X", "O", ""]  # round 7 - X blocks O at t2
+# board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]  # round 5 - X blocks O at b2
+# board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]  # round 5 - X blocks O at m3
+# board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]  # round 5 - X blocks O at m1
+# board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # round 5 - X blocks O at t2
 
-# # board.game_board = ["X", "O", "X", "", "O", "", "O", "X", "X"]  # round 9 - X wins at m3
-# # board.game_board = ["X", "", "O", "O", "O", "X", "X", "", "X"]  # round 9 - X wins at b2
-# # board.game_board = ["X", "", "X", "X", "O", "O", "O", "", "X"]  # round 9 - X wins at t2
+# board.game_board = ["X", "O", "", "", "O", "", "O", "X", "X"]  # round 7 - X blocks O at t3
+# board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]  # round 7 - X blocks O at b1
+# board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]  # round 7 - X blocks O at t1
+# board.game_board = ["O", "", "X", "X", "O", "O", "X", "", ""]  # round 7 - X blocks O at b3
+# board.game_board = ["O", "", "X", "", "O", "", "X", "O", ""]  # round 7 - X blocks O at t2
+
+# board.game_board = ["X", "O", "X", "", "O", "", "O", "X", "X"]  # round 9 - X wins at m3
+# board.game_board = ["X", "", "O", "O", "O", "X", "X", "", "X"]  # round 9 - X wins at b2
+# board.game_board = ["X", "", "X", "X", "O", "O", "O", "", "X"]  # round 9 - X wins at t2
 # board.game_board = ["X", "X", "O", "", "O", "", "X", "O", "X"]  # round 9 - X wins at m1
 
-# # board.game_board = ["O", "O", "", "X", "O", "X", "X", "", ""]   # X blocks O at t3, b2 or b3
-# # board.game_board = ["X", "X", "", "O", "X", "O", "O", "", ""]   # X wins at t3, b2 or b3
-# # board.game_board = ["X", "", "", "", "", "O", "O", "X", ""]   # variation 1 - X will take t2, t3, m1, m2 or b3
-# # board.game_board = ["O", "X", "", "", "X", "O", "", "O", "X"]   # variation 2 - X will take t3, m1 or b1
+# board.game_board = ["O", "O", "", "X", "O", "X", "X", "", ""]   # X blocks O at t3, b2 or b3
+# board.game_board = ["X", "X", "", "O", "X", "O", "O", "", ""]   # X wins at t3, b2 or b3
+# board.game_board = ["X", "", "", "", "", "O", "O", "X", ""]   # variation 1 - X will take t2, t3, m1, m2 or b3
+# board.game_board = ["O", "X", "", "", "X", "O", "", "O", "X"]   # variation 2 - X will take t3, m1 or b1
 
-# round = board.get_round(board.x_count, board.o_count)
-# mark = board.get_mark(board.x_count, board.o_count)
-# wins = board.wins
-# x_pos = board.get_x
-# o_pos = board.get_o
-# puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+round = board.get_round(board.x_count, board.o_count)
+mark = board.get_mark(board.x_count, board.o_count)
+wins = board.wins
+p "Round: #{round}"
+
+x_pos = board.get_x
+o_pos = board.get_o
+puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+
+# player = board.get_x
+# opponent = board.get_o
+# p p1.opening_x(wins, player, opponent, round)
