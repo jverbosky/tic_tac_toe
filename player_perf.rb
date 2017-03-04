@@ -19,6 +19,7 @@ class PlayerPerfect
         position.push(difference[0]) unless (opponent & difference).count == 1
       end
     end
+    # non-perfect "temporary code"
     if position.count == 0  # if nothing to block or win, randomly collect an open position
       position.push((Array(0..8) - (player + opponent)).sample)
     end
@@ -74,6 +75,50 @@ class PlayerPerfect
       position = (opposites_2 - player)[0]
     end
   end
+
+#-----------------------------------------------------------------------------
+# Currently have round 2 & 3 logic (first O move, second X move):
+# - O takes edge, X takes center
+# - O takes center, X takes opposite corner
+# - O takes corner, X takes opposite corner if open or a random corner if not
+#-----------------------------------------------------------------------------
+# Continue with round 4 & 5 logic (second O move, third X move):
+#-----------------------------------------------------------------------------
+# Edge
+# - O takes corner opposite one X took in round 1, X can take a corner for two paths to win
+# - Any pattern to figure out X move or just write out?
+#
+# X O -     X O -
+# - X -  >  - X -
+# - - O     X - O
+#
+#-----------------------------------------------------------------------------
+# Center
+# - O should take an edge in round 4 after taking center (perfect player) to force X to block
+# - if O takes a corner, X should take other corner for two paths to win
+#
+# X - O     X - O
+# - O -  >  - O -
+# - - X     X - X
+#
+#-----------------------------------------------------------------------------
+# Corner
+# - If O took a corner in round 2, forced to block in round 4 and X win logic takes over
+#
+# Variation 1: O takes non-opposite corner, forced to block in middle
+# - X takes last open corner in round 5
+#
+# X - O     X - O     X - O
+# - - -  >  - O -  >  - O -
+# - - X     - - X     X - X
+#
+# Variation 2: O takes opposite corner
+# - X takes last open corner in round 5
+#
+# X - X     X O X     X O X
+# - - -  >  - - -  >  - - -
+# - - O     - - O     X - O
+#-----------------------------------------------------------------------------
 
   # Method to handle x logic for opening rounds
   def opening_x(wins, player, opponent, round)
