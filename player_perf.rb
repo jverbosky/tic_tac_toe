@@ -37,8 +37,8 @@ class PlayerPerfect
     end
     # changing block so it doesn't automatically call move() - needed by o_edge() without call to win
     # need to adjust previous logic in get_move() to call move() if block returns false
-    # position.count > 0 ? position.sample : move(wins, player, opponent)  # .sample in case of multiple
-    position.count > 0 ? position.sample : false
+    position.count > 0 ? position.sample : move(wins, player, opponent)  # .sample in case of multiple
+    # position.count > 0 ? position.sample : false  # added for using with o_edge(), may need to expand
   end
 
   # Method to handle o logic for opening rounds
@@ -167,11 +167,15 @@ class PlayerPerfect
         position = o_corner(player, opponent)
       end
     elsif round == 5
+      puts "Breaking here"
       if (opponent & @corners).size == 3  # if O took a corner in round 2, take the last available corner
+        puts "O took a corner in round 2"
         position = o_corner(player, opponent)
       elsif (opponent & @corners).size == 2  # if O took an edge in round 2, take a specific corner
         puts "O took edge in round 2"
         position = o_edge(wins,player, opponent)
+      else
+        puts "None of the other conditions selected"
       end
     end
   end
@@ -179,6 +183,7 @@ class PlayerPerfect
   def get_move(game_board, round, mark, wins, x_pos, o_pos)
     if round <= 6  # changed from 4 to 6, may change again based on opening_x and opening_o
        mark == "X" ? position = opening_x(wins, x_pos, o_pos, round) : position = opening_o(round)
+    # knocking next two lines out to isolate if statement
     # else
     #   mark == "X" ? position = block(wins, x_pos, o_pos) : position = block(wins, o_pos, x_pos)
     end
@@ -204,7 +209,7 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "", "", "", "", "", "", "", "O"]  # round 3 - O took op corner, take corner v1 (t3/b1)
 # board.game_board = ["", "", "X", "", "", "", "O", "", ""]  # round 3 - O took corner, take op corner v2 (t1/b3)
 
-# board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # round 5 - O took center after corner (b1)
+board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # round 5 - O took center after corner (b1)
 # board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # round 5 - O took edge after op corner (b1)
 # board.game_board = ["X", "", "", "", "O", "", "O", "", "X"]  # round 5 - O took corner after center (t3)
 
