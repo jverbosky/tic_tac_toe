@@ -6,6 +6,8 @@ class PlayerPerfect
   def initialize
     @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]
     @corners = [0, 2, 6, 8]
+    @opcor_1 = [0, 8]  # opposite corners set 1
+    @opcor_2 = [2, 6]  # opposite corners set 2
     @edges = [1, 3, 5, 7]
     @center = [4]
   end
@@ -37,8 +39,8 @@ class PlayerPerfect
     end
     # changing block so it doesn't automatically call move() - needed by o_edge() without call to win
     # need to adjust previous logic in get_move() to call move() if block returns false
-    position.count > 0 ? position.sample : move(wins, player, opponent)  # .sample in case of multiple
-    # position.count > 0 ? position.sample : false  # added for using with o_edge(), may need to expand
+    # position.count > 0 ? position.sample : move(wins, player, opponent)  # .sample in case of multiple
+    position.count > 0 ? position.sample : false  # added for using with o_edge(), may need to expand
   end
 
   # Method to handle o logic for opening rounds
@@ -90,11 +92,9 @@ class PlayerPerfect
 
   # Method to handle corner selection when O selects a corner in round 2
   def o_corner(player, opponent)
-    opposites_1 = [0, 8]
-    opposites_2 = [2, 6]
-    taken = player + opponent  # get corners to compare again opposites pairs
+    taken = player + opponent  # get corners to compare against opposite pairs
     # if player & opponent corners are opposite, take an empty corner
-    if (taken - opposites_1).size == 0 || (taken - opposites_2).size == 0
+    if (taken - @opcor_1).size == 0 || (taken - @opcor_2).size == 0
       available = @corners - taken
       position = available.sample
     # round 5 - if opponent has corner & non-corner positions, take last open corner
@@ -102,10 +102,10 @@ class PlayerPerfect
       intersection = taken & @corners  # determine which corners are taken
       position = (@corners - intersection)[0]
     # if not, figure out which corner is the opposite and take it
-    elsif (opposites_1 - player).size == 1
-      position = (opposites_1 - player)[0]
+    elsif (@opcor_1 - player).size == 1
+      position = (@opcor_1 - player)[0]
     else
-      position = (opposites_2 - player)[0]
+      position = (@opcor_2 - player)[0]
     end
   end
 
@@ -147,6 +147,7 @@ class PlayerPerfect
   # Method to handle X logic for round 5 when O took an edge in round 2
   def o_edge(wins, player, opponent)
     win_test = block(wins, player, opponent)
+    puts "Block: #{win_test}"
     unless win_test == false
       position = win_test
     else
@@ -168,12 +169,15 @@ class PlayerPerfect
       end
     elsif round == 5
       puts "Breaking here"
-      if (opponent & @corners).size == 3  # if O took a corner in round 2, take the last available corner
+      puts "Opponent: #{opponent}"
+      puts "Player: #{player}"
+      puts "Corners: #{@corners}"
+      if ((player + opponent) & @corners).size == 3  # if O took a corner in round 2, take the last available corner
         puts "O took a corner in round 2"
         position = o_corner(player, opponent)
-      elsif (opponent & @corners).size == 2  # if O took an edge in round 2, take a specific corner
+      elsif ((player + opponent) & @corners).size == 2  # if O took an edge in round 2, take a specific corner
         puts "O took edge in round 2"
-        position = o_edge(wins,player, opponent)
+        position = o_edge(wins, player, opponent)
       else
         puts "None of the other conditions selected"
       end
@@ -209,14 +213,14 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "", "", "", "", "", "", "", "O"]  # round 3 - O took op corner, take corner v1 (t3/b1)
 # board.game_board = ["", "", "X", "", "", "", "O", "", ""]  # round 3 - O took corner, take op corner v2 (t1/b3)
 
-board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # round 5 - O took center after corner (b1)
+# board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # round 5 - O took center after corner (b1)
 # board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # round 5 - O took edge after op corner (b1)
 # board.game_board = ["X", "", "", "", "O", "", "O", "", "X"]  # round 5 - O took corner after center (t3)
 
 # board.game_board = ["X", "O", "", "", "X", "", "", "", "O"]  # round 5 - O took corner after edge v1 (b1)
-# board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # round 5 - O took corner after edge v2 (t3)
-# board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # round 5 - O took corner after edge v3 (t3)
-# board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # round 5 - O took corner after edge v4 (b1)
+board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # round 5 - O took corner after edge v2 (t3)
+# board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # round 5 - O took corner after edge v3 (block - t3)
+# board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # round 5 - O took corner after edge v4 (block - b1)
 
 # board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]  # round 5 - X blocks O at b2
 # board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]  # round 5 - X blocks O at m3
