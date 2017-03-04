@@ -239,6 +239,11 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]  # round 5 - X blocks O at m1
 # board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # round 5 - X blocks O at t2
 
+# 1) Need to re-test previous tests and verify still true
+# 2) Review get_move() - may not want "round <= 6" logic
+# 3) Review wikipedia - any more non-perfect O moves unaccounted for? (round 5+)
+#    - Or will block() and move() handle remaining board variations for X?
+
 # board.game_board = ["X", "O", "", "", "O", "", "O", "X", "X"]  # round 7 - X blocks O at t3
 # board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]  # round 7 - X blocks O at b1
 # board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]  # round 7 - X blocks O at t1
