@@ -152,8 +152,10 @@ p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 4 - O
 #-----------------------------------------------------------------------------
-board.game_board = ["X", "", "", "", "O", "", "", "", "X"]  # Perfect X - took opposite corner v1 (t2/m1/m3/b2) 50
-board.game_board = ["", "", "X", "", "O", "", "X", "", ""]  # Perfect X - took opposite corner v2 (t2/m1/m3/b2) 51
+# board.game_board = ["X", "", "", "", "O", "", "", "", "X"]  # Perfect X - took opposite corner v1 (t2/m1/m3/b2) 50
+# board.game_board = ["", "", "X", "", "O", "", "X", "", ""]  # Perfect X - took opposite corner v2 (t2/m1/m3/b2) 51
+#-----------------------------------------------------------------------------
+# *** need tests/logic for non-perfect X moves
 #-----------------------------------------------------------------------------
 # Round 5 - X
 #-----------------------------------------------------------------------------
@@ -173,6 +175,15 @@ board.game_board = ["", "", "X", "", "O", "", "X", "", ""]  # Perfect X - took o
 # board.game_board = ["X", "", "X", "", "", "", "O", "", "O"]  # added failsafe logic to move_x() round 5 (t2) 22
 # board.game_board = ["", "", "O", "O", "X", "", "", "", "X"]  # merged edge_logic() into block() (t1) 23
 # board.game_board = ["X", "", "O", "O", "X", "", "", "", ""]  # merged edge_logic() into block() (b3) 24
+#-----------------------------------------------------------------------------
+# Round 6 - O
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]  # Perfect X - blocks at edge, O blocks at corner v1 (b1) 52
+# board.game_board = ["X", "X", "", "", "O", "", "", "O", "X"]  # Perfect X - blocks at edge, O blocks at corner v2 (t3) 53
+# board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v3 (b3) 54
+# board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v4 (t1) 55
+#-----------------------------------------------------------------------------
+# *** need tests/logic for non-perfect X moves
 #-----------------------------------------------------------------------------
 # Round 7 - X
 #-----------------------------------------------------------------------------
@@ -200,12 +211,14 @@ board.game_board = ["", "", "X", "", "O", "", "X", "", ""]  # Perfect X - took o
 # board.game_board = ["O", "O", "", "X", "O", "X", "X", "", ""]   # multiple X blocks O (t3/b2/b3) 43
 # board.game_board = ["X", "X", "", "O", "X", "O", "O", "", ""]   # multiple X wins (t3/b2/b3) 44
 #-----------------------------------------------------------------------------
-# Round 8 - O
+# Round 8 - O  (review existing tests)
 #-----------------------------------------------------------------------------
 # board.game_board = ["X", "O", "X", "", "O", "", "O", "X", "X"]  # round 9 - X wins v1 (m3) 45
 # board.game_board = ["X", "", "O", "O", "O", "X", "X", "", "X"]  # round 9 - X wins v2 (b2) 46
 # board.game_board = ["X", "", "X", "X", "O", "O", "O", "", "X"]  # round 9 - X wins v3 (t2) 47
 # board.game_board = ["X", "X", "O", "", "O", "", "X", "O", "X"]  # round 9 - X wins v4 (m1) 48
+#-----------------------------------------------------------------------------
+# *** need tests/logic for non-perfect X moves
 #-----------------------------------------------------------------------------
 # Round 9 - X
 #-----------------------------------------------------------------------------

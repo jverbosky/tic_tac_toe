@@ -679,4 +679,55 @@ class TestPlayerSequential < Minitest::Test
     assert_equal(true, result)
   end
 
+  def test_52_round_6_perfect_X_blocks_at_edge_O_blocks_at_corner_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b1", result)
+  end
+
+  def test_53_round_6_perfect_X_blocks_at_edge_O_blocks_at_corner_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "X", "", "", "O", "", "", "O", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t3", result)
+  end
+
+  def test_54_round_6_perfect_X_blocks_at_edge_O_blocks_at_corner_v3
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b3", result)
+  end
+
+  def test_55_round_6_perfect_X_blocks_at_edge_O_blocks_at_corner_v4
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t1", result)
+  end
 end
