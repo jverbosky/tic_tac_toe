@@ -16,7 +16,7 @@ class PlayerPerfect
   # Method to retrieve optimal position and convert it to a "human friendly" board position
   def get_move(game_board, round, mark, wins, x_pos, o_pos)
     # Use current mark (X/O) to determine  current player, then call appropriate method to get position
-    mark == "X" ? position = move_x(wins, x_pos, o_pos, round) : position = move_o(round)
+    mark == "X" ? position = move_x(wins, x_pos, o_pos, round) : position = move_o(wins, x_pos, o_pos, round)
     # Translate the position's array index to a "human friendly" borad position and return it
     move = @moves[position]
   end
@@ -35,10 +35,11 @@ class PlayerPerfect
   end
 
   # Method to handle O logic for different rounds
-  def move_o(round)
+  def move_o(wins, player, opponent, round)
     case round
       when 2 then position = 4  # perfect O takes the center as first move
       when 4 then position = [1, 3, 5, 7].sample  # perfect O takes an edge as second move
+      when 6 then position = block(wins, player, opponent)
     end
   end
 
@@ -178,10 +179,10 @@ p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 6 - O
 #-----------------------------------------------------------------------------
-# board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]  # Perfect X - blocks at edge, O blocks at corner v1 (b1) 52
+# board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]  # Perfect X - blocks at edge, O blocks at corner v1 (b1) 52 
 # board.game_board = ["X", "X", "", "", "O", "", "", "O", "X"]  # Perfect X - blocks at edge, O blocks at corner v2 (t3) 53
 # board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v3 (b3) 54
-# board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v4 (t1) 55
+# board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v4 (t1) 55 
 #-----------------------------------------------------------------------------
 # *** need tests/logic for non-perfect X moves
 #-----------------------------------------------------------------------------
