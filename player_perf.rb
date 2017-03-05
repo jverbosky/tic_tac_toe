@@ -36,14 +36,14 @@ class PlayerPerfect
 
   # Method to handle O logic for different rounds
   def move_o(wins, player, opponent, round)
-    if round == 2
-      if (opponent & @center).size == 1  # if X took center
-        position = @corners.sample  # take a corner, any corner
+    if round == 2  # in round 2
+      if (opponent & @center).size == 1  # check if X took center
+        position = @corners.sample  # and if so - take a corner, any corner
       else
-        position = 4  # in round 2 take the center
+        position = 4  # otherwise take the center
       end
     elsif round == 4
-      position = [1, 3, 5, 7].sample  # in round 4 take an edge, any edge
+      position = @edges.sample  # in round 4 take an edge, any edge
     else
       position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
     end

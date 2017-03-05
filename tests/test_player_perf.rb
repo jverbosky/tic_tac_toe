@@ -798,31 +798,31 @@ class TestPlayerSequential < Minitest::Test
     assert_equal(true, result)
   end
 
-  # def test_61_round_2_X_took_edge_O_takes_center_v1
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["", "X", "", "", "", "", "", "", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   assert_equal("m2", result)
-  # end
+  def test_61_round_2_X_took_edge_O_takes_center_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["", "X", "", "", "", "", "", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m2", result)
+  end
 
-  # def test_62_round_2_X_took_edge_O_takes_center_v2
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["", "", "", "X", "", "", "", "", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   assert_equal("m2", result)
-  # end
+  def test_62_round_2_X_took_edge_O_takes_center_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["", "", "", "X", "", "", "", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m2", result)
+  end
 
   # def test_63_round_4_X_took_corner_and_adjacent_corner_O_blocks_at_edge_v1
   #   board = Board.new
