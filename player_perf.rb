@@ -4,91 +4,103 @@ require_relative "board.rb"
 class PlayerPerfect
 
   def initialize
-    @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]
-    @sides = [[0, 1, 2], [2, 5, 8], [6, 7, 8], [0, 3, 6]]
-    @corners = [0, 2, 6, 8]
-    @opcor_1 = [0, 8]  # opposite corners set 1
-    @opcor_2 = [2, 6]  # opposite corners set 2
-    @edges = [1, 3, 5, 7]
-    @center = [4]
+    @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]  # "human friendly" board positions
+    @sides = [[0, 1, 2], [2, 5, 8], [6, 7, 8], [0, 3, 6]]  # sides (top, right, bottom, left)
+    @corners = [0, 2, 6, 8]  # corner positions
+    @opcor_1 = [0, 8]  # opposite corners - set 1
+    @opcor_2 = [2, 6]  # opposite corners - set 2
+    @edges = [1, 3, 5, 7]  # edge positions
+    @center = [4]  # center position
   end
 
+  # Method to retrieve optimal position and convert it to a "human friendly" board position
   def get_move(game_board, round, mark, wins, x_pos, o_pos)
+    # Use current mark (X/O) to determine  current player, then call appropriate method to get position
     mark == "X" ? position = move_x(wins, x_pos, o_pos, round) : position = move_o(round)
+    # Translate the position's array index to a "human friendly" borad position and return it
     move = @moves[position]
   end
 
   # Method to handle X logic for different rounds
   def move_x(wins, player, opponent, round)
-    if round == 1
+    if round == 1  # in round 1
       position = [0, 2, 6, 8].sample  # take a corner, any corner
-    elsif round == 3
-      if (opponent & @edges).size > 0  # if O took an edge in round 2, take center
-        position = 4
-      elsif (opponent & @center).size > 0  # if O took center in round 2, take opposite corner
-        position = op_corner (player)
-      elsif (opponent & @corners).size > 0  # if O took a corner in round 2, figure out which one
-        position = corner_logic(player, opponent)
-      end
-    elsif round == 5
-      if (player & @corners).size == 2 && (opponent & @corners).size == 1  # if O took a corner in round 2
-        position = corner_logic(player, opponent)  # take the last available corner
-      elsif (player & @corners).size == 2 && (opponent & @corners).size == 0  # if O is perfect will have center + edge
-        position = block(wins, player, opponent)  # so block at opposite edge
-      else  # resort to win/block/edge logic
-        position = win_check(wins, player, opponent)
-      end
-    else  # resort to win/block logic for rounds 7+
-      position = win_check(wins, player, opponent)
+    elsif round == 3  # in round 3
+      position = move_r3(player, opponent)  # determine ideal position based on O's position
+    elsif round == 5  # in round 5
+      position = move_r5(wins, player, opponent)  # determine ideal position based on O's position
+    else  # in remaining rounds
+      position = win_check(wins, player, opponent)  # use win/block logic
     end
   end
 
-  # Method to handle o logic for different rounds
+  # Method to handle O logic for different rounds
   def move_o(round)
     case round
-      when 2 then position = 4  # take the center
-      when 4 then position = [1, 3, 5, 7].sample  # take an edge
+      when 2 then position = 4  # perfect O takes the center as first move
+      when 4 then position = [1, 3, 5, 7].sample  # perfect O takes an edge as second move
     end
   end
 
-  # Method to handle corner selection when O selects a corner in round 2
+  # Method to handle logic based on move O made in round 2
+  def move_r3(player, opponent)
+    if (opponent & @edges).size > 0  # if O took an edge
+      position = 4  # then take center
+    elsif (opponent & @center).size > 0  # if O took center
+      position = op_corner (player)  # the take the opposite corner
+    elsif (opponent & @corners).size > 0  # if O took a corner, need to figure out which one
+      position = corner_logic(player, opponent)  # use corner_logic() to take the appropriate corner
+    end
+  end
+
+  # Method to handle logic based on player positions in round 5
+  def move_r5(wins, player, opponent)
+    if (player & @corners).size == 2 && (opponent & @corners).size == 1  # if O took a corner in round 2
+      position = corner_logic(player, opponent)  # take the last available corner
+    elsif (player & @corners).size == 2 && (opponent & @corners).size == 0  # if O is perfect, will have center+edge
+      position = block(wins, player, opponent)  # so block at opposite edge
+    else
+      position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
+    end
+  end
+
+  # Method to handle corner selection when O has selected a corner in round 2
   def corner_logic(player, opponent)
     taken = player + opponent  # get corners to compare against opposite pairs
-    if (taken - @opcor_1).size == 0 || (taken - @opcor_2).size == 0  # if opposing player & opponent corners, take an empty corner
-      available = @corners - taken
-      position = available.sample
-    elsif (taken - @corners).size > 0  # if opponent has corner & non-corner, take last open corner
+    if (taken - @opcor_1).size == 0 || (taken - @opcor_2).size == 0  # if player/opponent are at opposing corners
+      available = @corners - taken  # determine with corners are available
+      position = available.sample  # then randomly choose one of the corners from the available array
+    elsif (taken - @corners).size > 0  # round 5 - if opponent has corner & non-corner
       intersection = taken & @corners  # determine which corners are taken
-      position = (@corners - intersection)[0]
-    else  # figure out which corner is opposite and take it
-      position = op_corner(player)
+      position = (@corners - intersection)[0]  # then take the last open corner
+    else
+      position = op_corner(player)  # otherwise figure out which corner is opposite and take it
     end
   end
 
   # Method to return the corner opposite the current corner
   def op_corner(corner)
-    if (@opcor_1 - corner).size == 1
-      position = (@opcor_1 - corner)[0]
+    if (@opcor_1 - corner).size == 1  # if @opcor_1 and corner differ by 1
+      position = (@opcor_1 - corner)[0]  # then the opposite corner is the other element in @opcor_1
     else
-      position = (@opcor_2 - corner)[0]
+      position = (@opcor_2 - corner)[0]  # otherwise the opposite corner is the other element in @opcor_2
     end
   end
 
   # Method that uses edge logic to correctly select corner when O has opposing corner and non-adjacent edge
   def edge_logic(player, opponent)
-    side_index = 0
-    # identify side with adjacent marks (top = 0, right = 1, bottom = 2, right = 3)
+    side_index = 0  # array index for sides (clockwise: top = 0, right = 1, bottom = 2, right = 3)
+    # get array index of the side with adjacent player and opponent marks
     @sides.each_with_index { |side, s_index| side_index = s_index if ((player + opponent) & side).count > 1 }
-    # determine empty (reference) corner in side with adjacent marks
+    # determine empty corner in side with adjacent player and opponent marks
     refcor = @sides[side_index] - ((player + opponent) & @sides[side_index])
-    position = op_corner(refcor)  # figure out which corner is the opposite and take it
+    position = op_corner(refcor)  # take corner that is opposite the reference corner
   end
 
   # Method to return position to block, call edge_logic() if no blocks
   def block(wins, player, opponent)
-    position = []
-    side_index = 0
-    wins.each do |win|
+    position = []  # placeholder for position that will block the opponent
+    wins.each do |win|  # check each win pattern
       difference = win - opponent  # difference between current win array and opponent position array
       if difference.count == 1  # if opponent 1 move from win, block position unless already player mark
         position.push(difference[0]) unless (player & difference).count == 1
@@ -99,8 +111,8 @@ class PlayerPerfect
 
   # Method to return position to win, call block() if no wins
   def win_check(wins, player, opponent)
-    position = []
-    wins.each do |win|
+    position = []  # placeholder for position that will give 3-in-a-row
+    wins.each do |win|  # check each win pattern
       difference = win - player  # difference between current win array and player position array
       if difference.count == 1  # if player 1 move from win, take position unless already opponent mark
         position.push(difference[0]) unless (opponent & difference).count == 1
