@@ -212,7 +212,14 @@ p1 = PlayerPerfect.new
 # board.game_board = ["O", "O", "", "X", "O", "X", "X", "", ""]   # multiple X blocks O (t3/b2/b3) 43
 # board.game_board = ["X", "X", "", "O", "X", "O", "O", "", ""]   # multiple X wins (t3/b2/b3) 44
 #-----------------------------------------------------------------------------
-# Round 8 - O  (review existing tests)
+# Round 8 - O
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "O", "X", "", "O", "", "O", "X", "X"]  # Perfect X - blocks at corner, O blocks at edge v1 (m3) 56
+# board.game_board = ["X", "X", "O", "", "O", "", "X", "O", "X"]  # Perfect X - blocks at corner, O blocks at edge v2 (m1) 57
+# board.game_board = ["X", "", "X", "O", "O", "X", "X", "", "O"]  # Perfect X - blocks at corner, O blocks at edge v3 (t2) 58
+# board.game_board = ["O", "", "X", "X", "O", "O", "X", "", "X"]  # Perfect X - blocks at corner, O blocks at edge v4 (b2) 59
+#-----------------------------------------------------------------------------
+# - review - not sure what these were for:
 #-----------------------------------------------------------------------------
 # board.game_board = ["X", "O", "X", "", "O", "", "O", "X", "X"]  # round 9 - X wins v1 (m3) 45
 # board.game_board = ["X", "", "O", "O", "O", "X", "X", "", "X"]  # round 9 - X wins v2 (b2) 46
