@@ -126,12 +126,16 @@ end
 
 #-----------------------------------------------------------------------------
 # Sandbox testing
-# board = Board.new
-# p1 = PlayerPerfect.new
+board = Board.new
+p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 1 - X
 #-----------------------------------------------------------------------------
-# board.game_board = ["", "", "", "", "", "", "", "", ""]  # (t1/t3/b1/b3) 1
+# board.game_board = ["", "", "", "", "", "", "", "", ""]  # X takes a random corner (t1/t3/b1/b3) 1
+#-----------------------------------------------------------------------------
+# Round 2 - O
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "", "", "", "", "", "", "", ""]  # O takes center (m2) 49
 #-----------------------------------------------------------------------------
 # Round 3 - X
 #-----------------------------------------------------------------------------
@@ -145,6 +149,11 @@ end
 # board.game_board = ["O", "", "X", "", "", "", "", "", ""]  # O took corner, X takes op corner v2 (b1) 8
 # board.game_board = ["X", "", "", "", "", "", "", "", "O"]  # O took op corner, X takes corner v1 (t3/b1) 9
 # board.game_board = ["", "", "X", "", "", "", "O", "", ""]  # O took op corner, X takes corner v2 (t1/b3) 10
+#-----------------------------------------------------------------------------
+# Round 4 - O
+#-----------------------------------------------------------------------------
+board.game_board = ["X", "", "", "", "O", "", "", "", "X"]  # Perfect X - took opposite corner v1 (t2/m1/m3/b2) 50
+board.game_board = ["", "", "X", "", "O", "", "X", "", ""]  # Perfect X - took opposite corner v2 (t2/m1/m3/b2) 51
 #-----------------------------------------------------------------------------
 # Round 5 - X
 #-----------------------------------------------------------------------------
@@ -205,13 +214,13 @@ end
 # board.game_board = ["X", "O", "X", "O", "O", "X", "X", "", "O"]  # X ties v3 (b2)
 # board.game_board = ["O", "", "X", "X", "O", "O", "X", "O", "X"]  # X ties v4 (t2)
 #-----------------------------------------------------------------------------
-# round = board.get_round(board.x_count, board.o_count)
-# p "Round: #{round}"
-# mark = board.get_mark(board.x_count, board.o_count)
-# wins = board.wins
-# x_pos = board.get_x
-# o_pos = board.get_o
-# puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+round = board.get_round(board.x_count, board.o_count)
+p "Round: #{round}"
+mark = board.get_mark(board.x_count, board.o_count)
+wins = board.wins
+x_pos = board.get_x
+o_pos = board.get_o
+puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
 #-----------------------------------------------------------------------------
 # player = board.get_x
 # opponent = board.get_o
