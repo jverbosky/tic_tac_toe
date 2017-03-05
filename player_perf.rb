@@ -156,8 +156,10 @@ class PlayerPerfect
     side_index = 0
     @sides.each { |side| adjacent_o += 1 if (side & opponent).count == 2 }
     if adjacent_o == 1
+      puts "o_edge - adjacent_o"
       position = block(wins, player, opponent)
     else
+      puts "o_edge - corner logic"
       # identify side with adjacent marks (top = 0, right = 1, bottom = 2, right = 3)
       @sides.each_with_index { |side, s_index| side_index = s_index if ((player + opponent) & side).count > 1 }
       # determine empty (reference) corner in side with adjacent marks
@@ -180,9 +182,17 @@ class PlayerPerfect
         position = o_corner(player, opponent)
       end
     elsif round == 5
-      if ((player + opponent) & @corners).size == 3  # if O took a corner in round 2, take the last available corner
+      # if O took a corner in round 2, take the last available corner
+      if (player & @corners).size == 2 && (opponent & @corners).size == 1
+        puts "Size == 3"
         position = o_corner(player, opponent)
-      elsif ((player + opponent) & @corners).size == 2  # if O took an edge in round 2, take a specific corner
+      # if O is perfect player it will have center + edge, so block at opposite edge
+      elsif (player & @corners).size == 2 && (opponent & @corners).size == 0
+        position = block(wins, player, opponent)
+      # if O took an edge in round 2 and a corner in round 4, take the corner opposite from
+      # the open corner of row with adjacent player & opponent marks
+      elsif (player & @corners).size == 1 && (opponent & @corners).size == 1
+        puts "Size == 2"
         position = o_edge(wins, player, opponent)
       end
     end
@@ -226,10 +236,10 @@ p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 5 - X
 #-----------------------------------------------------------------------------
-# board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]  # Perfect O - took edge, X blocks (b2) * broke - now b1 
-# board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]  # Perfect O - took edge, X blocks (m3) * broke - now t3 
-# board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]  # Perfect O - took edge, X blocks (m1) * broke - now b1 
-# board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # Perfect O - took edge, X blocks (t2) * broek - now t3 
+# board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]  # Perfect O - took edge, X blocks (b2)
+# board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]  # Perfect O - took edge, X blocks (m3)
+# board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]  # Perfect O - took edge, X blocks (m1)
+# board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # Perfect O - took edge, X blocks (t2)
 #-----------------------------------------------------------------------------
 # board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # O took center after corner, X block & sets 2 wins (b1)
 # board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # O took edge after op corner, X setup 2 wins (b1)
@@ -239,7 +249,7 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # O took corner after edge v3, X block & sets 2 wins (t3)
 # board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # O took corner after edge v4, X block & sets 2 wins (b1)
 #-----------------------------------------------------------------------------
-# 1) Need to re-test previous tests and verify still true - found 4 that broke in round 5
+
 # 2) Review get_move() - may not want "round <= 6" logic
 # 3) Review wikipedia - any more non-perfect O moves unaccounted for? (round 5+)
 #    - Or will block() and move() handle remaining board variations for X?
