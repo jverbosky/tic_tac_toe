@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require_relative "board.rb"
+require_relative "../board.rb"
 
 class TestBoard < Minitest::Test
 

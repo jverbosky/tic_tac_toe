@@ -23,11 +23,26 @@ class PlayerPerfect
       end
     end
     # non-perfect code - save for adjusting difficulty later
-    if position.count == 0  # if nothing to block or win, randomly collect an open position
-      position.push((Array(0..8) - (player + opponent)).sample)
+    if position.count == 0  # if nothing to block or win, edge logic
+
+      # identify side with adjacent marks (top = 0, right = 1, bottom = 2, right = 3)
+      @sides.each_with_index { |side, s_index| side_index = s_index if ((player + opponent) & side).count > 1 }
+      # determine empty (reference) corner in side with adjacent marks
+      refcor = @sides[side_index] - ((player + opponent) & @sides[side_index])
+      # figure out which corner is the opposite and take it
+      position = op_corner(refcor)
+
     end
     position.sample  # .sample in case of multiple
     # position.count > 0 ? position.sample : move(wins, player, opponent)  # .sample in case of multiple
+
+    # non-perfect code - save for adjusting difficulty later
+    # if position.count == 0  # if nothing to block or win, randomly collect an open position
+    #   position.push((Array(0..8) - (player + opponent)).sample)
+    # end
+    # position.sample  # .sample in case of multiple
+
+
   end
 
   # Method to return position to win, call block if no wins
@@ -133,21 +148,22 @@ class PlayerPerfect
 #-----------------------------------------------------------------------------
 
   # Method to handle X corner selection logic for round 5 when O took an edge in round 2
-  def edge_logic(wins, player, opponent)
-    adjacent_o = 0
-    side_index = 0
-    @sides.each { |side| adjacent_o += 1 if (side & opponent).count == 2 }
-    if adjacent_o == 1
-      position = win_check(wins, player, opponent)
-    else
-      # identify side with adjacent marks (top = 0, right = 1, bottom = 2, right = 3)
-      @sides.each_with_index { |side, s_index| side_index = s_index if ((player + opponent) & side).count > 1 }
-      # determine empty (reference) corner in side with adjacent marks
-      refcor = @sides[side_index] - ((player + opponent) & @sides[side_index])
-      # figure out which corner is the opposite and take it
-      position = op_corner(refcor)
-    end
-  end
+  # def edge_logic(wins, player, opponent)
+  #   adjacent_o = 0
+  #   side_index = 0
+  #   @sides.each { |side| adjacent_o += 1 if (side & opponent).count == 2 }
+  #   if adjacent_o == 1
+  #     position = win_check(wins, player, opponent)
+  #   else
+  #     puts "yep, here too"
+  #     # identify side with adjacent marks (top = 0, right = 1, bottom = 2, right = 3)
+  #     @sides.each_with_index { |side, s_index| side_index = s_index if ((player + opponent) & side).count > 1 }
+  #     # determine empty (reference) corner in side with adjacent marks
+  #     refcor = @sides[side_index] - ((player + opponent) & @sides[side_index])
+  #     # figure out which corner is the opposite and take it
+  #     position = op_corner(refcor)
+  #   end
+  # end
 
   # Method to handle o logic for different rounds
   def move_o(round)
@@ -180,10 +196,13 @@ class PlayerPerfect
         position = block(wins, player, opponent)
       # if O took an edge in round 2 and a corner in round 4, take the corner opposite from
       # the open corner of row with adjacent player & opponent marks
-      elsif (player & @corners).size == 1 && (opponent & @corners).size == 1
-        position = edge_logic(wins, player, opponent)
+      # elsif (player & @corners).size == 1 && (opponent & @corners).size == 1
+      #   puts "yep, this one"
+      #   position = edge_logic(wins, player, opponent)
+      else  # resort to win/block logic
+        position = win_check(wins, player, opponent)
       end
-    else # resort to block/win logic for rounds 7 +
+    else  # resort to win/block logic for rounds 7 +
       position = win_check(wins, player, opponent)
     end
   end
@@ -225,33 +244,37 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # Perfect O - took edge v4, X blocks (t2)
 #-----------------------------------------------------------------------------
 # board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # O took center after corner, X block & sets 2 wins (b1)
-# board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # O took edge after op corner, X setup 2 wins (b1)
+# board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # O took edge after op corner, X sets 2 wins (b1)
 # board.game_board = ["X", "", "", "", "O", "", "O", "", "X"]  # O took corner after center, X block & sets 2 wins (t3)
-# board.game_board = ["X", "O", "", "", "X", "", "", "", "O"]  # O took corner after edge v1, X sets 2 wins (b1)
-# board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # O took corner after edge v2, X sets 2 wins (t3)
+# board.game_board = ["X", "O", "", "", "X", "", "", "", "O"]  # O took corner after edge v1, X sets 2 wins (b1) 
+# board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # O took corner after edge v2, X sets 2 wins (t3) 
 # board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # O took corner after edge v3, X block & sets 2 wins (t3)
 # board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # O took corner after edge v4, X block & sets 2 wins (b1)
 #-----------------------------------------------------------------------------
+# board.game_board = ["X", "", "X", "", "", "", "O", "", "O"]  # added failsafe logic to move_x() round 5 (t2)
+# board.game_board = ["", "", "O", "O", "X", "", "", "", "X"]  # merged edge_logic() into block() (t1)
+# board.game_board = ["X", "", "O", "O", "X", "", "", "", ""]  # merged edge_logic() into block() (b3)
+#-----------------------------------------------------------------------------
 # Round 7 - X
 #-----------------------------------------------------------------------------
-# board.game_board = ["X", "", "O", "O", "O", "", "X", "", "X"]  # O blocks at m1, X wins (b2)
-# board.game_board = ["X", "", "O", "", "O", "", "X", "O", "X"]  # O blocks at b2, X wins (m1)
-# board.game_board = ["X", "O", "X", "O", "", "", "X", "", "O"]  # O blocks at m1, X wins (m2)
-# board.game_board = ["X", "O", "X", "", "O", "", "X", "", "O"]  # O blocks at m2, X wins (m1)
-# board.game_board = ["X", "O", "X", "", "O", "", "O", "", "X"]  # O blocks at t2, X wins (m3)
-# board.game_board = ["X", "", "X", "", "O", "O", "O", "", "X"]  # O blocks at m3, X wins (t2)
-# board.game_board = ["X", "O", "O", "", "X", "", "X", "", "O"]  # O blocks at t3, X wins (m1)
-# board.game_board = ["X", "O", "", "O", "X", "", "X", "", "O"]  # O blocks at m1, X wins (t3)
-# board.game_board = ["X", "O", "X", "O", "X", "", "", "", "O"]  # O blocks at t2, X wins (b1)
-# board.game_board = ["X", "", "X", "O", "X", "", "O", "", "O"]  # O blocks at b1, X wins (t2)
-# board.game_board = ["X", "O", "X", "", "X", "O", "", "", "O"]  # O blocks at t2, X wins (b1)
-# board.game_board = ["X", "", "X", "", "X", "O", "O", "", "O"]  # O blocks at b1, X wins (t2)
-# board.game_board = ["X", "", "O", "", "X", "", "X", "O", "O"]  # O blocks at t3, X wins (m1)
-# board.game_board = ["X", "", "", "O", "X", "", "X", "O", "O"]  # O blocks at m1, X wins (t3)
-# board.game_board = ["X", "O", "", "", "O", "", "O", "X", "X"]  # X blocks O at t3
-# board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]  # X blocks O at b1
-# board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]  # X blocks O at t1
-# board.game_board = ["O", "", "X", "X", "O", "O", "X", "", ""]  # X blocks O at b3
+# board.game_board = ["X", "", "O", "O", "O", "", "X", "", "X"]  # O blocks at m1, X wins (b2) 25
+# board.game_board = ["X", "", "O", "", "O", "", "X", "O", "X"]  # O blocks at b2, X wins (m1) 26
+# board.game_board = ["X", "O", "X", "O", "", "", "X", "", "O"]  # O blocks at m1, X wins (m2) 27
+# board.game_board = ["X", "O", "X", "", "O", "", "X", "", "O"]  # O blocks at m2, X wins (m1) 28
+# board.game_board = ["X", "O", "X", "", "O", "", "O", "", "X"]  # O blocks at t2, X wins (m3) 29
+# board.game_board = ["X", "", "X", "", "O", "O", "O", "", "X"]  # O blocks at m3, X wins (t2) 30
+# board.game_board = ["X", "O", "O", "", "X", "", "X", "", "O"]  # O blocks at t3, X wins (m1) 31
+# board.game_board = ["X", "O", "", "O", "X", "", "X", "", "O"]  # O blocks at m1, X wins (t3) 32
+# board.game_board = ["X", "O", "X", "O", "X", "", "", "", "O"]  # O blocks at t2, X wins (b1) 33
+# board.game_board = ["X", "", "X", "O", "X", "", "O", "", "O"]  # O blocks at b1, X wins (t2) 34
+# board.game_board = ["X", "O", "X", "", "X", "O", "", "", "O"]  # O blocks at t2, X wins (b1) 35
+# board.game_board = ["X", "", "X", "", "X", "O", "O", "", "O"]  # O blocks at b1, X wins (t2) 36
+# board.game_board = ["X", "", "O", "", "X", "", "X", "O", "O"]  # O blocks at t3, X wins (m1) 37
+# board.game_board = ["X", "", "", "O", "X", "", "X", "O", "O"]  # O blocks at m1, X wins (t3) 38
+# board.game_board = ["X", "O", "", "", "O", "", "O", "X", "X"]  # X blocks O at t3 39
+# board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]  # X blocks O at b1 40
+# board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]  # X blocks O at t1 41
+# board.game_board = ["O", "", "X", "X", "O", "O", "X", "", ""]  # X blocks O at b3 42
 #-----------------------------------------------------------------------------
 # - multiple selection tests
 #-----------------------------------------------------------------------------
