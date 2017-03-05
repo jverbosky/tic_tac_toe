@@ -16,8 +16,8 @@ board = Board.new
 # p1 = PlayerRandom.new  # alternate p1
 p1 = PlayerPerfect.new
 # p2 = PlayerSequential.new
-p2 = PlayerRandom.new  # alternate p2
-# p2 = PlayerPerfect.new  # alternate p2
+# p2 = PlayerRandom.new  # alternate p2
+p2 = PlayerPerfect.new  # alternate p2
 position = Position.new
 console = Console.new
 

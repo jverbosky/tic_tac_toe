@@ -37,9 +37,9 @@ class PlayerPerfect
   # Method to handle O logic for different rounds
   def move_o(wins, player, opponent, round)
     case round
-      when 2 then position = 4  # perfect O takes the center as first move
-      when 4 then position = [1, 3, 5, 7].sample  # perfect O takes an edge as second move
-      when 6 then position = block(wins, player, opponent)
+      when 2 then position = 4  # in round 2 take the center
+      when 4 then position = [1, 3, 5, 7].sample  # in round 4 take an edge, any edge
+      else position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
     end
   end
 
@@ -127,8 +127,8 @@ end
 
 #-----------------------------------------------------------------------------
 # Sandbox testing
-board = Board.new
-p1 = PlayerPerfect.new
+# board = Board.new
+# p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 1 - X
 #-----------------------------------------------------------------------------
@@ -235,17 +235,17 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "O", "X", "O", "O", "X", "X", "", "O"]  # X ties v3 (b2)
 # board.game_board = ["O", "", "X", "X", "O", "O", "X", "O", "X"]  # X ties v4 (t2)
 #-----------------------------------------------------------------------------
-round = board.get_round(board.x_count, board.o_count)
-puts "Round: #{round}"
-mark = board.get_mark(board.x_count, board.o_count)
-wins = board.wins
-x_pos = board.get_x
-o_pos = board.get_o
-# puts "Player: #{x_pos}"  # X rounds (odd)
-# puts "Opponent: #{o_pos}"  # X rounds (odd)
-puts "Player: #{o_pos}"  # O rounds (even)
-puts "Opponent: #{x_pos}"  # O rounds (even)
-puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+# round = board.get_round(board.x_count, board.o_count)
+# puts "Round: #{round}"
+# mark = board.get_mark(board.x_count, board.o_count)
+# wins = board.wins
+# x_pos = board.get_x
+# o_pos = board.get_o
+# # puts "Player: #{x_pos}"  # X rounds (odd)
+# # puts "Opponent: #{o_pos}"  # X rounds (odd)
+# puts "Player: #{o_pos}"  # O rounds (even)
+# puts "Opponent: #{x_pos}"  # O rounds (even)
+# puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
 #-----------------------------------------------------------------------------
 # player = board.get_x
 # opponent = board.get_o
