@@ -16,7 +16,7 @@ class PlayerPerfect
   # Method to retrieve optimal position and convert it to a "human friendly" board position
   def get_move(game_board, round, mark, wins, x_pos, o_pos)
     # Use current mark (X/O) to determine  current player, then call appropriate method to get position
-    mark == "X" ? position = move_x(wins, x_pos, o_pos, round) : position = move_o(wins, x_pos, o_pos, round)
+    mark == "X" ? position = move_x(wins, x_pos, o_pos, round) : position = move_o(wins, o_pos, x_pos, round)
     # Translate the position's array index to a "human friendly" borad position and return it
     move = @moves[position]
   end
@@ -179,10 +179,10 @@ p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 6 - O
 #-----------------------------------------------------------------------------
-# board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]  # Perfect X - blocks at edge, O blocks at corner v1 (b1) 52 
+# board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]  # Perfect X - blocks at edge, O blocks at corner v1 (b1) 52
 # board.game_board = ["X", "X", "", "", "O", "", "", "O", "X"]  # Perfect X - blocks at edge, O blocks at corner v2 (t3) 53
 # board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v3 (b3) 54
-# board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v4 (t1) 55 
+# board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v4 (t1) 55
 #-----------------------------------------------------------------------------
 # *** need tests/logic for non-perfect X moves
 #-----------------------------------------------------------------------------
@@ -229,11 +229,15 @@ p1 = PlayerPerfect.new
 # board.game_board = ["O", "", "X", "X", "O", "O", "X", "O", "X"]  # X ties v4 (t2)
 #-----------------------------------------------------------------------------
 round = board.get_round(board.x_count, board.o_count)
-p "Round: #{round}"
+puts "Round: #{round}"
 mark = board.get_mark(board.x_count, board.o_count)
 wins = board.wins
 x_pos = board.get_x
 o_pos = board.get_o
+# puts "Player: #{x_pos}"  # X rounds (odd)
+# puts "Opponent: #{o_pos}"  # X rounds (odd)
+puts "Player: #{o_pos}"  # O rounds (even)
+puts "Opponent: #{x_pos}"  # O rounds (even)
 puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
 #-----------------------------------------------------------------------------
 # player = board.get_x
