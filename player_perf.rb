@@ -9,6 +9,7 @@ class PlayerPerfect
     @corners = [0, 2, 6, 8]  # corner positions
     @opcor_1 = [0, 8]  # opposite corners - set 1
     @opcor_2 = [2, 6]  # opposite corners - set 2
+    @adjcor = [[0, 2], [2, 8], [6, 8], [0, 6]]  # adjacent corners
     @edges = [1, 3, 5, 7]  # edge positions
     @center = [4]  # center position
   end
@@ -43,7 +44,13 @@ class PlayerPerfect
         position = 4  # otherwise take the center
       end
     elsif round == 4
-      position = @edges.sample  # in round 4 take an edge, any edge
+      adjacent = 0
+      @adjcor.each { |corners| adjacent += 1 if (corners & opponent).size == 2 }
+      if adjacent > 0  # if X took adjacent corners
+        position = block(wins, player, opponent)  # block at the edge
+      else
+        position = @edges.sample  # otherwise - take an edge, any edge
+      end
     else
       position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
     end
