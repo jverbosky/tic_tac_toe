@@ -23,6 +23,7 @@ class Console
       puts "It was a tie!"
     end
     puts "-" * 11
+    puts "\n"
   end
 
 end
