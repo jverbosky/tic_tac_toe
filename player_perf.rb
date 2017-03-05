@@ -180,18 +180,10 @@ class PlayerPerfect
         position = o_corner(player, opponent)
       end
     elsif round == 5
-      puts "Breaking here"
-      puts "Opponent: #{opponent}"
-      puts "Player: #{player}"
-      puts "Corners: #{@corners}"
       if ((player + opponent) & @corners).size == 3  # if O took a corner in round 2, take the last available corner
-        puts "O took a corner in round 2"
         position = o_corner(player, opponent)
       elsif ((player + opponent) & @corners).size == 2  # if O took an edge in round 2, take a specific corner
-        puts "O took edge in round 2"
         position = o_edge(wins, player, opponent)
-      else
-        puts "None of the other conditions selected"
       end
     end
   end
@@ -212,34 +204,42 @@ end
 board = Board.new
 p1 = PlayerPerfect.new
 
-# board.game_board = ["X", "", "", "", "O", "", "", "", ""]  # round 3 - perfect player v1 (b3)
-# board.game_board = ["", "", "X", "", "O", "", "", "", ""]  # round 3 - perfect player v2 (b1)
-# board.game_board = ["", "", "", "", "O", "", "X", "", ""]  # round 3 - perfect player v3 (t3)
-# board.game_board = ["", "", "", "", "O", "", "", "", "X"]  # round 3 - perfect player v4 (t1)
-
-# board.game_board = ["X", "", "", "", "", "", "", "O", ""]  # round 3 - O took edge, take center (m2)
-# board.game_board = ["X", "", "", "", "O", "", "", "", ""]  # round 3 - O took center, take op corner v1 (b3)
-# board.game_board = ["", "", "X", "", "O", "", "", "", ""]  # round 3 - O took center, take op corner v2 (b1)
-# board.game_board = ["X", "", "O", "", "", "", "", "", ""]  # round 3 - O took corner, take op corner v1 (b3)
-# board.game_board = ["O", "", "X", "", "", "", "", "", ""]  # round 3 - O took corner, take op corner v2 (b1)
-# board.game_board = ["X", "", "", "", "", "", "", "", "O"]  # round 3 - O took op corner, take corner v1 (t3/b1)
-# board.game_board = ["", "", "X", "", "", "", "O", "", ""]  # round 3 - O took corner, take op corner v2 (t1/b3)
-
-# board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # round 5 - O took center after corner (b1)
-# board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # round 5 - O took edge after op corner (b1)
-# board.game_board = ["X", "", "", "", "O", "", "O", "", "X"]  # round 5 - O took corner after center (t3)
-
-# board.game_board = ["X", "O", "", "", "X", "", "", "", "O"]  # round 5 - O took corner after edge v1 (b1)
-# board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # round 5 - O took corner after edge v2 (t3)
-# board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # round 5 - O took corner after edge v3 (block - t3)
-# board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # round 5 - O took corner after edge v4 (block - b1)
-
-# board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]  # round 5 - X blocks O at b2
-# board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]  # round 5 - X blocks O at m3
-# board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]  # round 5 - X blocks O at m1
-# board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # round 5 - X blocks O at t2
-
-# 1) Need to re-test previous tests and verify still true
+#-----------------------------------------------------------------------------
+# Round 1 - X
+#-----------------------------------------------------------------------------
+# board.game_board = ["", "", "", "", "", "", "", "", ""]  # (t1/t3/b1/b3)
+#-----------------------------------------------------------------------------
+# Round 3 - X
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "", "", "", "O", "", "", "", ""]  # Perfect O - took center v1 (b3)
+# board.game_board = ["", "", "X", "", "O", "", "", "", ""]  # Perfect O - took center v2 (b1)
+# board.game_board = ["", "", "", "", "O", "", "X", "", ""]  # Perfect O - took center v3 (t3)
+# board.game_board = ["", "", "", "", "O", "", "", "", "X"]  # Perfect O - took center v4 (t1)
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "", "", "", "", "", "", "O", ""]  # O took edge, X takes center (m2)
+# board.game_board = ["X", "", "", "", "O", "", "", "", ""]  # O took center, X takes op corner v1 (b3)
+# board.game_board = ["", "", "X", "", "O", "", "", "", ""]  # O took center, X takes op corner v2 (b1)
+# board.game_board = ["X", "", "O", "", "", "", "", "", ""]  # O took corner, X takes op corner v1 (b3)
+# board.game_board = ["O", "", "X", "", "", "", "", "", ""]  # O took corner, X takes op corner v2 (b1)
+# board.game_board = ["X", "", "", "", "", "", "", "", "O"]  # O took op corner, X takes corner v1 (t3/b1)
+# board.game_board = ["", "", "X", "", "", "", "O", "", ""]  # O took op corner, X takes corner v2 (t1/b3)
+#-----------------------------------------------------------------------------
+# Round 5 - X
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]  # Perfect O - took edge, X blocks (b2) * broke - now b1 
+# board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]  # Perfect O - took edge, X blocks (m3) * broke - now t3 
+# board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]  # Perfect O - took edge, X blocks (m1) * broke - now b1 
+# board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]  # Perfect O - took edge, X blocks (t2) * broek - now t3 
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # O took center after corner, X block & sets 2 wins (b1)
+# board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # O took edge after op corner, X setup 2 wins (b1)
+# board.game_board = ["X", "", "", "", "O", "", "O", "", "X"]  # O took corner after center, X block & sets 2 wins (t3)
+# board.game_board = ["X", "O", "", "", "X", "", "", "", "O"]  # O took corner after edge v1, X sets 2 wins (b1)
+# board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # O took corner after edge v2, X sets 2 wins (t3)
+# board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # O took corner after edge v3, X block & sets 2 wins (t3)
+# board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # O took corner after edge v4, X block & sets 2 wins (b1)
+#-----------------------------------------------------------------------------
+# 1) Need to re-test previous tests and verify still true - found 4 that broke in round 5
 # 2) Review get_move() - may not want "round <= 6" logic
 # 3) Review wikipedia - any more non-perfect O moves unaccounted for? (round 5+)
 #    - Or will block() and move() handle remaining board variations for X?
