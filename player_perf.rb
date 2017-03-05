@@ -24,11 +24,11 @@ class PlayerPerfect
   # Method to handle X logic for different rounds
   def move_x(wins, player, opponent, round)
     if round == 1  # in round 1
-      position = [0, 2, 6, 8].sample  # take a corner, any corner
+      position = @corners.sample  # take a corner, any corner
     elsif round == 3  # in round 3
       position = move_r3(player, opponent)  # determine ideal position based on O's position
     elsif round == 5  # in round 5
-      position = move_r5(wins, player, opponent)  # determine ideal position based on O's position
+      position = move_r5(wins, player, opponent)  # determine ideal position based on O's positions
     else  # in remaining rounds
       position = win_check(wins, player, opponent)  # use win/block logic
     end
@@ -36,10 +36,16 @@ class PlayerPerfect
 
   # Method to handle O logic for different rounds
   def move_o(wins, player, opponent, round)
-    case round
-      when 2 then position = 4  # in round 2 take the center
-      when 4 then position = [1, 3, 5, 7].sample  # in round 4 take an edge, any edge
-      else position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
+    if round == 2
+      if (opponent & @center).size == 1  # if X took center
+        position = @corners.sample  # take a corner, any corner
+      else
+        position = 4  # in round 2 take the center
+      end
+    elsif round == 4
+      position = [1, 3, 5, 7].sample  # in round 4 take an edge, any edge
+    else
+      position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
     end
   end
 
