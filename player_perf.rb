@@ -13,7 +13,7 @@ class PlayerPerfect
     @center = [4]
   end
 
-  # Method to return position to block, last resort logic - take a random position
+  # Method to return position to block, if no available blocks then use edge logic
   def block(wins, player, opponent)
     position = []
     side_index = 0
