@@ -1,3 +1,66 @@
+#-----------------------------------------------------------------------------
+# Corner Logic
+#-----------------------------------------------------------------------------
+# Variation 1:
+# - O takes opposite corner in round 2, forced to block on edge in round 4
+# - X takes last open corner in round 5 for two paths to win
+#
+#   X - -     X - -     X - X     X O X     X O X
+#   - - -  >  - - -  >  - - -  >  - - -  >  - - -
+#   - - -     - - O     - - O     - - O     X - O
+#-----------------------------------------------------------------------------
+# Variation 2:
+# - O takes non-opposite corner in round 2, forced to block in middle in round 4
+# - X takes last open corner in round 5 for two paths to win
+#
+#   X - -     X - O     X - O     X - O     X - O
+#   - - -  >  - - -  >  - - -  >  - O -  >  - O -
+#   - - -     - - -     - - X     - - X     X - X
+#-----------------------------------------------------------------------------
+# Variation 3: O takes center in round 2, then takes an open corner in round 4
+# - X takes last open corner in round 5 for two paths to win
+#
+#   X - -     X - -     X - -     X - -     X - X
+#   - - -  >  - O -  >  - O -  >  - O -  >  - O -
+#   - - -     - - -     - - X     O - X     O - X
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+# Edge Logic
+#-----------------------------------------------------------------------------
+# - O takes an edge in round 2, has to block with a corner in round 4
+# - X takes a specific corner for two paths to win
+# - Need to consider non-winning and winning variations
+#-----------------------------------------------------------------------------
+# Variation 1:
+# - Non-winning O edge top (example)
+#
+#   X - -     X O -     X O -     X O -     X O -
+#   - - -  >  - - -  >  - X -  >  - X -  >  - X -
+#   - - -     - - -     - - -     - - O     X - O
+#-----------------------------------------------------------------------------
+# Variation 2:
+# - Non-winning O edge middle (example)
+#
+#   X - -     X - -     X - -     X - -     X - X
+#   - - -  >  O - -  >  O X -  >  O X -  >  O X -
+#   - - -     - - -     - - -     - - O     - - O
+#-----------------------------------------------------------------------------
+# Variation 3:
+# - Winning O edge middle (example)
+#
+#   X - -     X - -     X - -     X - -     X - X
+#   - - -  >  - - O  >  - X O  >  - X O  >  - X O
+#   - - -     - - -     - - -     - - O     - - O
+#-----------------------------------------------------------------------------
+# Variation 4:
+# - Winning O edge bottom (example)
+#
+#   X - -     X - -     X - -     X - -     X - -
+#   - - -  >  - - -  >  - X -  >  - X -  >  - X -
+#   - - -     - O -     - O -     - O O     X O O
+#-----------------------------------------------------------------------------
+
 # Test using sides to detect adjacent Os for handling round 5 non-perfect player
 # O took edge in round 2 and corner in round 4
 # Need to split logic between non-adjacent and adjacent Os (compare opponent positions against sides)
