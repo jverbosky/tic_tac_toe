@@ -89,11 +89,12 @@ class PlayerPerfect
 
   # Method that uses edge logic to correctly select corner when O has opposing corner and non-adjacent edge
   def edge_logic(player, opponent)
+    current_positions = player + opponent  # array of all occupied board positions
     side_index = 0  # array index for sides (clockwise: top = 0, right = 1, bottom = 2, right = 3)
     # get array index of the side with adjacent player and opponent marks
-    @sides.each_with_index { |side, s_index| side_index = s_index if ((player + opponent) & side).count > 1 }
+    @sides.each_with_index { |side, s_index| side_index = s_index if (current_positions & side).count > 1 }
     # determine empty corner in side with adjacent player and opponent marks
-    refcor = @sides[side_index] - ((player + opponent) & @sides[side_index])
+    refcor = @sides[side_index] - (current_positions & @sides[side_index])
     position = op_corner(refcor)  # take corner that is opposite the reference corner
   end
 
