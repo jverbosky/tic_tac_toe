@@ -55,12 +55,12 @@ X X -   - X -
 O - -   - - X
 __________________
 
-71 - 72 > 87 - 88
+71 - 72
 *** same board layout as 85 - 86 at r7
 
 - r4 - O takes a corner
 - r5 - X blocks at edge
-- r6+ - O should use win/block logic  
+- r6 - O should use win/block logic  
 - r7 - X should take either open edge for a chance to win  
 - r8 - O blocks at edge
 - r9 - X takes last open position  
@@ -70,36 +70,31 @@ X X -   - X -
 O - X   O X O
 __________________
 
-73 - 74 > 89 - 90
-
-O - -   O X -
-X X O   - X -  > 73 r5 - X (t2), 75 r5 - X (m1)
-- - -   - O -
-
-["O", "", "", "X", "X", "O", "", "", ""]
-["O", "X", "", "", "X", "", "", "O", ""]
+73 - 74 > 87 - 88
 
 - r4 - O blocks at edge
-- r5 - X takes open edge next to corner O  *** need to add X logic for round 5 (if no block/win)  
-- r6 - O blocks at edge - win/block logic  
-- r7 - X takes an open corner  *** need to add X logic for round 7 (if no block/win)  
+- r5 - X takes open edge
+- r6 - O blocks at edge  
+- r7 - X takes corner
 - r8 - O blocks at corner
 - r9 - X takes last open position  
 
 O X -   O X -
 X X O   X X -
 - - -   - O -
+__________________
 
-73 mock game:
-t2 - ideal, X needs logic to take either corner in round 7 and last position in round 9
-t3 - ideal, X needs logic to take either edge in round 7 and last position in round 9
-b1 - sets O up for a chance to win in round 8
-b2 - sets O up for a chance to win in round 8
-b3 - potential to give O a chance to win in round 8
+73 - 74 > 89 - 90
 
-O - -
-X X O
-- - -
+- r4 - O blocks at edge
+- r5 - X takes open corner
+- r6 - O blocks at corner  
+- r7 - X blocks
+- r8 - O wins
+
+O - -   O X X
+X X O   - X -
+X - -   - O -
 __________________
 
 75 - 76 > 91 - 92
