@@ -42,6 +42,14 @@ X - -
 X - -
 - O X
 - O -
+
+Logic to select edge:
+1) Determine opponent edge & corner positions - (edges & opponent) and (corners & opponent)
+2) Find index of sides that do not contain corner X
+3) Find adjedg pair that corresponds to those sides * do NOT change @adjedg array order
+4) Edge will be (adjedg - opponent)
+
+@adjedg = [[5, 7], [3, 7], [1, 5], [1, 3]]
 __________________
 
 69 - 70 > 85 - 86
@@ -160,5 +168,4 @@ r9 - X takes open edge (m1)
 X - X
 - O X
 O X O
-
 __________________
