@@ -44,6 +44,8 @@ class PlayerPerfect
       (opponent & @center).size == 1 ? position = @corners.sample : position = 4
     elsif round == 4  # in round 4
       position = move_r4(wins, player, opponent)  # determine ideal position based on X and O's positions
+    elsif round == 6  # in round 6
+      position = move_r6(wins, player, opponent)  # determine ideal position based on X and O's positions
     else
       position = win_check(wins, player, opponent)  # use win/block logic
     end
@@ -87,6 +89,11 @@ class PlayerPerfect
     else
       position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
     end
+  end
+
+  # Method to handle logic based on player positions in round 6
+  def move_r6(wins, player, opponent)
+    position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
   end
 
   # Method to return the corner opposite the current corner
@@ -260,22 +267,22 @@ p1 = PlayerPerfect.new
 # board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v3 (b3) 54
 # board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]  # Perfect X - blocks at edge, O blocks at corner v4 (t1) 55
 #-----------------------------------------------------------------------------
-board.game_board = ["X", "O", "X", "", "O", "", "", "X", ""]  # X took adjacent corners and opposite edges, O takes open edge v1 (m1/m3) 79
-board.game_board = ["", "", "X", "X", "O", "O", "", "", "X"]  # X took adjacent corners and opposite edges, O takes open edge v2 (t2/b2) 80
+# board.game_board = ["X", "O", "X", "", "O", "", "", "X", ""]  # X took adjacent corners and opposite edges, O takes open edge v1 (m1/m3) 79
+# board.game_board = ["", "", "X", "X", "O", "O", "", "", "X"]  # X took adjacent corners and opposite edges, O takes open edge v2 (t2/b2) 80
 board.game_board = ["X", "X", "O", "", "O", "", "X", "", ""]  # X took corner, adjacent edge and adjacent corner, O blocks at edge v1 (m1) 81
-board.game_board = ["X", "", "X", "", "O", "X", "", "", "O"]  # X took corner, adjacent edge and adjacent corner, O blocks at edge v2 (t2) 82
-board.game_board = ["X", "", "", "X", "O", "O", "", "X", ""]  # X took adjacent edges and adjacent corner, O blocks at corner v1 (b1) 83
-board.game_board = ["X", "X", "", "", "O", "X", "", "O", ""]  # X took adjacent edges and adjacent corner, O blocks at corner v2 (t3) 84
-board.game_board = ["O", "", "X", "X", "X", "", "O", "", ""]  # X took corner, center and opposite edge, O blocks at edge v1 (m3) 85
-board.game_board = ["O", "X", "O", "", "X", "", "X", "", ""]  # X took corner, center and opposite edge, O blocks at edge v2 (b2) 86
-board.game_board = ["O", "X", "", "X", "X", "O", "", "", ""]  # X took corner and adjacent edges, O blocks at edge v1 (b2) 87
-board.game_board = ["O", "X", "", "X", "X", "", "", "O", ""]  # X took corner and adjacent edges, O blocks at edge v2 (m3) 88
-board.game_board = ["O", "", "", "X", "X", "O", "X", "", ""]  # X took edge, adjacent corner and center, O blocks at corner v1 (t3) 89
-board.game_board = ["O", "X", "X", "", "X", "", "", "O", ""]  # X took edge, adjacent corner and center, O blocks at corner v2 (b1) 90
-board.game_board = ["O", "X", "", "", "O", "", "", "X", "X"]  # X took corner, adjacent edge and opposite edge, O blocks at corner v1 (b1) 91
-board.game_board = ["X", "", "", "X", "O", "X", "", "", "O"]  # X took corner, adjacent edge and opposite edge, O blocks at corner v2 (b1) 92
-board.game_board = ["", "X", "O", "", "O", "X", "X", "", ""]  # X took adjacent edges and opposite corner, O takes open corner v1 (t1/b3) 93
-board.game_board = ["X", "", "", "", "O", "X", "", "X", "O"]  # X took adjacent edges and opposite corner, O takes open corner v2 (t3/b1) 94
+# board.game_board = ["X", "", "X", "", "O", "X", "", "", "O"]  # X took corner, adjacent edge and adjacent corner, O blocks at edge v2 (t2) 82
+# board.game_board = ["X", "", "", "X", "O", "O", "", "X", ""]  # X took adjacent edges and adjacent corner, O blocks at corner v1 (b1) 83
+# board.game_board = ["X", "X", "", "", "O", "X", "", "O", ""]  # X took adjacent edges and adjacent corner, O blocks at corner v2 (t3) 84
+# board.game_board = ["O", "", "X", "X", "X", "", "O", "", ""]  # X took corner, center and opposite edge, O blocks at edge v1 (m3) 85
+# board.game_board = ["O", "X", "O", "", "X", "", "X", "", ""]  # X took corner, center and opposite edge, O blocks at edge v2 (b2) 86
+# board.game_board = ["O", "X", "", "X", "X", "O", "", "", ""]  # X took corner and adjacent edges, O blocks at edge v1 (b2) 87
+# board.game_board = ["O", "X", "", "X", "X", "", "", "O", ""]  # X took corner and adjacent edges, O blocks at edge v2 (m3) 88
+# board.game_board = ["O", "", "", "X", "X", "O", "X", "", ""]  # X took edge, adjacent corner and center, O blocks at corner v1 (t3) 89
+# board.game_board = ["O", "X", "X", "", "X", "", "", "O", ""]  # X took edge, adjacent corner and center, O blocks at corner v2 (b1) 90
+# board.game_board = ["O", "X", "", "", "O", "", "", "X", "X"]  # X took corner, adjacent edge and opposite edge, O blocks at corner v1 (b1) 91
+# board.game_board = ["X", "", "", "X", "O", "X", "", "", "O"]  # X took corner, adjacent edge and opposite edge, O blocks at corner v2 (b1) 92
+# board.game_board = ["", "X", "O", "", "O", "X", "X", "", ""]  # X took adjacent edges and opposite corner, O takes open corner v1 (t1/b3) 93
+# board.game_board = ["X", "", "", "", "O", "X", "", "X", "O"]  # X took adjacent edges and opposite corner, O takes open corner v2 (t3/b1) 94
 #-----------------------------------------------------------------------------
 # Round 7 - X
 #-----------------------------------------------------------------------------
