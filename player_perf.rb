@@ -13,7 +13,6 @@ class PlayerPerfect
     @edges = [1, 3, 5, 7]  # edge positions
     @opedg_1 = [1, 7]  # opposite edges - set 1
     @opedg_2 = [3, 5]  # opposite edges - set 2
-    @adjedg = [[5, 7], [3, 7], [1, 5], [1, 3]]  # adjacent edges (order vital for corner knockout in r4)
     @center = [4]  # center position
   end
 
@@ -66,22 +65,16 @@ class PlayerPerfect
   def move_r4(wins, player, opponent)
     taken = player + opponent  # all occupied board positions
     if (opponent & @opcor_1).size == 2 || (opponent & @opcor_2).size == 2  # if X took opposite corners
-      puts "r4-one"
       position = @edges.sample  # take an edge, any edge
     elsif (opponent & @opedg_1).size == 2 || (opponent & @opedg_2).size == 2  # if X took opposite edges
-      puts "r4-two"
       position = @corners.sample  # take a corner, any corner
     elsif (opponent & @edges).size == 2  # if X took adjacent edges (already filtered opposite edges)
-      puts "r4-three"
-      position = adj_edge_logic(player, opponent)  # return random corner except the one opposite to adjacent edges
+      position = adj_edge(player, opponent)  # return corner between adjacent edges
     elsif (taken & (@opcor_1 + @center)).size == 3 || (taken & (@opcor_2 + @center)).size == 3  # if X+O have opcor pair and corner
-      puts "r4-four"
       position = avail_corner(player, opponent)  # return random open corner
     elsif (opponent & @edges).size == 1 && (opponent & @corners).size == 1  # if X has one edge and one corner
-      puts "r4-five"
       position = edgcor_logic(wins, player, opponent)  # return a random edge or block based on relative locations
     else
-      puts "r4-six"
       position = block(wins, player, opponent)  # otherwise block at edge
     end
   end
@@ -104,6 +97,13 @@ class PlayerPerfect
     else
       position = (@opcor_2 - corner)[0]  # otherwise the opposite corner is the other element in @opcor_2
     end
+  end
+
+  # Method to return corner in between adjacent edges
+  def adj_edge(player, opponent)
+    target = []  # array to hold positions of sides that do not contain opponent corner
+    @sides.each { |side| target += side if (opponent & side).size > 0 }  # collect positions of sides that contain X
+    position = target.detect{ |value| target.count(value) > 1 }  # then return corner that appears twice
   end
 
   # Method to handle corner selection when O has selected a corner in round 2
@@ -141,30 +141,18 @@ class PlayerPerfect
     position = op_corner(refcor)  # take corner that is opposite the reference corner
   end
 
-  # Method to return random corner except the one opposite to adjacent edges
-  def adj_edge_logic(player, opponent)
-    side_index = 0  # use to determine corner to knock out
-    # determine the adjedg array index of the pair of adjacent edges
-    @adjedg.each_with_index { |pair, adj_index| side_index = adj_index if (opponent & pair).size == 2 }
-    op_corner = [@corners[side_index]]  # use the index to identify the opposite corner
-    position = (@corners - op_corner).sample  # randomly return any corner except opposite one
-  end
-
   # Method to handle logic when X has one edge and one corner in round 4
   def edgcor_logic(wins, player, opponent)
     adjacent = false  # use to determine adjacency
     @sides.each { |side| adjacent = true if (opponent & side).count > 1 }  # check if edge and corner are adjacent
     if adjacent == false  # if edge and corner not adjacent, take edge opposite opponent corner
-      puts "edgcor-one"
-      # (opponent & @opedg_1).size == 1 ? position = @opedg_2.sample : position = @opedg_1.sample  # old version code
       corner = @corners & opponent  # position of opponent corner
       edge = @edges & opponent  # position of opponent edge
       target = []  # array to hold positions of sides that do not contain opponent corner
       # collect positions of edges from sides without opponent corner
-      @sides.each { |side| target += (side & @edges) if (side & corner).size == 0 }
+      @sides.each { |side| target += (side & @edges) if (corner & side).size == 0 }
       position = (target - edge)[0]  # take open edge
     else
-      puts "edgcor-two"
       position = block(wins, player, opponent)  # otherwise edge and corner are adjacent, so block at corner
     end
   end
@@ -235,7 +223,7 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "X", "", "", "O", "", "", "", ""]  # X took corner and adjacent edge, O blocks at adjacent corner v1 (t3) 65
 # board.game_board = ["", "", "X", "", "O", "X", "", "", ""]  # X took corner and adjacent edge, O blocks at adjacent corner v2 (b3) 66
 # board.game_board = ["X", "", "", "", "O", "", "", "X", ""]  # X took corner and non-adjacent edge, O takes edge opposite corner v1 (m3) 67
-board.game_board = ["X", "", "", "", "O", "X", "", "", ""]  # X took corner and non-adjacent edge, O takes edge opposite corner v2 (b2) 68
+# board.game_board = ["X", "", "", "", "O", "X", "", "", ""]  # X took corner and non-adjacent edge, O takes edge opposite corner v2 (b2) 68
 # board.game_board = ["O", "", "X", "", "X", "", "", "", ""]  # X took center and corner, O blocks at opposite corner v1 (b1) 69
 # board.game_board = ["", "", "O", "", "X", "", "", "", "X"]  # X took center and corner, O blocks at opposite corner v2 (t1) 70
 # board.game_board = ["O", "", "", "", "X", "", "", "", "X"]  # X took center and corner opposite O, O takes corner v1 (t3/b1) 71
@@ -244,8 +232,8 @@ board.game_board = ["X", "", "", "", "O", "X", "", "", ""]  # X took corner and 
 # board.game_board = ["", "X", "O", "", "X", "", "", "", ""]  # X took center and edge, O blocks at opposite edge v2 (b2) 74
 # board.game_board = ["", "X", "", "", "O", "", "", "X", ""]  # X took edge and opposite edge, O takes corner v1 (t1/t3/b1/b3) 75
 # board.game_board = ["", "", "", "X", "O", "X", "", "", ""]  # X took edge and opposite edge, O takes corner v2 (t1/t3/b1/b3) 76
-# board.game_board = ["", "X", "", "", "O", "X", "", "", ""]  # X took edge and adjacent edge, O takes adjacent corner v1 (t1/t3/b3) 77
-# board.game_board = ["", "", "", "", "O", "X", "", "X", ""]  # X took edge and adjacent edge, O takes adjacent corner v2 (t3/b1/b3) 78
+# board.game_board = ["", "X", "", "", "O", "X", "", "", ""]  # X took edge and adjacent edge, O takes corner between X v1 (t3) 77
+# board.game_board = ["", "", "", "", "O", "X", "", "X", ""]  # X took edge and adjacent edge, O takes corner between X v2 (b3) 78
 #-----------------------------------------------------------------------------
 # Round 5 - X
 #-----------------------------------------------------------------------------

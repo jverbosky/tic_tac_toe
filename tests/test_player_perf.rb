@@ -1065,18 +1065,18 @@ class TestPlayerSequential < Minitest::Test
   #   assert_equal(true, result)
   # end
 
-  # def test_77_round_4_X_took_edge_and_adjacent_edge_O_takes_corner_between_X_v1
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["", "X", "", "", "O", "X", "", "", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   assert_equal("t3", result)
-  # end
+  def test_77_round_4_X_took_edge_and_adjacent_edge_O_takes_corner_between_X_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["", "X", "", "", "O", "X", "", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t3", result)
+  end
 
 # Version prior to researching logic for round 6 against non-perfect X
 
@@ -1095,17 +1095,17 @@ class TestPlayerSequential < Minitest::Test
   #   assert_equal(true, result)
   # end
 
-  # def test_78_round_4_X_took_edge_and_adjacent_edge_O_takes_corner_between_X_v2
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["", "", "", "", "O", "X", "", "X", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   assert_equal("b3", result)
-  # end
+  def test_78_round_4_X_took_edge_and_adjacent_edge_O_takes_corner_between_X_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["", "", "", "", "O", "X", "", "X", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b3", result)
+  end
 
 end
