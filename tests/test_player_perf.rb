@@ -1040,30 +1040,4 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("b3", result)
   end
 
-  def test_79_round_5_O_took_corner_and_non_adjacent_edge_X_takes_edge_next_to_corner_O_v1
-    board = Board.new
-    p1 = PlayerPerfect.new
-    board.game_board = ["O", "", "", "X", "X", "O", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
-    wins = board.wins
-    x_pos = board.get_x
-    o_pos = board.get_o
-    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    assert_equal("b3", result)
-  end
-
-  def test_80_round_5_O_took_corner_and_non_adjacent_edge_X_takes_edge_next_to_corner_O_v2
-    board = Board.new
-    p1 = PlayerPerfect.new
-    board.game_board = ["O", "X", "", "", "X", "", "", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
-    wins = board.wins
-    x_pos = board.get_x
-    o_pos = board.get_o
-    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    assert_equal("m1", result)
-  end
-
 end

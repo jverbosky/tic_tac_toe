@@ -81,13 +81,10 @@ class PlayerPerfect
   # Method to handle logic based on player positions in round 5
   def move_r5(wins, player, opponent)
     if (player & @corners).size == 2 && (opponent & @corners).size == 1  # if O took a corner in round 2
-      puts "r5-one"
       position = corner_logic(player, opponent)  # take the last available corner
     elsif (player & @corners).size == 2 && (opponent & @corners).size == 0  # if O is perfect, will have center+edge
-      puts "r5-two"
       position = block(wins, player, opponent)  # so block at opposite edge
     else
-      puts "r5-three"
       position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
     end
   end
@@ -134,7 +131,6 @@ class PlayerPerfect
 
   # Method to return corner opposite to O when O has corner and non-adjacent edge
   def edge_logic(player, opponent)
-    puts "edge_logic"
     taken = player + opponent  # all occupied board positions
     side_index = 0  # array index for sides (clockwise: top = 0, right = 1, bottom = 2, right = 3)
     # get array index of the side with adjacent player and opponent marks
@@ -252,8 +248,6 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # O took opposite corner and non-adjacent edge v2, X sets 2 wins (t3) 19
 # board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # O took opposite corner and adjacent edge v1, X block & sets 2 wins (t3) 20
 # board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # O took took opposite corner and adjacent edge v2, X block & sets 2 wins (b1) 21
-# board.game_board = ["O", "", "", "X", "X", "O", "", "", ""]  # O took corner and non-adjacent edge, X takes edge next to corner O v1 (t2) 79
-# board.game_board = ["O", "X", "", "", "X", "", "", "O", ""]  # O took corner and non-adjacent edge, X takes edge next to corner O v2 (m1) 80
 #-----------------------------------------------------------------------------
 # board.game_board = ["X", "", "X", "", "", "", "O", "", "O"]  # added failsafe logic to move_x() round 5 (t2) 22
 # board.game_board = ["", "", "O", "O", "X", "", "", "", "X"]  # merged edge_logic() into block() (t1) 23
