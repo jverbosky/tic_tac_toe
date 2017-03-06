@@ -46,7 +46,8 @@ class PlayerPerfect
     elsif round == 4  # in round 4
       position = move_r4(wins, player, opponent)  # determine ideal position based on X and O's positions
     else
-      position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
+      # position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
+      position = win_check(wins, player, opponent)  # use win/block logic
     end
   end
 
@@ -229,7 +230,7 @@ p1 = PlayerPerfect.new
 # board.game_board = ["", "X", "O", "", "X", "", "", "", ""]  # X took center and edge, O blocks at opposite edge v2 (b2) 74
 # board.game_board = ["", "X", "", "", "O", "", "", "X", ""]  # X took edge and opposite edge, O takes corner v1 (t1/t3/b1/b3) 75
 # board.game_board = ["", "", "", "X", "O", "X", "", "", ""]  # X took edge and opposite edge, O takes corner v2 (t1/t3/b1/b3) 76
-board.game_board = ["", "X", "", "", "O", "X", "", "", ""]  # X took edge and adjacent edge, O takes adjacent corner v1 (t1/t3/b3) 77
+# board.game_board = ["", "X", "", "", "O", "X", "", "", ""]  # X took edge and adjacent edge, O takes adjacent corner v1 (t1/t3/b3) 77
 # board.game_board = ["", "", "", "", "O", "X", "", "X", ""]  # X took edge and adjacent edge, O takes adjacent corner v2 (t3/b1/b3) 78
 #-----------------------------------------------------------------------------
 # Round 5 - X

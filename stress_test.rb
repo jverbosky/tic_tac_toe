@@ -5,5 +5,5 @@ require 'stringio'
 stdout = StringIO.new
 $stdout = stdout
 
-10_000.times { load 'main.rb' }
-File.open("stress_test_2.txt", 'w') { |file| file.write(stdout.string) }
+100.times { load 'main.rb' }
+File.open("stress_test_3.txt", 'w') { |file| file.write(stdout.string) }
