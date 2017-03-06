@@ -77,16 +77,46 @@
 # - O -   X O X
 # - X -   - - -
 
+# corners = [0, 2, 6, 8]
+# opedg_1 = [1, 7]
+# opedg_2 = [3, 5]
+
+# opponent = [7, 1]
+
+# if (opponent & opedg_1).size == 2 || (opponent & opedg_2).size == 2
+#   position = corners.sample
+# end
+
+# p position
+
+#--------------------------------------------------
+
+# 77 & 78
+
+# take any adjacent corner, then check for win and block if none
+
+#   2       0       1       3
+# - X -   - - -   - - -   - X -
+# - O X   - O X   X O -   X O -
+# - - -   - X -   - X -   - - -
+
+edges = [1, 3, 5, 7]
+adjedg = [[5, 7], [3, 7], [1, 5], [1, 3]]  # adjacent edges (order vital for corner selection)
 corners = [0, 2, 6, 8]
-opedg_1 = [1, 7]
-opedg_2 = [3, 5]
 
-opponent = [7, 1]
+opponent = [1, 5]  # 0, 2, 8
+# opponent = [7, 5]  # 2, 6, 8
+# opponent = [7, 3]  # 0, 6, 8
+# opponent = [3, 1]  # 0, 2, 6
 
-if (opponent & opedg_1).size == 2 || (opponent & opedg_2).size == 2
-  position = corners.sample
+if (opponent & edges).count == 2
+  side_index = 0
+  adjedg.each_with_index { |pair, adj_index| side_index = adj_index if (opponent & pair).size == 2 }
+  op_corner = [corners[side_index]]
+  position = (corners - op_corner).sample
 end
 
-puts position
-
+# p side_index
+# p op_corner
+p position
 

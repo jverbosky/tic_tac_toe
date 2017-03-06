@@ -13,6 +13,7 @@ class PlayerPerfect
     @edges = [1, 3, 5, 7]  # edge positions
     @opedg_1 = [1, 7]  # opposite edges - set 1
     @opedg_2 = [3, 5]  # opposite edges - set 2
+    @adjedg = [[5, 7], [3, 7], [1, 5], [1, 3]]  # adjacent edges (order vital for corner knockout in r4)
     @center = [4]  # center position
   end
 
@@ -47,14 +48,16 @@ class PlayerPerfect
       end
     elsif round == 4
       taken = player + opponent  # all occupied board positions
-      # adjacent = 0
-      # @adjcor.each { |corners| adjacent += 1 if (corners & opponent).size == 2 }
-      # if adjacent > 0  # if X took adjacent corners
-      #   position = block(wins, player, opponent)  # block at edge
       if (opponent & @opcor_1).size == 2 || (opponent & @opcor_2).size == 2  # if X took opposite corners
         position = @edges.sample  # take an edge, any edge
       elsif (opponent & @opedg_1).size == 2 || (opponent & @opedg_2).size == 2  # if X took opposite edges
         position = @corners.sample  # take a corner, any corner
+      elsif (opponent & @edges).size == 2  # if X took adjacent edges
+        side_index = 0  # use to determine corner to knock out
+        # determine the adjedg array index of the pair of adjacent edges
+        @adjedg.each_with_index { |pair, adj_index| side_index = adj_index if (opponent & pair).size == 2 }
+        op_corner = [@corners[side_index]]  # use the index to identify the opposite corner
+        position = (@corners - op_corner).sample  # randomly return any corner except the one opposite to adjacent edges
       # check if player and opponent positions occupy opposite corners and center (non-perfect X)
       elsif (taken & (@opcor_1 + @center)).size == 3 || (taken & (@opcor_2 + @center)).size == 3
         if (taken & @opcor_1).size == 2  # if so, determine which corners are taken
@@ -207,9 +210,9 @@ p1 = PlayerPerfect.new
 # board.game_board = ["", "", "X", "", "X", "", "O", "", ""]  # X took center and corner opposite O, O takes corner v2 (t1/b3) 72
 # board.game_board = ["O", "", "", "X", "X", "", "", "", ""]  # X took center and edge, O blocks at opposite edge v1 (m3) 73
 # board.game_board = ["", "X", "O", "", "X", "", "", "", ""]  # X took center and edge, O blocks at opposite edge v2 (b2) 74
-board.game_board = ["", "X", "", "", "O", "", "", "X", ""]  # X took edge and opposite edge, O takes corner v1 (t1/t3/b1/b3) 75
+# board.game_board = ["", "X", "", "", "O", "", "", "X", ""]  # X took edge and opposite edge, O takes corner v1 (t1/t3/b1/b3) 75
 # board.game_board = ["", "", "", "X", "O", "X", "", "", ""]  # X took edge and opposite edge, O takes corner v2 (t1/t3/b1/b3) 76
-# board.game_board = ["", "X", "", "", "O", "X", "", "", ""]  # X took edge and adjacent edge, O takes adjacent corner v1 (t1/t3/b3) 77
+board.game_board = ["", "X", "", "", "O", "X", "", "", ""]  # X took edge and adjacent edge, O takes adjacent corner v1 (t1/t3/b3) 77
 # board.game_board = ["", "", "", "", "O", "X", "", "X", ""]  # X took edge and adjacent edge, O takes adjacent corner v2 (t3/b1/b3) 78
 #-----------------------------------------------------------------------------
 # Round 5 - X
@@ -242,7 +245,7 @@ board.game_board = ["", "X", "", "", "O", "", "", "X", ""]  # X took edge and op
 #
 # In round 6, check for win and block if none
 # - may need to add logic to pick random position if no win or block and multiple open positions
-#
+# - likely true of round 6 version of 71 & 72 and 77 & 78 (see notes in /sandbox/7.rb)
 #-----------------------------------------------------------------------------
 # Round 7 - X
 #-----------------------------------------------------------------------------
