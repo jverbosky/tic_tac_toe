@@ -44,12 +44,14 @@ class PlayerPerfect
         position = 4  # otherwise take the center
       end
     elsif round == 4
-      adjacent = 0
-      @adjcor.each { |corners| adjacent += 1 if (corners & opponent).size == 2 }
-      if adjacent > 0  # if X took adjacent corners
-        position = block(wins, player, opponent)  # block at the edge
+      # adjacent = 0
+      # @adjcor.each { |corners| adjacent += 1 if (corners & opponent).size == 2 }
+      # if adjacent > 0  # if X took adjacent corners
+      #   position = block(wins, player, opponent)  # block at edge
+      if (opponent & @opcor_1).size == 2 || (opponent & @opcor_2).size == 2  # if X took opposite corners
+        position = @edges.sample  # take an edge, any edge
       else
-        position = @edges.sample  # otherwise - take an edge, any edge
+        position = block(wins, player, opponent)  # otherwise block at edge
       end
     else
       position = block(wins, player, opponent)  # for remaining rounds when playing perfect X, block for a tie
@@ -140,8 +142,8 @@ end
 
 #-----------------------------------------------------------------------------
 # Sandbox testing
-# board = Board.new
-# p1 = PlayerPerfect.new
+board = Board.new
+p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 1 - X
 #-----------------------------------------------------------------------------
@@ -200,10 +202,10 @@ end
 # board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]  # O took center after corner, X block & sets 2 wins (b1) 15
 # board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]  # O took edge after op corner, X sets 2 wins (b1) 16
 # board.game_board = ["X", "", "", "", "O", "", "O", "", "X"]  # O took corner after center, X block & sets 2 wins (t3) 17
-# board.game_board = ["X", "O", "", "", "X", "", "", "", "O"]  # O took corner after edge v1, X sets 2 wins (b1) 18
-# board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # O took corner after edge v2, X sets 2 wins (t3) 19
-# board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # O took corner after edge v3, X block & sets 2 wins (t3) 20
-# board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # O took corner after edge v4, X block & sets 2 wins (b1) 21
+# board.game_board = ["X", "O", "", "", "X", "", "", "", "O"]  # O took opposite corner and non-adjacent edge v1, X sets 2 wins (b1) 18
+# board.game_board = ["X", "", "", "O", "X", "", "", "", "O"]  # O took opposite corner and non-adjacent edge v2, X sets 2 wins (t3) 19
+# board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]  # O took opposite corner and adjacent edge v1, X block & sets 2 wins (t3) 20
+# board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]  # O took took opposite corner and adjacent edge v2, X block & sets 2 wins (b1) 21
 #-----------------------------------------------------------------------------
 # board.game_board = ["X", "", "X", "", "", "", "O", "", "O"]  # added failsafe logic to move_x() round 5 (t2) 22
 # board.game_board = ["", "", "O", "O", "X", "", "", "", "X"]  # merged edge_logic() into block() (t1) 23
@@ -271,17 +273,17 @@ end
 # board.game_board = ["X", "O", "X", "O", "O", "X", "X", "", "O"]  # X ties v3 (b2)
 # board.game_board = ["O", "", "X", "X", "O", "O", "X", "O", "X"]  # X ties v4 (t2)
 #-----------------------------------------------------------------------------
-# round = board.get_round(board.x_count, board.o_count)
-# puts "Round: #{round}"
-# mark = board.get_mark(board.x_count, board.o_count)
-# wins = board.wins
-# x_pos = board.get_x
-# o_pos = board.get_o
+round = board.get_round(board.x_count, board.o_count)
+puts "Round: #{round}"
+mark = board.get_mark(board.x_count, board.o_count)
+wins = board.wins
+x_pos = board.get_x
+o_pos = board.get_o
 # # puts "Player: #{x_pos}"  # X rounds (odd)
 # # puts "Opponent: #{o_pos}"  # X rounds (odd)
 # puts "Player: #{o_pos}"  # O rounds (even)
 # puts "Opponent: #{x_pos}"  # O rounds (even)
-# puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
 #-----------------------------------------------------------------------------
 # player = board.get_x
 # opponent = board.get_o
