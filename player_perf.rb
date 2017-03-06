@@ -11,6 +11,8 @@ class PlayerPerfect
     @opcor_2 = [2, 6]  # opposite corners - set 2
     @adjcor = [[0, 2], [2, 8], [6, 8], [0, 6]]  # adjacent corners
     @edges = [1, 3, 5, 7]  # edge positions
+    @opedg_1 = [1, 7]
+    @opedg_2 = [3, 5]
     @center = [4]  # center position
   end
 
@@ -50,6 +52,14 @@ class PlayerPerfect
       #   position = block(wins, player, opponent)  # block at edge
       if (opponent & @opcor_1).size == 2 || (opponent & @opcor_2).size == 2  # if X took opposite corners
         position = @edges.sample  # take an edge, any edge
+      elsif (opponent & @edges).size == 1 && (opponent & @corners).size == 1  # if X has one edge and one corner
+        adjacent = false
+        @sides.each { |side| adjacent = true if (opponent & side).count > 1 }  # check if edge and corner are adjacent
+        if adjacent == false  # if edge and corner not adjacent, take random edge from non-opponent opedg pair
+          (opponent & @opedg_1).size == 1 ? position = @opedg_2.sample : position = @opedg_1.sample
+        else
+          position = block(wins, player, opponent)  # otherwise edge and corner are adjacent, so block at corner
+        end
       else
         position = block(wins, player, opponent)  # otherwise block at edge
       end
