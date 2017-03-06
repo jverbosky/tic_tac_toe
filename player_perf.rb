@@ -53,6 +53,15 @@ class PlayerPerfect
       #   position = block(wins, player, opponent)  # block at edge
       if (opponent & @opcor_1).size == 2 || (opponent & @opcor_2).size == 2  # if X took opposite corners
         position = @edges.sample  # take an edge, any edge
+      elsif (opponent & @opedg_1).size == 2 || (opponent & @opedg_2).size == 2  # if X took opposite edges
+        position = @corners.sample  # take a corner, any corner
+      # check if player and opponent positions occupy opposite corners and center (non-perfect X)
+      elsif (taken & (@opcor_1 + @center)).size == 3 || (taken & (@opcor_2 + @center)).size == 3
+        if (taken & @opcor_1).size == 2  # if so, determine which corners are taken
+          position = @opcor_2.sample  # take random corner from this opcor pair
+        else
+          position = @opcor_1.sample  # or this opcor pair
+        end
       elsif (opponent & @edges).size == 1 && (opponent & @corners).size == 1  # if X has one edge and one corner
         adjacent = false
         @sides.each { |side| adjacent = true if (opponent & side).count > 1 }  # check if edge and corner are adjacent
@@ -60,13 +69,6 @@ class PlayerPerfect
           (opponent & @opedg_1).size == 1 ? position = @opedg_2.sample : position = @opedg_1.sample
         else
           position = block(wins, player, opponent)  # otherwise edge and corner are adjacent, so block at corner
-        end
-      # check if player and opponent positions occupy opposite corners and center (non-perfect X)
-      elsif (taken & (@opcor_1 + @center)).size == 3 || (taken & (@opcor_2 + @center)).size == 3
-        if (taken & @opcor_1).size == 2  # if so, determine which corners are taken
-          position = @opcor_2.sample  # take random corner from this opcor pair
-        else
-          position = @opcor_1.sample  # or this opcor pair
         end
       else
         position = block(wins, player, opponent)  # otherwise block at edge
