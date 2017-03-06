@@ -876,23 +876,6 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("b3", result)
   end
 
-# Version prior to researching logic for round 6 against non-perfect X
-
-  # def test_67_round_4_X_took_corner_and_non_adjacent_edge_O_takes_non_opposite_edge_v1
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["X", "", "", "", "O", "", "", "X", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   edges = ["m1", "m3"]
-  #   move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   result = edges.include? move
-  #   assert_equal(true, result)
-  # end
-
   def test_67_round_4_X_took_corner_and_non_adjacent_edge_O_takes_edge_opposite_corner_X_v1
     board = Board.new
     p1 = PlayerPerfect.new
@@ -905,23 +888,6 @@ class TestPlayerSequential < Minitest::Test
     result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
     assert_equal("m3", result)
   end
-
-# Version prior to researching logic for round 6 against non-perfect X
-
-  # def test_68_round_4_X_took_corner_and_non_adjacent_edge_O_takes_non_opposite_edge_v2
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["X", "", "", "", "O", "X", "", "", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   edges = ["t2", "b2"]
-  #   move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   result = edges.include? move
-  #   assert_equal(true, result)
-  # end
 
   def test_68_round_4_X_took_corner_and_non_adjacent_edge_O_takes_edge_opposite_corner_X_v2
     board = Board.new
@@ -1008,7 +974,7 @@ class TestPlayerSequential < Minitest::Test
   def test_74_round_4_X_took_center_and_edge_O_blocks_at_opposite_edge_v2
     board = Board.new
     p1 = PlayerPerfect.new
-    board.game_board = ["", "X", "O", "", "X", "", "", "", ""]
+    board.game_board = ["O", "X", "", "", "X", "", "", "", ""]
     round = board.get_round(board.x_count, board.o_count)
     mark = board.get_mark(board.x_count, board.o_count)
     wins = board.wins
@@ -1048,23 +1014,6 @@ class TestPlayerSequential < Minitest::Test
     assert_equal(true, result)
   end
 
-# Version prior to researching logic for round 6 against non-perfect X
-
-  # def test_77_round_4_X_took_edge_and_adjacent_edge_O_takes_adjacent_corner_v1
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["", "X", "", "", "O", "X", "", "", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   corners = ["t1", "t3", "b3"]
-  #   move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   result = corners.include? move
-  #   assert_equal(true, result)
-  # end
-
   def test_77_round_4_X_took_edge_and_adjacent_edge_O_takes_corner_between_X_v1
     board = Board.new
     p1 = PlayerPerfect.new
@@ -1078,23 +1027,6 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("t3", result)
   end
 
-# Version prior to researching logic for round 6 against non-perfect X
-
-  # def test_78_round_4_X_took_edge_and_adjacent_edge_O_takes_adjacent_corner_v2
-  #   board = Board.new
-  #   p1 = PlayerPerfect.new
-  #   board.game_board = ["", "", "", "", "O", "X", "", "X", ""]
-  #   round = board.get_round(board.x_count, board.o_count)
-  #   mark = board.get_mark(board.x_count, board.o_count)
-  #   wins = board.wins
-  #   x_pos = board.get_x
-  #   o_pos = board.get_o
-  #   corners = ["t3", "b1", "b3"]
-  #   move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-  #   result = corners.include? move
-  #   assert_equal(true, result)
-  # end
-
   def test_78_round_4_X_took_edge_and_adjacent_edge_O_takes_corner_between_X_v2
     board = Board.new
     p1 = PlayerPerfect.new
@@ -1106,6 +1038,32 @@ class TestPlayerSequential < Minitest::Test
     o_pos = board.get_o
     result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
     assert_equal("b3", result)
+  end
+
+  def test_79_round_5_O_took_corner_and_non_adjacent_edge_X_takes_edge_next_to_corner_O_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "", "", "X", "X", "O", "", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b3", result)
+  end
+
+  def test_80_round_5_O_took_corner_and_non_adjacent_edge_X_takes_edge_next_to_corner_O_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "", "", "X", "", "", "O", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m1", result)
   end
 
 end

@@ -29,7 +29,8 @@ p target  # [5, 7]
 
 position = target - edge  # get position of open edge
 p position # [5]
-=end
+
+#---------------------------------------------------------------------
 
 # Revised 77 -78 logic to grab corner between adjacent X edges
 
@@ -62,3 +63,9 @@ p position
   #   op_corner = [@corners[side_index]]  # use the index to identify the opposite corner
   #   position = (@corners - op_corner).sample  # randomly return any corner except opposite one
   # end
+
+=end
+#---------------------------------------------------------------------
+
+# Added logic for round 5 (X at corner and edge, O blocking and opposite corner)
+
