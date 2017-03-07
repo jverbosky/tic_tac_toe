@@ -1256,4 +1256,216 @@ class TestPlayerSequential < Minitest::Test
     assert_equal(true, result)
   end
 
+  def test_95_round_8_X_blocked_at_edge_O_blocks_at_corner_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "O", "X", "O", "O", "X", "", "X", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b3", result)
+  end
+
+  def test_96_round_8_X_blocked_at_edge_O_blocks_at_corner_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["", "X", "X", "X", "O", "O", "", "O", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t1", result)
+  end
+
+  def test_97_round_8_X_blocked_at_edge_O_takes_random_open_position_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "X", "O", "O", "O", "X", "X", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    open = ["b2", "b3"]
+    move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    result = open.include? move
+    assert_equal(true, result)
+  end
+
+  def test_98_round_8_X_blocked_at_edge_O_takes_random_open_position_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "O", "X", "", "O", "X", "", "X", "O"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    open = ["m1", "b1"]
+    move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    result = open.include? move
+    assert_equal(true, result)
+  end
+
+  def test_99_round_8_X_blocked_at_corner_O_blocks_at_edge_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "", "X", "X", "O", "O", "O", "X", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t2", result)
+  end
+
+  def test_100_round_8_X_blocked_at_corner_O_blocks_at_edge_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "X", "O", "", "O", "X", "X", "O", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m1", result)
+  end
+
+  def test_101_round_8_X_took_random_open_edge_O_blocks_at_edge_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "", "X", "X", "X", "O", "O", "X", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t2", result)
+  end
+
+  def test_102_round_8_X_took_random_open_edge_O_blocks_at_edge_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "O", "", "X", "X", "", "O", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m1", result)
+  end
+
+  def test_103_round_8_X_took_random_non_opposite_corner_O_blocks_at_corner_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "", "X", "X", "O", "X", "O", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t3", result)
+  end
+
+  def test_104_round_8_X_took_random_non_opposite_corner_O_blocks_at_corner_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "X", "X", "X", "O", "", "O", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b1", result)
+  end
+
+  def test_105_round_8_X_blocked_at_corner_O_blocks_at_corner_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "", "O", "X", "X", "O", "X", "", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b2", result)
+  end
+
+  def test_106_round_8_X_blocked_at_corner_O_blocks_at_corner_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "X", "", "X", "", "O", "O", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m3", result)
+  end
+
+  def test_107_round_8_X_blocked_at_edge_or_corner_O_wins_with_fork_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "", "X", "O", "", "O", "X", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("t3", result)
+  end
+
+  def test_108_round_8_X_blocked_at_edge_or_corner_O_wins_with_fork_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "", "X", "X", "O", "X", "O", "", "O"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b2", result)
+  end
+
+  def test_109_round_8_X_blocked_at_corner_O_blocks_at_edge_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "X", "O", "", "O", "X", "X", "", "O"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m1", result)
+  end
+
+  def test_110_round_8_X_blocked_at_corner_O_blocks_at_edge_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "", "O", "", "O", "X", "X", "X", "O"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("m1", result)
+  end
+
 end
