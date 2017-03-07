@@ -98,20 +98,20 @@ class PlayerPerfect
     taken = player + opponent  # all occupied board positions
     taken_edges = taken & @edges  # all occupied edges
     taken_corners = taken & @corners  # all occupied corners
-    c_side = 7  # @sides index of side with two corners, using 7 to avoid false positives
-    e_side = 7  # @sides index of side with one edge, using 7 to avoid false positives
-    e_index = 11  # index of @adjedg pair, using 11 to avoid false positives
-    c_index = 17  # index of @corners, using 17 to avoid false positives
-    # Collect the index of the side with two corners and the side with one edge
+    c_side = 7  # @sides index of side with two corners (placeholder value to avoid false positives)
+    e_side = 7  # @sides index of side with one edge (placeholder value to avoid false positives)
+    c_index = 11  # index of @corners (placeholder value to avoid false positives)
+    e_index = 17  # index of @adjedg pair (placeholder value to avoid false positives)
+    # Collect indexes of sides where opponent has two corners and opponent has one edge
     @sides.each_with_index { |side, s_index| c_side = s_index if (side & opponent_corners).size == 2 }
     @sides.each_with_index { |side, s_index| e_side = s_index if (side & opponent_edges).size == 1 }
-    # Collect the indexes of the opponent's adjacent edge pair and corner
+    # Collect indexes of opponent's adjacent edge pair and corner
     @corners.each_with_index { |corner, cor_index| c_index = cor_index if opponent.include? corner }
     @adjedg.each_with_index { |e_pair, adj_index| e_index = adj_index if (opponent & e_pair).size == 2 }
-    if (c_side - e_side).abs == 2
-      position = (@edges - taken_edges).sample  # take random open edge
+    if (c_side - e_side).abs == 2  # if side indexes are off by two, they oppose
+      position = (@edges - taken_edges).sample  # so take random open edge
     elsif e_index == c_index  # if index of adjacent edges and corner match, they oppose
-      position = (@corners - taken_corners).sample  # take random open corner
+      position = (@corners - taken_corners).sample  # so take random open corner
     else
       position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
     end

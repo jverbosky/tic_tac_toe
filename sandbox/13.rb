@@ -1,4 +1,4 @@
-Rounds 6+ Research
+Rounds 8+ Research
 __________________
 
 63 - 64 > 79 - 80
