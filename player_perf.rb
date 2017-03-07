@@ -34,7 +34,7 @@ class PlayerPerfect
     elsif round == 5  # in round 5
       position = move_r5(wins, player, opponent)  # determine ideal position based on O's positions
     else  # in remaining rounds
-      position = win_check(wins, player, opponent)  # use win/block logic
+      position = win_check(wins, player, opponent)  # use win/block logic for rounds 7 and 9
     end
   end
 
@@ -92,7 +92,7 @@ class PlayerPerfect
     end
   end
 
-  # Method to handle logic based on adjacent/opposite player positions in rounds 6 and 7
+  # Method to handle logic based on adjacent/opposite player positions in rounds 6
   def move_r6(wins, player, opponent)
     taken = player + opponent  # all occupied board positions
     open_corners = (@corners - (taken & @corners))  # all open corners
