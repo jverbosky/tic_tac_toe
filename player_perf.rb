@@ -9,7 +9,6 @@ class PlayerPerfect
     @corners = [0, 2, 6, 8]  # corner positions
     @opcor_1 = [0, 8]  # opposite corners - set 1
     @opcor_2 = [2, 6]  # opposite corners - set 2
-    @adjcor = [[0, 2], [2, 8], [6, 8], [0, 6]]  # adjacent corners
     @edges = [1, 3, 5, 7]  # edge positions
     @opedg_1 = [1, 7]  # opposite edges - set 1
     @opedg_2 = [3, 5]  # opposite edges - set 2
@@ -93,7 +92,22 @@ class PlayerPerfect
 
   # Method to handle logic based on player positions in round 6
   def move_r6(wins, player, opponent)
-    position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
+    taken_corners = opponent & @corners  # corners taken by opponent
+    taken_edges = opponent & @edges  # edges taken by opponent
+    c_side = 7  # @sides index of side with two corners, using 7 to avoid false positives
+    e_side = 7  # @sides index of side with one edge, using 7 to avoid false positives
+    # Collect the index of the side with two corners and the side with one edge
+    @sides.each_with_index { |side, s_index| c_side = s_index if (side & taken_corners).size == 2 }
+    @sides.each_with_index { |side, s_index| e_side = s_index if (side & taken_edges).size == 1 }
+    if (c_side - e_side).abs == 2
+      puts "yep, getting here"
+      taken = player + opponent  # all occupied board positions
+      taken_edges = taken & @edges  # determine which edge positions are occupied
+      position = (@edges - taken_edges).sample  # take random open edge
+    # write logic for 93 & 94  
+    else
+      position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
+    end
   end
 
   # Method to return the corner opposite the current corner
