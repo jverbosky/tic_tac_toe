@@ -164,13 +164,18 @@ class PlayerPerfect
 
   # Method to return corner opposite to O when O has corner and non-adjacent edge
   def edge_logic(player, opponent)
+    all = @corners + @edges + @center  # all board positions
     taken = player + opponent  # all occupied board positions
-    side_index = 0  # array index for sides (clockwise: top = 0, right = 1, bottom = 2, right = 3)
-    # get array index of the side with adjacent player and opponent marks
-    @sides.each_with_index { |side, s_index| side_index = s_index if (taken & side).size > 1 }
-    # determine empty corner in side with adjacent player and opponent marks
-    refcor = @sides[side_index] - (taken & @sides[side_index])
-    position = op_corner(refcor)  # take corner that is opposite the reference corner
+    if taken.count < 7  # if called in a round lower than 8
+      side_index = 0  # array index for sides (clockwise: top = 0, right = 1, bottom = 2, right = 3)
+      # get array index of the side with adjacent player and opponent marks
+      @sides.each_with_index { |side, s_index| side_index = s_index if (taken & side).size > 1 }
+      # determine empty corner in side with adjacent player and opponent marks
+      refcor = @sides[side_index] - (taken & @sides[side_index])
+      position = op_corner(refcor)  # take corner that is opposite the reference corner
+    else  # otherwise take one of the (or the very) last position
+      position = (all - taken).sample  # take a random position
+    end
   end
 
   # Method to handle logic when X has one edge and one corner in round 4
