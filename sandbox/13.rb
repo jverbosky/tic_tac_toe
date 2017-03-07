@@ -6,7 +6,7 @@ __________________
 - r5 - X blocks at edge
 - r6 - O should take an open edge for a chance to win
 - r7 - X blocks at edge
-- r8 - O blocks at corner     
+- r8 - O blocks at corner
 - r9 - X takes last open position      
 
 X O X   - X X
@@ -103,7 +103,7 @@ __________________
 - r5 - X blocks at corner, chance to win
 - r6 - O blocks at corner, creates fork
 - r7 - X blocks at edge or corner
-- r8 - O wins    
+- r8 - O wins
 
 O X -   X - X
 X O -   X O X
@@ -116,7 +116,7 @@ __________________
 - r5 - X blocks at corner
 - r6 - O takes either corner
 - r7 - X blocks at corner
-- r8 - O blocks at edge    
+- r8 - O blocks at edge
 - r9 - X takes last open position      
 
 X X O   X - O
