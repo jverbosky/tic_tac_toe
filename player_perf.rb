@@ -9,6 +9,7 @@ class PlayerPerfect
     @corners = [0, 2, 6, 8]  # corner positions
     @opcor_1 = [0, 8]  # opposite corners - set 1
     @opcor_2 = [2, 6]  # opposite corners - set 2
+    @adjcor = [[8, 6], [2, 8], [6, 0], [0, 2]]  # adjacent corners (order vital for opposite edge comparison)
     @edges = [1, 3, 5, 7]  # edge positions
     @opedg_1 = [1, 7]  # opposite edges - set 1
     @opedg_2 = [3, 5]  # opposite edges - set 2
@@ -32,6 +33,8 @@ class PlayerPerfect
       position = move_r3(player, opponent)  # determine ideal position based on O's position
     elsif round == 5  # in round 5
       position = move_r5(wins, player, opponent)  # determine ideal position based on O's positions
+    elsif round == 7  # in round 7
+      position = move_r7(wins, player, opponent)  # determine ideal position based on O's positions
     else  # in remaining rounds
       position = win_check(wins, player, opponent)  # use win/block logic
     end
@@ -47,7 +50,7 @@ class PlayerPerfect
     elsif round == 6  # in round 6
       position = move_r6(wins, player, opponent)  # determine ideal position based on X and O's positions
     else
-      position = move_r8(wins, player, opponent)  # determine ideal position based on X and O's positions
+      position = win_check(wins, player, opponent)  # use win/block logic
     end
   end
 
@@ -118,8 +121,28 @@ class PlayerPerfect
   end
 
   # Method to handle logic based on player positions in round 8
-  def move_r8(wins, player, opponent)
-    position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
+  def move_r7(wins, player, opponent)
+    taken = player + opponent  # all occupied board positions
+    taken_corner = opponent & @corners  # corner taken by opponent
+    opposite_corner = [op_corner(taken_corner)]  # corner across from opponent corner
+    taken_edges = taken & @edges  # all occupied edges
+    adj_c_index = 11 # index of @adjcor pair (placeholder value to avoid false positives)
+    adj_e_index = 17  # index of @adjedg pair (placeholder value to avoid false positives)
+    c_index = 11  # index of @corners (placeholder value to avoid false positives)
+    e_index = 17 # index of @edges (placeholder value to avoid false positives)
+    # Collect indexes of opponent's adjacent corner pair and opposite edge
+    @adjcor.each_with_index { |pair, a_index| adj_c_index = a_index if (opponent & pair).size == 2 }
+    @edges.each_with_index { |edge, edge_index| e_index = edge_index if opponent.include? edge }
+    # Collect indexes of opponent's adjacent edge pair and opposite corner
+    @adjedg.each_with_index { |e_pair, adj_index| adj_e_index = adj_index if (opponent & e_pair).size == 2 }
+    @corners.each_with_index { |corner, cor_index| c_index = cor_index if opponent.include? corner }
+    if adj_c_index == e_index  # if index of adjacent corners and edge match, they oppose
+      position = (@edges - taken_edges).sample  # so take random open edge
+    elsif c_index == adj_e_index  # if index of adjacent edges and corner match, they oppose
+      position = (@corners - (taken_corner + opposite_corner)).sample  # so take random non-opposite open corner
+    else
+      position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
+    end
   end
 
   # Method to return the corner opposite the current corner
@@ -222,8 +245,8 @@ end
 
 #-----------------------------------------------------------------------------
 # Sandbox testing
-board = Board.new
-p1 = PlayerPerfect.new
+# board = Board.new
+# p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # Round 1 - X
 #-----------------------------------------------------------------------------
@@ -381,17 +404,17 @@ p1 = PlayerPerfect.new
 #
 #-----------------------------------------------------------------------------
 
-round = board.get_round(board.x_count, board.o_count)
-puts "Round: #{round}"
-mark = board.get_mark(board.x_count, board.o_count)
-wins = board.wins
-x_pos = board.get_x
-o_pos = board.get_o
+# round = board.get_round(board.x_count, board.o_count)
+# puts "Round: #{round}"
+# mark = board.get_mark(board.x_count, board.o_count)
+# wins = board.wins
+# x_pos = board.get_x
+# o_pos = board.get_o
 # # puts "Player: #{x_pos}"  # X rounds (odd)
 # # puts "Opponent: #{o_pos}"  # X rounds (odd)
 # puts "Player: #{o_pos}"  # O rounds (even)
 # puts "Opponent: #{x_pos}"  # O rounds (even)
-puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+# puts p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
 #-----------------------------------------------------------------------------
 # player = board.get_x
 # opponent = board.get_o
