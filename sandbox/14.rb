@@ -83,11 +83,11 @@ p position
 
 #------------------------------------------
 
-Added move_r7 and now some "unrelated" tests failing - errors referencing lines that are not in player_perf.rb
+# Added move_r7 and now some "unrelated" tests failing - errors referencing lines that are not in player_perf.rb
 
-27 - 359
-32 - 424
-33 - 437
+# 27 - 359
+# 32 - 424
+# 33 - 437
 
-Need to research
+# Need to research
 

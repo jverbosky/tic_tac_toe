@@ -12,12 +12,12 @@ require_relative "console.rb"
 
 # Initialize objects
 board = Board.new
-# p1 = PlayerSequential.new  # alternate p1
-# p1 = PlayerRandom.new  # alternate p1
 p1 = PlayerPerfect.new
-# p2 = PlayerSequential.new
+# p1 = PlayerRandom.new  # alternate p1
+# p1 = PlayerSequential.new  # alternate p1
+p2 = PlayerPerfect.new
 # p2 = PlayerRandom.new  # alternate p2
-p2 = PlayerPerfect.new  # alternate p2
+# p2 = PlayerSequential.new  # alternate p2
 position = Position.new
 console = Console.new
 
