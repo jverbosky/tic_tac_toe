@@ -19,7 +19,7 @@ __________________
 - r5 - X blocks at corner
 - r6 - O blocks at edge
 - r7 - X blocks at edge
-- r8 - O takes random position      
+- r8 - O takes random position
 - r9 - X takes last open position      
 
 X X O   X O X
@@ -61,7 +61,7 @@ __________________
 - r4 - O takes a corner
 - r5 - X blocks at edge
 - r6 - O should use win/block logic
-- r7 - X should take either open edge for a chance to win      
+- r7 - X should take either open edge for a chance to win
 - r8 - O blocks at edge
 - r9 - X takes last open position  
 

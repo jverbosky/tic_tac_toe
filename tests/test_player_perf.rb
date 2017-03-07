@@ -1468,4 +1468,49 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("m1", result)
   end
 
+  def test_111_round_7_O_blocked_at_edge_X_takes_random_open_edge_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "", "X", "X", "X", "O", "O", "", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    edges = ["t2", "b2"]
+    move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    result = edges.include? move
+    assert_equal(true, result)
+  end
+
+  def test_112_round_7_O_blocked_at_edge_X_takes_random_open_edge_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "O", "", "X", "", "", "O", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    edges = ["m1", "m3"]
+    move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    result = edges.include? move
+    assert_equal(true, result)
+  end
+
+  def test_113_round_7_O_blocked_at_edge_X_takes_corner_adjacent_to_O_corner_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "", "X", "X", "O", "", "O", ""]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    edges = ["t3", "b1"]
+    move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    result = edges.include? move
+    assert_equal(true, result)
+  end
+
 end

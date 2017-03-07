@@ -105,12 +105,12 @@ class PlayerPerfect
     # Collect indexes of sides where opponent has two corners and opponent has one edge
     @sides.each_with_index { |side, s_index| c_side = s_index if (side & opponent_corners).size == 2 }
     @sides.each_with_index { |side, s_index| e_side = s_index if (side & opponent_edges).size == 1 }
-    # Collect indexes of opponent's adjacent edge pair and corner
+    # Collect indexes of opponent's adjacent edge pair and opposite corner
     @corners.each_with_index { |corner, cor_index| c_index = cor_index if opponent.include? corner }
     @adjedg.each_with_index { |e_pair, adj_index| e_index = adj_index if (opponent & e_pair).size == 2 }
     if (c_side - e_side).abs == 2  # if side indexes are off by two, they oppose
       position = (@edges - taken_edges).sample  # so take random open edge
-    elsif e_index == c_index  # if index of adjacent edges and corner match, they oppose
+    elsif c_index == e_index  # if index of adjacent edges and corner match, they oppose
       position = (@corners - taken_corners).sample  # so take random open corner
     else
       position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
@@ -166,7 +166,7 @@ class PlayerPerfect
   def edge_logic(player, opponent)
     all = @corners + @edges + @center  # all board positions
     taken = player + opponent  # all occupied board positions
-    if taken.count < 7  # if called in a round lower than 8
+    if taken.size < 7  # if called in a round lower than 8
       side_index = 0  # array index for sides (clockwise: top = 0, right = 1, bottom = 2, right = 3)
       # get array index of the side with adjacent player and opponent marks
       @sides.each_with_index { |side, s_index| side_index = s_index if (taken & side).size > 1 }
@@ -181,7 +181,7 @@ class PlayerPerfect
   # Method to handle logic when X has one edge and one corner in round 4
   def edgcor_logic(wins, player, opponent)
     adjacent = false  # use to determine adjacency
-    @sides.each { |side| adjacent = true if (opponent & side).count > 1 }  # check if edge and corner are adjacent
+    @sides.each { |side| adjacent = true if (opponent & side).size > 1 }  # check if edge and corner are adjacent
     if adjacent == false  # if edge and corner not adjacent, take edge opposite opponent corner
       corner = @corners & opponent  # position of opponent corner
       edge = @edges & opponent  # position of opponent edge
@@ -199,11 +199,11 @@ class PlayerPerfect
     position = []  # placeholder for position that will block the opponent
     wins.each do |win|  # check each win pattern
       difference = win - opponent  # difference between current win array and opponent position array
-      if difference.count == 1  # if opponent 1 move from win, block position unless already player mark
-        position.push(difference[0]) unless (player & difference).count == 1
+      if difference.size == 1  # if opponent 1 move from win, block position unless already player mark
+        position.push(difference[0]) unless (player & difference).size == 1
       end
     end
-    position.count > 0 ? position.sample : edge_logic(player, opponent)  # .sample in case of multiple
+    position.size > 0 ? position.sample : edge_logic(player, opponent)  # .sample in case of multiple
   end
 
   # Method to return position to win, call block() if no wins
@@ -211,11 +211,11 @@ class PlayerPerfect
     position = []  # placeholder for position that will give 3-in-a-row
     wins.each do |win|  # check each win pattern
       difference = win - player  # difference between current win array and player position array
-      if difference.count == 1  # if player 1 move from win, take position unless already opponent mark
-        position.push(difference[0]) unless (opponent & difference).count == 1
+      if difference.size == 1  # if player 1 move from win, take position unless already opponent mark
+        position.push(difference[0]) unless (opponent & difference).size == 1
       end
     end
-    position.count > 0 ? position.sample : block(wins, player, opponent)  # .sample in case of multiple
+    position.size > 0 ? position.sample : block(wins, player, opponent)  # .sample in case of multiple
   end
 
 end
@@ -335,6 +335,10 @@ p1 = PlayerPerfect.new
 # board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]  # X blocks O v2 (b1) 40
 # board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]  # X blocks O v3 (t1) 41
 # board.game_board = ["O", "", "X", "X", "O", "O", "X", "", ""]  # X blocks O v4 (b3) 42
+#-----------------------------------------------------------------------------
+# board.game_board = ["O", "", "X", "X", "X", "O", "O", "", ""]  # O blocks at edge, X takes random open edge v1 (t2/b2) 111
+# board.game_board = ["O", "X", "O", "", "X", "", "", "O", "X"]  # O blocks at edge, X takes random open edge v2 (m1/m3) 112
+# board.game_board = ["O", "X", "", "X", "X", "O", "", "O", ""]  # O blocks at edge, X takes random corner adjacent to O corner (t3/b1) 113
 #-----------------------------------------------------------------------------
 # - multiple selection tests
 #-----------------------------------------------------------------------------
