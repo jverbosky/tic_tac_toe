@@ -1511,4 +1511,30 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("t3", result)
   end
 
+  def test_114_round_9_X_takes_last_open_position_no_win_or_block_v1
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["X", "O", "X", "O", "O", "X", "", "X", "O"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b1", result)
+  end
+
+  def test_115_round_9_X_takes_last_open_position_no_win_or_block_v2
+    board = Board.new
+    p1 = PlayerPerfect.new
+    board.game_board = ["O", "X", "X", "X", "O", "O", "", "O", "X"]
+    round = board.get_round(board.x_count, board.o_count)
+    mark = board.get_mark(board.x_count, board.o_count)
+    wins = board.wins
+    x_pos = board.get_x
+    o_pos = board.get_o
+    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    assert_equal("b1", result)
+  end
+
 end

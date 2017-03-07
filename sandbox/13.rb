@@ -1,26 +1,32 @@
 Rounds 8+ Research
 __________________
 
-63 - 64 > 79 - 80 > 95 - 96
+63 - 64 > 79 - 80 > 95 - 96 > 114 - 115
 - r4 - O blocks at edge
 - r5 - X blocks at edge
 - r6 - O should take an open edge for a chance to win
 - r7 - X blocks at edge
 - r8 - O blocks at corner
-- r9 - X takes last open position      
+- r9 - X takes last open position
 
 X O X   - X X
 O O X   X O O
 - X -   - O X
+
+Round 9 - adding here since simple
+
+X O X   O X X
+O O X   X O O
+- X O   - O X
 __________________
 
-65 - 66 > 81 - 82 > 97 - 98
+65 - 66 > 81 - 82 > 97 - 98 > 114 - 115
 - r4 - O blocks at corner
 - r5 - X blocks at corner
 - r6 - O blocks at edge
 - r7 - X blocks at edge
 - r8 - O takes random position
-- r9 - X takes last open position      
+- r9 - X takes last open position
 
 X X O   X O X
 O O X   - O X
@@ -34,7 +40,7 @@ __________________
 - r6 - O blocks at corner
 - r7 - X blocks at corner
 - r8 - O blocks at edge
-- r9 - X takes last open position       
+- r9 - X takes last open position
 
 X - X   X X O
 X O O   - O X
@@ -46,9 +52,9 @@ __________________
 - r4 - O blocks at corner
 - r5 - X blocks at edge
 - r6 - O blocks at edge
-- r7 - X should take either open edge for a chance to win      
+- r7 - X should take either open edge for a chance to win
 - r8 - O blocks at edge
-- r9 - X takes last open position      
+- r9 - X takes last open position
 
 O - X   O X O
 X X O   - X X
@@ -63,7 +69,7 @@ __________________
 - r6 - O should use win/block logic
 - r7 - X should take either open edge for a chance to win
 - r8 - O blocks at edge
-- r9 - X takes last open position  
+- r9 - X takes last open position
 
 O - -   - - X
 X X -   - X -
@@ -75,9 +81,9 @@ __________________
 - r4 - O blocks at edge
 - r5 - X takes open edge
 - r6 - O blocks at edge
-- r7 - X takes corner that not opposite from O corner      
+- r7 - X takes corner that not opposite from O corner
 - r8 - O blocks at corner
-- r9 - X takes last open position  
+- r9 - X takes last open position
 
 O X -   O X X
 X X O   X X O
@@ -117,7 +123,7 @@ __________________
 - r6 - O takes either corner
 - r7 - X blocks at corner
 - r8 - O blocks at edge
-- r9 - X takes last open position      
+- r9 - X takes last open position
 
 X X O   X - O
 - O X   - O X

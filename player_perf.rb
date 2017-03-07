@@ -50,7 +50,7 @@ class PlayerPerfect
     elsif round == 6  # in round 6
       position = move_r6(wins, player, opponent)  # determine ideal position based on X and O's positions
     else
-      position = win_check(wins, player, opponent)  # use win/block logic
+      position = win_check(wins, player, opponent)  # use win/block logic for round 8
     end
   end
 
@@ -96,25 +96,13 @@ class PlayerPerfect
 
   # Method to handle logic based on player positions in round 6
   def move_r6(wins, player, opponent)
-    opponent_corners = opponent & @corners  # corners taken by opponent
-    opponent_edges = opponent & @edges  # edges taken by opponent
     taken = player + opponent  # all occupied board positions
-    taken_edges = taken & @edges  # all occupied edges
     taken_corners = taken & @corners  # all occupied corners
-    c_side = 7  # @sides index of side with two corners (placeholder value to avoid false positives)
-    e_side = 7  # @sides index of side with one edge (placeholder value to avoid false positives)
-    c_index = 11  # index of @corners (placeholder value to avoid false positives)
-    e_index = 17  # index of @adjedg pair (placeholder value to avoid false positives)
-    # Collect indexes of sides where opponent has two corners and opponent has one edge
-    @sides.each_with_index { |side, s_index| c_side = s_index if (side & opponent_corners).size == 2 }
-    @sides.each_with_index { |side, s_index| e_side = s_index if (side & opponent_edges).size == 1 }
-    # Collect indexes of opponent's adjacent edge pair and opposite corner
-    @adjedg.each_with_index { |pair, a_index| e_index = a_index if (opponent & pair).size == 2 }
-    @corners.each_with_index { |corner, cor_index| c_index = cor_index if opponent.include? corner }
-    if (c_side - e_side).abs == 2  # if side indexes are off by two, they oppose
-      position = (@edges - taken_edges).sample  # so take random open edge
-    elsif c_index == e_index  # if index of adjacent edges and corner match, they oppose
-      position = (@corners - taken_corners).sample  # so take random open corner
+    taken_edges = taken & @edges  # all occupied edges
+    if adj_cor_op_edg?(player, opponent)  # if opponent has adjacent corners and opposing edge
+      position = (@edges - taken_edges).sample  # take a random open edge
+    elsif adj_edg_op_cor?(player, opponent)  # if opponent has adjacent edges and opposing corner
+      position = (@corners - taken_corners).sample  # take a random open corner
     else
       position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
     end
@@ -124,13 +112,31 @@ class PlayerPerfect
   def move_r7(wins, player, opponent)
     taken = player + opponent  # all occupied board positions
     taken_edges = taken & @edges  # all occupied edges
+    if adj_cor_op_edg?(player, opponent)  # if opponent has adjacent corners and opposing edge
+      position = (@edges - taken_edges).sample  # take a random open edge
+    else
+      position = win_check(wins, player, opponent)  # otherwise use win/block/edge logic
+    end
+  end
+
+  # Method to determine if opponent has pair of adjacent edges and an opposing corner
+  def adj_edg_op_cor?(player, opponent)
+    c_index = 11  # index of @corners (placeholder value to avoid false positives)
+    e_index = 17  # index of @adjedg pair (placeholder value to avoid false positives)
+    # Collect indexes of opponent's adjacent edge pair and opposite corner
+    @adjedg.each_with_index { |pair, a_index| e_index = a_index if (opponent & pair).size == 2 }
+    @corners.each_with_index { |corner, cor_index| c_index = cor_index if opponent.include? corner }
+    c_index == e_index  # if index of adjacent edges and corner match, they oppose
+  end
+
+  # Method to determine if opponent has pair of adjacent corners and an opposing edge
+  def adj_cor_op_edg?(player, opponent)
     c_index = 11 # index of @adjcor pair (placeholder value to avoid false positives)
     e_index = 17 # index of @edges (placeholder value to avoid false positives)
     # Collect indexes of opponent's adjacent corner pair and opposite edge
     @adjcor.each_with_index { |pair, a_index| c_index = a_index if (opponent & pair).size == 2 }
     @edges.each_with_index { |edge, edge_index| e_index = edge_index if opponent.include? edge }
-    # if index of corners and edge match they oppose so take random edge, else use win/block/edge logic
-    c_index == e_index ? position = (@edges - taken_edges).sample : position = win_check(wins, player, opponent)
+    c_index == e_index  # if index of adjacent corners and edge match, they oppose
   end
 
   # Method to return the corner opposite the current corner
@@ -349,7 +355,7 @@ p1 = PlayerPerfect.new
 #-----------------------------------------------------------------------------
 # board.game_board = ["O", "", "X", "X", "X", "O", "O", "", ""]  # O blocks at edge, X takes random open edge v1 (t2/b2) 111
 # board.game_board = ["O", "X", "O", "", "X", "", "", "O", "X"]  # O blocks at edge, X takes random open edge v2 (m1/m3) 112
-board.game_board = ["O", "X", "", "X", "X", "O", "", "O", ""]  # O blocks at edge, X takes random corner adjacent to O corner (t3) 113
+# board.game_board = ["O", "X", "", "X", "X", "O", "", "O", ""]  # O blocks at edge, X takes random corner adjacent to O corner (t3) 113
 #-----------------------------------------------------------------------------
 # - multiple selection tests
 #-----------------------------------------------------------------------------
@@ -386,6 +392,9 @@ board.game_board = ["O", "X", "", "X", "X", "O", "", "O", ""]  # O blocks at edg
 # board.game_board = ["X", "", "O", "O", "O", "X", "X", "O", "X"]  # X ties v2 (t2)
 # board.game_board = ["X", "O", "X", "O", "O", "X", "X", "", "O"]  # X ties v3 (b2)
 # board.game_board = ["O", "", "X", "X", "O", "O", "X", "O", "X"]  # X ties v4 (t2)
+#-----------------------------------------------------------------------------
+# board.game_board = ["X", "O", "X", "O", "O", "X", "", "X", "O"]  # X takes last open position, no win or block v1 (b1) 114
+# board.game_board = ["O", "X", "X", "X", "O", "O", "", "O", "X"]  # X takes last open position, no win or block v2 (b1) 115
 #-----------------------------------------------------------------------------
 # Random board tests
 #-----------------------------------------------------------------------------
