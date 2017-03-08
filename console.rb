@@ -1,3 +1,5 @@
+require_relative "board.rb"
+
 # class to outputting final game board and results to terminal
 class Console
 
@@ -27,3 +29,13 @@ class Console
   end
 
 end
+
+# Sandbox testing
+board = Board.new
+console = Console.new
+# board.game_board = ["", "", "", "", "X", "", "", "", ""]  # O
+# board.game_board = ["", "", "", "", "X", "", "O", "", ""]  # X
+# board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]  # X
+board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
+console.output_board(board.game_board)
+console.output_results(x_won, o_won)
