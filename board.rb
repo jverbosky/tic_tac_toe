@@ -77,9 +77,9 @@ end
 
 # Sandbox testing
 # board = Board.new
-# # board.game_board = ["", "", "", "", "X", "", "", "", ""]  # O
+# board.game_board = ["", "", "", "", "X", "", "", "", ""]  # O
 # # board.game_board = ["", "", "", "", "X", "", "O", "", ""]  # X
 # # board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]  # X
-# # board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
+# board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
 # puts board.x_count
 # puts board.o_count
