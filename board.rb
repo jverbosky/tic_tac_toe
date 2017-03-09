@@ -21,6 +21,10 @@ class Board
     return @game_board
   end
 
+  def get_win
+    return @win
+  end
+
   def position_open?(position)
     @game_board[position] == ""
   end
@@ -59,7 +63,7 @@ class Board
 
   def game_won?(positions)
     won = false
-    @wins.each { |win| won = true; @win = win if positions & win == win }
+    @wins.each { |win| (won = true; @win = win) if positions & win == win }
     won
   end
 
@@ -74,16 +78,3 @@ class Board
   end
 
 end
-
-# Sandbox testing
-board = Board.new
-# board.game_board = ["", "", "", "", "X", "", "", "", ""]  # O
-# board.game_board = ["", "", "", "", "X", "", "O", "", ""]  # X
-# board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]  # X
-board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
-# puts board.x_count
-# puts board.o_count
-# puts board.position_open?(2)
-status = board.o_won?(board.get_o)
-p board.game_won?(status)
-p board.win

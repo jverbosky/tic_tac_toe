@@ -95,14 +95,17 @@ start = gets.chomp
 move = ""
 mark = ""
 taken = false
+round = 0
 
 # Each iteration == 1 (attempted) move
 while x_won == false && o_won == false && full == false
   console.output_board(board.game_board)
   round = board.get_round(board.x_count, board.o_count)  # puts round  # see the current round number
   if round > 1
+    # last_round = round - 1
     puts "-" * 26
-    puts " #{mark} selected #{move}."
+    puts " Round #{round}:"
+    puts " #{mark} selected #{move}"
     if taken == true
       puts "-" * 26
       puts " That position isn't open."
@@ -136,6 +139,7 @@ while x_won == false && o_won == false && full == false
   if round == 1
     puts "-" * 26
     puts " The board is ready!"
+    puts "-" * 26
     puts " Press Enter to continue."
     puts "-" * 26
     input = gets.chomp
@@ -168,7 +172,16 @@ end
 #   # p board.game_board  # view the game_board array
 # end
 
-# Console output for game results (board and status)
+# Winning position, needed by console.output_results
+win = board.get_win
+translated = position.map_win(win)
+final_round = round + 1
+
 console.output_board(board.game_board)
-console.output_results(x_won, o_won)
-console.output_win(board.game_board)
+
+# Console output for game results (board and status)
+puts "-" * 26
+puts " Round #{final_round}:"
+puts " #{mark} selected #{move}"
+
+console.output_results(x_won, o_won, translated)

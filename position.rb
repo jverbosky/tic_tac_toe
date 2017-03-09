@@ -23,4 +23,17 @@ class Position
     @map[move]
   end
 
+  def map_win(win)
+    translated = []
+    win.each do |move|
+      translated.push(@map.key(move))
+    end
+    translated.join(", ")
+  end
+
 end
+
+# Sandbox testing
+# position = Position.new
+# win = [0, 4, 8]
+# p position.map_win(win)  # ["t1", "m2", "b3"]
