@@ -36,4 +36,4 @@ end
 # Sandbox testing
 # position = Position.new
 # win = [0, 4, 8]
-# p position.map_win(win)  # ["t1", "m2", "b3"]
+# print position.map_win(win)  # t1, m2, b3

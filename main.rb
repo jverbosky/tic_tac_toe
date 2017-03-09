@@ -31,20 +31,24 @@ full = false
 
 # Player selection
 console.clear_screen
-puts "-" * 17
-puts "   Tic Tac Toe"
-puts "-" * 17
-puts "          X"
-puts "      O O X"
-puts "      X"
-puts "-" * 17
-puts " Player options:"
-puts "-" * 17
-puts "  1 = human"
-puts "  2 = perfect"
-puts "  3 = random"
-puts "  4 = sequential"
-puts "-" * 30
+puts "-" * 31
+puts " " * 10 + "Tic Tac Toe"
+puts "-" * 31
+puts "\n"
+puts " " * 11 + "  |   | X"
+puts " " * 11 + "-" * 9
+puts " " * 11 + "O | O | X"
+puts " " * 11 + "-" * 9
+puts " " * 11 + "X |   |"
+puts "\n"
+puts "-" * 31
+puts " " * 8 + "Player Selection"
+puts "-" * 31
+puts " " * 11 + "1 = human"
+puts " " * 11 + "2 = perfect"
+puts " " * 11 + "3 = random"
+puts " " * 11 + "4 = sequential"
+puts "-" * 31
 print " Please select the X player: "
 p1_type = ""
 p2_type = ""
@@ -66,7 +70,7 @@ end
 puts "\n"
 puts " Great!!!"
 puts " X is a #{p1_type} player."
-puts "-" * 30
+puts "-" * 31
 print " Please select the O player: "
 p2 = gets.chomp
 if p2 == "1"
@@ -86,9 +90,9 @@ end
 puts "\n"
 puts " Excellent!!!"
 puts " O is a #{p2_type} player."
-puts "-" * 30
+puts "-" * 31
 puts " Please press Enter to begin!"
-puts "-" * 30
+puts "-" * 31
 start = gets.chomp
 
 # Capture move and mark values to reference at the top of each iteration
@@ -102,18 +106,17 @@ while x_won == false && o_won == false && full == false
   console.output_board(board.game_board)
   round = board.get_round(board.x_count, board.o_count)  # puts round  # see the current round number
   if round > 1
-    # last_round = round - 1
-    puts "-" * 26
-    puts " Round #{round}:"
-    puts " #{mark} selected #{move}"
+    previous = round - 1
+    puts "-" * 31
+    puts " Round #{previous}: #{mark} selected #{move}"
     if taken == true
-      puts "-" * 26
+      puts "-" * 31
       puts " That position isn't open."
       puts "   * Please try again *"
     end
-    puts "-" * 26
+    puts "-" * 31
     puts " Press Enter to continue."
-    puts "-" * 26
+    puts "-" * 31
     input = gets.chomp
   end
   round % 2 == 0 ? player = p2 : player = p1  # puts player  # see which player moved during this turn
@@ -137,11 +140,11 @@ while x_won == false && o_won == false && full == false
   # p board.game_board  # view the game_board array
   # p board.game_board  # view the game_board array
   if round == 1
-    puts "-" * 26
-    puts " The board is ready!"
-    puts "-" * 26
+    puts "-" * 31
+    puts " " * 5 + "Let the game begin!!!"
+    puts "-" * 31
     puts " Press Enter to continue."
-    puts "-" * 26
+    puts "-" * 31
     input = gets.chomp
   end
 end
@@ -180,7 +183,7 @@ final_round = round + 1
 console.output_board(board.game_board)
 
 # Console output for game results (board and status)
-puts "-" * 26
+puts "-" * 31
 puts " Round #{final_round}:"
 puts " #{mark} selected #{move}"
 
