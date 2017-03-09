@@ -64,7 +64,7 @@ else
   p1_type = "invalid"
 end
 puts "\n"
-puts " Great!"
+puts " Great!!!"
 puts " X is a #{p1_type} player."
 puts "-" * 30
 print " Please select the O player: "
@@ -84,7 +84,7 @@ else
   p2_type = "invalid"
 end
 puts "\n"
-puts " Excellent!"
+puts " Excellent!!!"
 puts " O is a #{p2_type} player."
 puts "-" * 30
 puts " Please press Enter to begin!"
@@ -94,16 +94,23 @@ start = gets.chomp
 # Capture move and mark values to reference at the top of each iteration
 move = ""
 mark = ""
+taken = false
 
 # Each iteration == 1 (attempted) move
 while x_won == false && o_won == false && full == false
   console.output_board(board.game_board)
   round = board.get_round(board.x_count, board.o_count)  # puts round  # see the current round number
-  # puts round  # see the current round number
   if round > 1
+    puts "-" * 26
     puts " #{mark} selected #{move}."
-    puts " Please press Enter to continue."
-    puts "-" * 17
+    if taken == true
+      puts "-" * 26
+      puts " That position isn't open."
+      puts "   * Please try again *"
+    end
+    puts "-" * 26
+    puts " Press Enter to continue."
+    puts "-" * 26
     input = gets.chomp
   end
   round % 2 == 0 ? player = p2 : player = p1  # puts player  # see which player moved during this turn
@@ -116,7 +123,8 @@ while x_won == false && o_won == false && full == false
   # puts move  # see what game_board position was selected
   location = position.get_index(move)  # puts location  # see the corresponding game_board array index
   # puts location  # see the corresponding game_board array index
-  board.set_position(location, mark)
+  board.position_open?(location) ? taken = false : taken = true
+  board.set_position(location, mark) if taken == false
   x_won = board.x_won?(board.get_x)  # puts x_won  # see if x won (t/f)
   # puts x_won  # see if x won (t/f)
   o_won = board.o_won?(board.get_o)  # puts o_won  # see if o won (t/f)
@@ -126,9 +134,10 @@ while x_won == false && o_won == false && full == false
   # p board.game_board  # view the game_board array
   # p board.game_board  # view the game_board array
   if round == 1
+    puts "-" * 26
     puts " The board is ready!"
-    puts " Please press Enter to continue."
-    puts "-" * 17
+    puts " Press Enter to continue."
+    puts "-" * 26
     input = gets.chomp
   end
 end
@@ -162,3 +171,4 @@ end
 # Console output for game results (board and status)
 console.output_board(board.game_board)
 console.output_results(x_won, o_won)
+console.output_win(board.game_board)

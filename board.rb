@@ -3,14 +3,14 @@ class Board
 
   # Method to access the variables in the class - attr_ is shorthand syntax for creating getter/setter methods
   # attr_reader = read-only, attr_writer = write-only, attr_accessor = read/write
-  attr_reader :wins
+  attr_reader :wins, :win
   attr_accessor :game_board # attr_reader = read-only, this will pass test 1, but then will never be able to update the value of board
-
 
   def initialize
     # use instance variable if not resetting the value anywhere else
     @game_board = ["", "", "", "", "", "", "", "", ""]
     @wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    @win = []
   end
 
   def to_s
@@ -59,7 +59,7 @@ class Board
 
   def game_won?(positions)
     won = false
-    @wins.each { |win| won = true if positions & win == win }
+    @wins.each { |win| won = true; @win = win if positions & win == win }
     won
   end
 
@@ -76,10 +76,14 @@ class Board
 end
 
 # Sandbox testing
-# board = Board.new
+board = Board.new
 # board.game_board = ["", "", "", "", "X", "", "", "", ""]  # O
-# # board.game_board = ["", "", "", "", "X", "", "O", "", ""]  # X
-# # board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]  # X
-# board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
+# board.game_board = ["", "", "", "", "X", "", "O", "", ""]  # X
+# board.game_board = ["O", "X", "", "", "O", "X", "X", "", "O"]  # X
+board.game_board = ["O", "X", "X", "", "O", "X", "X", "", "O"]  # O
 # puts board.x_count
 # puts board.o_count
+# puts board.position_open?(2)
+status = board.o_won?(board.get_o)
+p board.game_won?(status)
+p board.win
