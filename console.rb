@@ -10,25 +10,25 @@ class Console
 
   def output_board(board)
     clear_screen
-    puts "-" * 11
-    puts "Tic Tac Toe"
-    puts "-" * 11
+    puts "-" * 14
+    puts "   Tic Tac Toe"
+    puts "-" * 14
     spaced = []
     board.each { |mark| mark == "" ? spaced.push(" ") : spaced.push(mark) }
     rows = spaced.each_slice(3).to_a
-    rows.each { |row|  print "  " + row.join(" ") + "\n" }
-    puts "-" * 11
+    rows.each { |row|  print "      " + row.join(" ") + "\n" }
+    puts "-" * 14
   end
 
   def output_results(x_won, o_won)
     if x_won == true
-      puts "Player 1 (X) won!"
+      puts " Player 1 (X) won!"
     elsif o_won == true
-      puts "Player 2 (O) won!"
+      puts " Player 2 (O) won!"
     else
-      puts "It was a tie!"
+      puts " It was a tie!"
     end
-    puts "-" * 11
+    puts "-" * 14
     puts "\n"
   end
 
