@@ -13,18 +13,6 @@ class Board
     @win = []
   end
 
-  def to_s
-    return "The board is: #{@game_board}."
-  end
-
-  def get_board
-    return @game_board
-  end
-
-  def get_win
-    return @win
-  end
-
   def position_open?(position)
     @game_board[position] == ""
   end

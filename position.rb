@@ -19,15 +19,15 @@ class Position
     @map = {"t1" => 0, "t2" => 1, "t3" => 2, "m1" => 3, "m2" => 4, "m3" => 5, "b1" => 6, "b2" => 7, "b3" => 8}
   end
 
+  # Method to return the array position for the specified plain English position
   def get_index(move)
     @map[move]
   end
 
+  # Method to translate the winning array into plain English positions
   def map_win(win)
     translated = []
-    win.each do |move|
-      translated.push(@map.key(move))
-    end
+    win.each { |move| translated.push(@map.key(move)) }
     translated.join(", ")
   end
 
