@@ -1,7 +1,6 @@
-# Test program for running tic tac toe
-# - trying now that player classes available to find gaps
-#   (beyond initial setup - player selection, etc.)
-#############################################################
+###################################
+# Program for running tic tac toe #
+###################################
 
 require_relative "board.rb"
 require_relative "player_perf.rb"
@@ -10,180 +9,103 @@ require_relative "player_rand.rb"
 require_relative "position.rb"
 require_relative "console.rb"
 
-# Initialize objects
-board = Board.new
-# p1 = PlayerPerfect.new
-# p1 = PlayerRandom.new  # alternate p1
-# p1 = PlayerSequential.new  # alternate p1
-# p2 = PlayerPerfect.new
-# p2 = PlayerRandom.new  # alternate p2
-# p2 = PlayerSequential.new  # alternate p2
-position = Position.new
-console = Console.new
+$games_x_won = 0
+$games_o_won = 0
 
-# Constant needed by perfect player
-wins = board.wins
+def start_game
 
-# Endgame condition checks - default to false
-x_won = false
-o_won = false
-full = false
+  # Initialize objects
+  board = Board.new
+  position = Position.new
+  console = Console.new
 
-# Player selection
-console.clear_screen
-puts "-" * 31
-puts " " * 10 + "Tic Tac Toe"
-puts "-" * 31
-puts "\n"
-puts " " * 11 + "  |   | X"
-puts " " * 11 + "-" * 9
-puts " " * 11 + "O | O | X"
-puts " " * 11 + "-" * 9
-puts " " * 11 + "X |   |"
-puts "\n"
-puts "-" * 31
-puts " " * 8 + "Player Selection"
-puts "-" * 31
-puts " " * 11 + "1 = human"
-puts " " * 11 + "2 = perfect"
-puts " " * 11 + "3 = random"
-puts " " * 11 + "4 = sequential"
-puts "-" * 31
-print " Please select the X player: "
-p1_type = ""
-p2_type = ""
-p1 = gets.chomp
-if p1 == "1"
-  p1_type = "human"
-elsif p1 == "2"
-  p1 = PlayerPerfect.new
-  p1_type = "perfect"
-elsif p1 == "3"
-  p1 = PlayerRandom.new
-  p1_type = "random"
-elsif p1 == "4"
-  p1 = PlayerSequential.new
-  p1_type = "sequential"
-else
-  p1_type = "invalid"
-end
-puts "\n"
-puts " " * 12 + "Great!!!"
-puts " " * 5 + "X is a #{p1_type} player."
-puts "-" * 31
-print " Please select the O player: "
-p2 = gets.chomp
-if p2 == "1"
-  p2_type = "human"
-elsif p2 == "2"
-  p2 = PlayerPerfect.new
-  p2_type = "perfect"
-elsif p2 == "3"
-  p2 = PlayerRandom.new
-  p2_type = "random"
-elsif p2 == "4"
-  p2 = PlayerSequential.new
-  p2_type = "sequential"
-else
-  p2_type = "invalid"
-end
-puts "\n"
-puts " " * 10 + "Excellent!!!"
-puts " " * 5 + "O is a #{p2_type} player."
-puts "-" * 31
-puts " " * 2 + "Please press Enter to begin!"
-puts "-" * 31
-start = gets.chomp
+  # Game variables
+  wins = board.wins  # Constant needed by perfect player
+  x_won = false  # Endgame condition check 1
+  o_won = false  # Endgame condition check 2
+  full = false  # Endgame condition check 3
+  move = ""  # updates at each loop iteration for status update
+  mark = ""  # updates at each loop iteration for status update
+  taken = false  # updates at each loop iteration for status update
+  round = 0  # updates at each loop iteration for status update
 
-# Capture move and mark values to reference at the top of each iteration
-move = ""
-mark = ""
-taken = false
-round = 0
+  console.select_players  # prompt for player type selection
 
-# Each iteration == 1 (attempted) move
-while x_won == false && o_won == false && full == false
-  console.output_board(board.game_board)
-  round = board.get_round(board.x_count, board.o_count)  # puts round  # see the current round number
-  if round > 1
-    previous = round - 1
-    puts "-" * 31
-    puts " " * 4 + "Round #{previous}: #{mark} selected #{move}"
-    if taken == true
+  case console.get_p1_type
+    when "human" then puts "nothing yet"
+    when "perfect" then p1 = PlayerPerfect.new
+    when "random" then p1 = PlayerRandom.new
+    when "sequential" then p1 = PlayerSequential.new
+    else puts "not a valid type"
+  end
+
+  case console.get_p2_type
+    when "human" then puts "nothing yet"
+    when "perfect" then p2 = PlayerPerfect.new
+    when "random" then p2 = PlayerRandom.new
+    when "sequential" then p2 = PlayerSequential.new
+    else puts "not a valid type"
+  end
+
+  # Each iteration == 1 (attempted) move
+  while x_won == false && o_won == false && full == false
+    console.output_board(board.game_board)
+    round = board.get_round(board.x_count, board.o_count)  # puts round  # see the current round number
+    if round > 1
+      previous = round - 1
       puts "-" * 31
-      puts " " * 3 + "That position isn't open!"
-      puts " " * 5 + "* Please try again *"
+      puts " " * 4 + "Round #{previous}: #{mark} selected #{move}"
+      if taken == true
+        puts "-" * 31
+        puts " " * 3 + "That position isn't open!"
+        puts " " * 5 + "* Please try again *"
+      end
+      puts "-" * 31
+      puts " " * 4 + "Press Enter to continue."
+      puts "-" * 31
+      input = gets.chomp
     end
-    puts "-" * 31
-    puts " " * 4 + "Press Enter to continue."
-    puts "-" * 31
-    input = gets.chomp
+    round % 2 == 0 ? player = p2 : player = p1
+    mark = board.get_mark(board.x_count, board.o_count)
+    x_pos = board.get_x
+    o_pos = board.get_o
+    move = player.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    location = position.get_index(move)
+    board.position_open?(location) ? taken = false : taken = true
+    board.set_position(location, mark) if taken == false
+    x_won = board.x_won?(board.get_x)
+    $games_x_won += 1 if x_won
+    o_won = board.o_won?(board.get_o)
+    $games_o_won += 1 if o_won
+    full = board.board_full?
+    console.opening if round == 1
   end
-  round % 2 == 0 ? player = p2 : player = p1  # puts player  # see which player moved during this turn
-  # puts player  # see which player moved during this turn
-  mark = board.get_mark(board.x_count, board.o_count)  # puts mark  # see which mark was used
-  # puts mark  # see which mark was used
-  x_pos = board.get_x
-  o_pos = board.get_o
-  move = player.get_move(board.game_board, round, mark, wins, x_pos, o_pos)  # puts move  # see what game_board position was selected
-  # puts move  # see what game_board position was selected
-  location = position.get_index(move)  # puts location  # see the corresponding game_board array index
-  # puts location  # see the corresponding game_board array index
-  board.position_open?(location) ? taken = false : taken = true
-  board.set_position(location, mark) if taken == false
-  x_won = board.x_won?(board.get_x)  # puts x_won  # see if x won (t/f)
-  # puts x_won  # see if x won (t/f)
-  o_won = board.o_won?(board.get_o)  # puts o_won  # see if o won (t/f)
-  # puts o_won  # see if o won (t/f)
-  full = board.board_full?  # puts full # see if the game_board is full (t/f)
-  # puts full # see if the game_board is full (t/f)
-  # p board.game_board  # view the game_board array
-  # p board.game_board  # view the game_board array
-  if round == 1
-    puts "-" * 31
-    puts " " * 5 + "Let the game begin!!!"
-    puts "-" * 31
-    puts " " * 4 + "Press Enter to continue."
-    puts "-" * 31
-    input = gets.chomp
-  end
+
+  # Game results output
+  win = board.get_win  # winning position, needed by console.output_results
+  translated = position.map_win(win)  # board array index positions in human-friendly positions
+  console.output_board(board.game_board)
+  console.output_results(x_won, o_won, translated, round, mark, move)
+
 end
 
-# # Loops through until game over condition reached - use for stress testing
-# # Each iteration == 1 (attempted) move
+start_game
+
+puts "Games X Won: #{$games_x_won}"
+puts "Games O Won: #{$games_o_won}"
+
+# Stress testing
+# Loops until game over condition reached - use for stress testing
 # while x_won == false && o_won == false && full == false
-#   round = board.get_round(board.x_count, board.o_count)  # puts round  # see the current round number
-#   # puts round  # see the current round number
-#   round % 2 == 0 ? player = p2 : player = p1  # puts player  # see which player moved during this turn
-#   # puts player  # see which player moved during this turn
-#   mark = board.get_mark(board.x_count, board.o_count)  # puts mark  # see which mark was used
-#   # puts mark  # see which mark was used
+#   round = board.get_round(board.x_count, board.o_count)
+#   round % 2 == 0 ? player = p2 : player = p1
+#   mark = board.get_mark(board.x_count, board.o_count)
 #   x_pos = board.get_x
 #   o_pos = board.get_o
-#   move = player.get_move(board.game_board, round, mark, wins, x_pos, o_pos)  # puts move  # see what game_board position was selected
-#   # puts move  # see what game_board position was selected
-#   location = position.get_index(move)  # puts location  # see the corresponding game_board array index
-#   # puts location  # see the corresponding game_board array index
+#   move = player.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+#   location = position.get_index(move)
 #   board.set_position(location, mark)
-#   x_won = board.x_won?(board.get_x)  # puts x_won  # see if x won (t/f)
-#   # puts x_won  # see if x won (t/f)
-#   o_won = board.o_won?(board.get_o)  # puts o_won  # see if o won (t/f)
-#   # puts o_won  # see if o won (t/f)
-#   full = board.board_full?  # puts full # see if the game_board is full (t/f)
-#   # puts full # see if the game_board is full (t/f)
-#   # p board.game_board  # view the game_board array
-#   # p board.game_board  # view the game_board array
+#   x_won = board.x_won?(board.get_x)
+#   o_won = board.o_won?(board.get_o)
+#   full = board.board_full?
 # end
-
-# Winning position, needed by console.output_results
-win = board.get_win
-translated = position.map_win(win)
-final_round = round + 1
-
-console.output_board(board.game_board)
-
-# Console output for game results (board and status)
-puts "-" * 31
-puts " " * 4 + "Round #{final_round}: #{mark} selected #{move}"
-
-console.output_results(x_won, o_won, translated)
