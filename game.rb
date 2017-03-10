@@ -1,4 +1,5 @@
 require_relative "board.rb"
+require_relative "player_hum.rb"
 require_relative "player_perf.rb"
 require_relative "player_seq.rb"
 require_relative "player_rand.rb"
@@ -37,14 +38,14 @@ class Game
   def select_players
     @console.select_players  # prompt for player type selection
     case @console.p1_type
-      when "human" then puts "nothing yet"
+      when "human" then @p1 = PlayerHuman.new
       when "perfect" then @p1 = PlayerPerfect.new
       when "random" then @p1 = PlayerRandom.new
       when "sequential" then @p1 = PlayerSequential.new
       else puts "not a valid type"
     end
     case @console.p2_type
-      when "human" then puts "nothing yet"
+      when "human" then @p2 = PlayerHuman.new
       when "perfect" then @p2 = PlayerPerfect.new
       when "random" then @p2 = PlayerRandom.new
       when "sequential" then @p2 = PlayerSequential.new
