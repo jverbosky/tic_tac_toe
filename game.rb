@@ -16,7 +16,9 @@ class Game
     @console = ""  # Console class instance
     @round = 0  # current game round
     @p1 = ""  # X player
+    @p1_type = ""  # X player type
     @p2 = ""  # O player
+    @p2_type = ""  # O player type
     @mark = ""  # current player character (X/O)
     @move = ""  # plain English position selected by player
     @taken = false  # used to provide feedback when position occupied
@@ -38,17 +40,17 @@ class Game
   def select_players
     @console.select_players  # prompt for player type selection
     case @console.p1_type
-      when "human" then @p1 = PlayerHuman.new
-      when "perfect" then @p1 = PlayerPerfect.new
-      when "random" then @p1 = PlayerRandom.new
-      when "sequential" then @p1 = PlayerSequential.new
+      when "human" then @p1 = PlayerHuman.new; @p1_type = "human"
+      when "perfect" then @p1 = PlayerPerfect.new; @p1_type = "perfect"
+      when "random" then @p1 = PlayerRandom.new; @p1_type = "random"
+      when "sequential" then @p1 = PlayerSequential.new; @p1_type = "sequential"
       else puts "not a valid type"
     end
     case @console.p2_type
-      when "human" then @p2 = PlayerHuman.new
-      when "perfect" then @p2 = PlayerPerfect.new
-      when "random" then @p2 = PlayerRandom.new
-      when "sequential" then @p2 = PlayerSequential.new
+      when "human" then @p2 = PlayerHuman.new; @p2_type = "human"
+      when "perfect" then @p2 = PlayerPerfect.new; @p2_type = "perfect"
+      when "random" then @p2 = PlayerRandom.new; @p2_type = "random"
+      when "sequential" then @p2 = PlayerSequential.new; @p2_type = "sequential"
       else puts "not a valid type"
     end
   end
@@ -59,8 +61,12 @@ class Game
     while @x_won == false && @o_won == false && @full == false  # Each iteration == 1 (attempted) move
       @console.output_board(@board.game_board)
       @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
-      @console.move_status(@round, @mark, @move, @taken)
       @round % 2 == 0 ? player = @p2 : player = @p1
+      @round % 2 == 0 ? player_type = @p2_type : player_type = @p1_type
+      @console.move_status(@round, @mark, @move, @taken)
+
+      @p1_type == "human" || @p1_type == "human" ? @console.human : @console.computer
+
       @mark = @board.get_mark(@board.x_count, @board.o_count)
       wins = @board.wins  # constant needed by perfect player
       @move = player.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
@@ -70,7 +76,7 @@ class Game
       @x_won = @board.x_won?(@board.get_x)
       @o_won = @board.o_won?(@board.get_o)
       @full = @board.board_full?
-      @console.preamble if @round == 1  # introductory verbiage
+      # @console.preamble if @round == 1  # introductory verbiage
     end
   end
 

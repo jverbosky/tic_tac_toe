@@ -115,10 +115,24 @@ class Console
         tab(3, "That position isn't open!")
         tab(5, "* Please try again *")
       end
-      border(31)
-      tab(4, "Press Enter to continue.", "-" * 31)
-      input = gets.chomp
+      # border(31)
+      # tab(4, "Press Enter to continue.", "-" * 31)
+      # input = gets.chomp
     end
+  end
+
+  # Method to handle human input prompts
+  def human
+    border(31)
+    # tab(1, "Please enter the desired location: ")
+    # border(31)
+  end
+
+  # Method to handle pause to display computer player move
+  def computer
+    border(31)
+    tab(4, "Press Enter to continue.", "-" * 31)
+    input = gets.chomp
   end
 
   # Method to provide endgame summary feedback
