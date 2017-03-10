@@ -55,14 +55,16 @@ class Console
   def output_results(x_won, o_won, win)
     puts "-" * 31
     if x_won == true
-      puts " Player 1 (X) won!"
-      puts "-" * 31
-      puts " Winning moves: #{win}"
+      puts " " * 7 + "Player 1 (X) won!"
+      # puts "-" * 31
+      puts "\n"
+      puts " " * 3 + "Winning moves: #{win}"
       puts "-" * 31
     elsif o_won == true
-      puts " Player 2 (O) won!"
-      puts "-" * 31
-      puts " Winning moves: #{win}"
+      puts " " * 7 + "Player 2 (O) won!"
+      # puts "-" * 31
+      puts "\n"
+      puts " " * 3 + "Winning moves: #{win}"
       puts "-" * 31
     else
       puts " It was a tie!"

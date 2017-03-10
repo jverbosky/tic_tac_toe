@@ -68,8 +68,8 @@ else
   p1_type = "invalid"
 end
 puts "\n"
-puts " Great!!!"
-puts " X is a #{p1_type} player."
+puts " " * 12 + "Great!!!"
+puts " " * 5 + "X is a #{p1_type} player."
 puts "-" * 31
 print " Please select the O player: "
 p2 = gets.chomp
@@ -88,10 +88,10 @@ else
   p2_type = "invalid"
 end
 puts "\n"
-puts " Excellent!!!"
-puts " O is a #{p2_type} player."
+puts " " * 10 + "Excellent!!!"
+puts " " * 5 + "O is a #{p2_type} player."
 puts "-" * 31
-puts " Please press Enter to begin!"
+puts " " * 2 + "Please press Enter to begin!"
 puts "-" * 31
 start = gets.chomp
 
@@ -108,14 +108,14 @@ while x_won == false && o_won == false && full == false
   if round > 1
     previous = round - 1
     puts "-" * 31
-    puts " Round #{previous}: #{mark} selected #{move}"
+    puts " " * 4 + "Round #{previous}: #{mark} selected #{move}"
     if taken == true
       puts "-" * 31
-      puts " That position isn't open."
-      puts "   * Please try again *"
+      puts " " * 3 + "That position isn't open!"
+      puts " " * 5 + "* Please try again *"
     end
     puts "-" * 31
-    puts " Press Enter to continue."
+    puts " " * 4 + "Press Enter to continue."
     puts "-" * 31
     input = gets.chomp
   end
@@ -143,7 +143,7 @@ while x_won == false && o_won == false && full == false
     puts "-" * 31
     puts " " * 5 + "Let the game begin!!!"
     puts "-" * 31
-    puts " Press Enter to continue."
+    puts " " * 4 + "Press Enter to continue."
     puts "-" * 31
     input = gets.chomp
   end
@@ -184,7 +184,6 @@ console.output_board(board.game_board)
 
 # Console output for game results (board and status)
 puts "-" * 31
-puts " Round #{final_round}:"
-puts " #{mark} selected #{move}"
+puts " " * 4 + "Round #{final_round}: #{mark} selected #{move}"
 
 console.output_results(x_won, o_won, translated)
