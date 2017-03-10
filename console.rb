@@ -1,8 +1,4 @@
-require_relative "board.rb"
-require_relative "position.rb"
-require_relative "game.rb"
-
-# class to outputting final game board and results to terminal
+# class to handle terminal output
 class Console
 
   attr_reader :p1_type, :p2_type
@@ -17,14 +13,17 @@ class Console
     RUBY_PLATFORM =~ /cygwin|mswin|mingw|bccwin|wince|emx/ ? system("cls") : system("clear")
   end
 
+  # Method to print standalone border
   def border(n)
     puts "-" * n
   end
 
+  # Method to allow console output to be more specified concisely
   def tab(n, *string)
     string.each_with_index { |e, i| i == 0 ? (puts " " * n + e) : (puts e) }
   end
 
+  # Method that drives player selection messaging
   def select_players
     opening
     select_x
@@ -33,6 +32,7 @@ class Console
     gets.chomp
   end
 
+  # Method to display the initial game screen with player selection information
   def opening
     clear_screen
     border(31)
@@ -49,6 +49,7 @@ class Console
     tab(11, "4 = sequential", "-" * 31)
   end
 
+  # Method to handle player X selection
   def select_x
     print " Please select the X player: "
     p1 = gets.chomp
@@ -64,6 +65,7 @@ class Console
     tab(5, "X is a #{@p1_type} player.", "-" * 31)
   end
 
+  # Method to handle player O selection
   def select_o
     print " Please select the O player: "
     p2 = gets.chomp
@@ -79,6 +81,7 @@ class Console
     tab(5, "O is a #{@p2_type} player.", "-" * 31)
   end
 
+  # Method to provide round 1 messaging
   def preamble
     border(31)
     tab(5, "Let the game begin!!!", "-" * 31)
@@ -86,6 +89,7 @@ class Console
     input = gets.chomp
   end
 
+  # Method to output the game board
   def output_board(board)
     clear_screen
     border(31)
@@ -100,6 +104,7 @@ class Console
     puts "\n"
   end
 
+  # Method to provide feedback on move selection
   def move_status(round, mark, move, taken)
     if round > 1
       previous = round - 1
@@ -116,6 +121,7 @@ class Console
     end
   end
 
+  # Method to provide endgame summary feedback
   def output_results(x_won, o_won, win, round, mark, move)
     border(31)
     tab(4, "Round #{round}: #{mark} selected #{move}", "-" * 31)

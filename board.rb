@@ -4,13 +4,13 @@ class Board
   # Method to access the variables in the class - attr_ is shorthand syntax for creating getter/setter methods
   # attr_reader = read-only, attr_writer = write-only, attr_accessor = read/write
   attr_reader :wins, :win
-  attr_accessor :game_board # attr_reader = read-only, this will pass test 1, but then will never be able to update the value of board
+  attr_accessor :game_board # needs to be read/write in order to change the value of board in tests
 
   def initialize
     # use instance variable if not resetting the value anywhere else
     @game_board = ["", "", "", "", "", "", "", "", ""]
     @wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-    @win = []
+    @win = []  # populated with winning positions by game_won?
   end
 
   def position_open?(position)
