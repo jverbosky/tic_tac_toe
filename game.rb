@@ -61,22 +61,22 @@ class Game
     while @x_won == false && @o_won == false && @full == false  # Each iteration == 1 (attempted) move
       @console.output_board(@board.game_board)
       @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
-      @round % 2 == 0 ? player = @p2 : player = @p1
-      @round % 2 == 0 ? player_type = @p2_type : player_type = @p1_type
-      @console.move_status(@round, @mark, @move, @taken)
-
-      @p1_type == "human" || @p1_type == "human" ? @console.human : @console.computer
-
+      @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
+      @console.move_status(@round, @mark, @move, @taken)  # display previous round info
+      @console.computer unless @p1_type == "human" || @p2_type == "human"
       @mark = @board.get_mark(@board.x_count, @board.o_count)
       wins = @board.wins  # constant needed by perfect player
       @move = player.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
-      location = @position.get_index(@move)  # translate plain English position into array value
-      @board.position_open?(location) ? @taken = false : @taken = true
-      @board.set_position(location, @mark) if @taken == false
+      location = @position.get_index(@move)
+      if location == false
+        @move = "invalid"
+      else
+        @board.position_open?(location) ? @taken = false : @taken = true
+        @board.set_position(location, @mark) if @taken == false
+      end
       @x_won = @board.x_won?(@board.get_x)
       @o_won = @board.o_won?(@board.get_o)
       @full = @board.board_full?
-      # @console.preamble if @round == 1  # introductory verbiage
     end
   end
 

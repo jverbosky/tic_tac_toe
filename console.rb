@@ -29,7 +29,7 @@ class Console
     select_x
     select_o
     tab(2, "Please press Enter to begin!", "-" * 31)
-    gets.chomp
+    gets
   end
 
   # Method to display the initial game screen with player selection information
@@ -81,20 +81,26 @@ class Console
     tab(5, "O is a #{@p2_type} player.", "-" * 31)
   end
 
-  # Method to provide round 1 messaging
-  def preamble
+  # Method to display header and legend
+  def header
     border(31)
-    tab(5, "Let the game begin!!!", "-" * 31)
-    tab(4, "Press Enter to continue.", "-" * 31)
-    input = gets.chomp
+    tab(10, "Tic Tac Toe", "-" * 31)
+    puts "\n"
+  end
+
+  # Method to display location legend
+  def legend
+    border(31)
+    tab(11, "Locations", "-" * 31)
+    tab(5, "Top row:    t1, t2, t3")
+    tab(5, "Middle row: m1, m2, m3")
+    tab(5, "Bottom row: b1, b2, b3", "-" * 31)
   end
 
   # Method to output the game board
   def output_board(board)
     clear_screen
-    border(31)
-    tab(10, "Tic Tac Toe", "-" * 31)
-    puts "\n"
+    header
     spaced = []
     board.each { |mark| mark == "" ? spaced.push(" ") : spaced.push(mark) }
     rows = spaced.each_slice(3).to_a
@@ -102,43 +108,30 @@ class Console
       index < 2 ? (tab(11, row.join(" | ")); tab(11, "-" * 9)) : tab(11, row.join(" | "))
     end
     puts "\n"
+    legend
   end
 
   # Method to provide feedback on move selection
   def move_status(round, mark, move, taken)
     if round > 1
       previous = round - 1
-      border(31)
-      tab(4, "Round #{previous}: #{mark} selected #{move}")
+      tab(5, "Round #{previous}: #{mark} selected #{move}", "-" * 31)
       if taken == true
-        border(31)
         tab(3, "That position isn't open!")
-        tab(5, "* Please try again *")
+        tab(5, "* Please try again *", "-" * 31)
       end
-      # border(31)
-      # tab(4, "Press Enter to continue.", "-" * 31)
-      # input = gets.chomp
     end
-  end
-
-  # Method to handle human input prompts
-  def human
-    border(31)
-    # tab(1, "Please enter the desired location: ")
-    # border(31)
   end
 
   # Method to handle pause to display computer player move
   def computer
-    border(31)
-    tab(4, "Press Enter to continue.", "-" * 31)
-    input = gets.chomp
+    tab(4, "Press Enter for AI move.", "-" * 31)
+    input = gets
   end
 
   # Method to provide endgame summary feedback
   def output_results(x_won, o_won, win, round, mark, move)
-    border(31)
-    tab(4, "Round #{round}: #{mark} selected #{move}", "-" * 31)
+    tab(5, "Round #{round}: #{mark} selected #{move}", "-" * 31)
     if x_won == true
       tab(7, "Player 1 (X) won!", "\n")
       tab(3, "Winning moves: #{win}", "-" * 31)

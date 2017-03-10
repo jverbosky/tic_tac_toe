@@ -23,13 +23,13 @@ class Position
 
   # Method to return the array position for the specified plain English position
   def get_index(move)
-    @map[move]
+    (@map.has_key? move) ? @map[move] : false
   end
 
-  # Method to return the plain English position for the specified array position
-  def get_move(index)
-    @map.key(index)
-  end
+  # # Method to return the plain English position for the specified array position
+  # def get_move(index)
+  #   @map.key(index)
+  # end
 
   # Method to translate the winning array into plain English positions
   def map_win(win)
