@@ -1,0 +1,59 @@
+<!--
+/views/layout.erb
+- used to host common content for views
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tic Tac Toe</title>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> -->
+    <!-- <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="icon" href="/images/favicon.ico?" type="image/x-icon"> -->
+  </head>
+  <body>
+  <header class="red">
+    <h1><a href="https://www.linkedin.com/in/johnverbosky" target="_blank">Tic Tac Toe</a></h1>  <!-- use target="_blank" to open link in new tab/page -->
+  </header>
+  <section>
+
+    <div class="padding-sides blue">
+      <table class="center-block">
+        <tr>
+          <td class="padding-sides yellow"><h3>X Won: __</h3></td>
+          <td class="padding-sides yellow"><h3>O Won: __</h3></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class = "red">
+      <div class="center-block padding">
+        <table class="board-table">
+          <tr>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+          </tr>
+          <tr>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+          </tr>
+          <tr>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+            <td class="board-td"><div class="board-space yellow"></div></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <%= yield %>  <!-- load unique content from other .erb files -->
+    </div>
+
+  </section>
+  </body>
+</html>

@@ -4,8 +4,12 @@
 
 require_relative "game.rb"
 
-start = Game.new
+new_game = Game.new
 
-while $game_over == false
-  start.play
+def start_game(new_game)
+  while $game_over == false
+    new_game.play
+  end
 end
+
+# start_game(new_game)

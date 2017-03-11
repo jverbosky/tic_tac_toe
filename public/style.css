@@ -1,0 +1,98 @@
+/*
+/public/styles.css
+- CSS styles for Hangman app
+*/
+
+body {
+  /*background-color: #000000;*/
+  /*font-family: Courier;*/
+  /*color: #ffffff;*/
+}
+
+div {
+  display: table;
+  margin: 0 auto;
+  max-width: 470px;
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
+form {
+  text-align: center;
+}
+
+input {
+  font-family: Courier;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.padding {
+  padding: 15px;
+}
+
+.padding-sides {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.board-table {
+  text-align: center;
+  border-collapse: collapse;
+  border-style:hidden;
+}
+
+.board-td {
+  border: 3px solid black;
+  width: 100px;
+  height: 100px;
+}
+
+.board-space {
+    width: 100px;
+    height: 100px;
+}
+/*
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color:  blue;
+}
+
+.yellow {
+  background-color: yellow;
+}*/
+
+/* Use these two classes to position copyright bottom/middle of the page*/
+/* Note - doesn't work well on mobile, research more later */
+
+/*.center {
+  text-align: center;
+}
+
+.copyright {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}*/
