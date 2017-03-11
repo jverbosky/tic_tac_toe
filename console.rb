@@ -66,13 +66,9 @@ class Console
       when "2" then @p1_type = "perfect"
       when "3" then @p1_type = "random"
       when "4" then @p1_type = "sequential"
-      # else @p1_type = "???"
       else @p1_type = "invalid_p1"
     end
-    invalid_player_check(@p1_type)
-    # puts "\n"
-    # tab(12, "Great!!!")
-    # tab(5, "X is a #{@p1_type} player.", "-" * 31)
+    invalid_player?(@p1_type)
   end
 
   # Method to handle player O selection
@@ -86,15 +82,12 @@ class Console
       when "4" then @p2_type = "sequential"
       else @p2_type = "invalid_p2"
     end
-    invalid_player_check(@p2_type)
-    # puts "\n"
-    # tab(10, "Excellent!!!")
-    # tab(5, "O is a #{@p2_type} player.", "-" * 31)
+    invalid_player?(@p2_type)
   end
 
   # Method to handle invalid input during player selection
-  def invalid_player_check(player_type)
-    unless player_type == "invalid_p1" || player_type == "invalid_p2"
+  def invalid_player?(player_type)
+    unless player_type =~ /invalid/
       if player_type == @p1_type
         puts "\n"
         tab(12, "Great!!!")
@@ -105,13 +98,9 @@ class Console
         tab(5, "O is a #{@p2_type} player.", "-" * 31)
       end
     else
-      if player_type == "invalid_p1"
-        puts "Invalid selection - try again!"
-        select_x
-      elsif player_type == "invalid_p2"
-        puts "Invalid selection - try again!"
-        select_o
-      end
+      puts "\n"
+      puts " Invalid selection - try again!"
+      player_type == "invalid_p1" ? select_x : select_o
     end
   end
 
@@ -206,3 +195,4 @@ end
 # win = board.get_win
 # translated = position.map_win(win)
 # console.output_results(x_won, o_won, translated)
+# console.invalid_player?("invalid_p1")
