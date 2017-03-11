@@ -10,6 +10,11 @@ class Game
 
   attr_reader :round, :mark, :move, :taken
 
+  # Variables for scores (global to persist through new game instances)
+  $x_score = 0  # accumulator for X score
+  $o_score = 0  # accumulator for O score
+  $game_over = false
+
   def initialize
     @board = ""  # Board class instance
     @position = ""  # Position class instance
@@ -22,9 +27,9 @@ class Game
     @mark = ""  # current player character (X/O)
     @move = ""  # plain English position selected by player
     @taken = false  # used to provide feedback when position occupied
-    @x_won = false  # Endgame condition check 1
-    @o_won = false  # Endgame condition check 2
-    @full = false  # Endgame condition check 3
+    @x_won = false  # endgame condition check 1
+    @o_won = false  # endgame condition check 2
+    @full = false  # endgame condition check 3
   end
 
   # Method to initialize objects, call game loop and display endgame results
@@ -34,6 +39,7 @@ class Game
     @console = Console.new
     play_game
     show_results
+    play_again?
   end
 
   # Method to handle player type selection
@@ -59,7 +65,7 @@ class Game
   def play_game
     select_players
     while @x_won == false && @o_won == false && @full == false  # Each iteration == 1 (attempted) move
-      @console.output_board(@board.game_board)
+      @console.output_board(@board.game_board, $x_score, $o_score)
       @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
       @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
       @console.move_status(@round, @mark, @move, @taken)  # display previous round info
@@ -69,22 +75,40 @@ class Game
       @move = player.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
       location = @position.get_index(@move)
       if location == false
-        @move = "invalid"
+        @move = "???"
       else
         @board.position_open?(location) ? @taken = false : @taken = true
         @board.set_position(location, @mark) if @taken == false
       end
       @x_won = @board.x_won?(@board.get_x)
+      $x_score += 1 if @x_won
       @o_won = @board.o_won?(@board.get_o)
+      $o_score += 1 if @o_won
       @full = @board.board_full?
     end
+    # @game_over = true
   end
 
   # Method to display final game results
   def show_results
     translated = @position.map_win(@board.win)  # board array index positions in human-friendly positions
-    @console.output_board(@board.game_board)
+    @console.output_board(@board.game_board, $x_score, $o_score)
     @console.output_results(@x_won, @o_won, translated, @round, @mark, @move)
+  end
+
+  def play_again?
+    @console.play_again?
+    if @console.key == "y"
+      play
+    elsif @console.key == "q"
+      $game_over = true
+    end
+  end
+
+  # Method to start a new game
+  def play
+    initialize
+    new_game
   end
 
 end

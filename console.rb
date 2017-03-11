@@ -1,11 +1,14 @@
 # class to handle terminal output
+require "io/console"
+
 class Console
 
-  attr_reader :p1_type, :p2_type
+  attr_reader :p1_type, :p2_type, :key
 
   def initialize
     @p1_type = ""
     @p2_type = ""
+    @key = ""
   end
 
   # Method to clear the screen regardless of OS
@@ -28,15 +31,20 @@ class Console
     opening
     select_x
     select_o
-    tab(2, "Please press Enter to begin!", "-" * 31)
+    tab(2, "Please press Enter to begin!")
     gets
   end
 
   # Method to display the initial game screen with player selection information
   def opening
     clear_screen
-    border(31)
-    tab(10, "Tic Tac Toe", "-" * 31, "\n")
+    if $x_score + $o_score == 0
+      border(31)
+      tab(10, "Tic Tac Toe", "-" * 31, "\n")
+    else
+      header
+      scorekeeping($x_score, $o_score)
+    end
     tab(11, "  |   | X")
     tab(11, "-" * 9)
     tab(11, "O | O | X")
@@ -58,7 +66,7 @@ class Console
       when "2" then @p1_type = "perfect"
       when "3" then @p1_type = "random"
       when "4" then @p1_type = "sequential"
-      else @p1_type = "invalid"
+      else @p1_type = "???"
     end
     puts "\n"
     tab(12, "Great!!!")
@@ -74,7 +82,7 @@ class Console
       when "2" then @p2_type = "perfect"
       when "3" then @p2_type = "random"
       when "4" then @p2_type = "sequential"
-      else @p2_type = "invalid"
+      else @p2_type = "???"
     end
     puts "\n"
     tab(10, "Excellent!!!")
@@ -84,7 +92,13 @@ class Console
   # Method to display header and legend
   def header
     border(31)
-    tab(10, "Tic Tac Toe", "-" * 31)
+    tab(10, "Tic Tac Toe")
+  end
+
+  # Method to display cumulative score
+  def scorekeeping(x_score, o_score)
+    border(31)
+    tab(4, "X Wins: #{x_score}     O Wins: #{o_score}", "-" * 31)
     puts "\n"
   end
 
@@ -98,9 +112,10 @@ class Console
   end
 
   # Method to output the game board
-  def output_board(board)
+  def output_board(board, x_score, o_score)
     clear_screen
     header
+    scorekeeping(x_score, o_score)
     spaced = []
     board.each { |mark| mark == "" ? spaced.push(" ") : spaced.push(mark) }
     rows = spaced.each_slice(3).to_a
@@ -125,7 +140,7 @@ class Console
 
   # Method to handle pause to display computer player move
   def computer
-    tab(4, "Press Enter for AI move.", "-" * 31)
+    tab(4, "Press Enter for AI move.")
     input = gets
   end
 
@@ -141,6 +156,13 @@ class Console
     else
       tab(9, "It was a tie!", "-" * 31)
     end
+  end
+
+  # Method to display cumulative gameplay options
+  def play_again?
+    tab(4, "Press 'y' to play again.")
+    tab(7, "Press 'q' to quit.", "\n")
+    @key = STDIN.getch
   end
 
 end

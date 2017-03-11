@@ -10,7 +10,8 @@ class PlayerRandom
   end
 
   def get_move(game_board, round, mark, wins, x_pos, o_pos)
-    position = @moves.sample
+    position = game_board.each_index.select{ |index| game_board[index] == "" }
+    move = @moves[position.sample]
   end
 
 end
