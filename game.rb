@@ -86,7 +86,6 @@ class Game
       $o_score += 1 if @o_won
       @full = @board.board_full?
     end
-    # @game_over = true
   end
 
   # Method to display final game results
@@ -98,7 +97,7 @@ class Game
 
   def play_again?
     @console.play_again?
-    if @console.key == "y"
+    if @console.key == "y"  # or any key except "q"
       play
     elsif @console.key == "q"
       $game_over = true
