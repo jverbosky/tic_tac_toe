@@ -66,11 +66,13 @@ class Console
       when "2" then @p1_type = "perfect"
       when "3" then @p1_type = "random"
       when "4" then @p1_type = "sequential"
-      else @p1_type = "???"
+      # else @p1_type = "???"
+      else @p1_type = "invalid_p1"
     end
-    puts "\n"
-    tab(12, "Great!!!")
-    tab(5, "X is a #{@p1_type} player.", "-" * 31)
+    invalid_player_check(@p1_type)
+    # puts "\n"
+    # tab(12, "Great!!!")
+    # tab(5, "X is a #{@p1_type} player.", "-" * 31)
   end
 
   # Method to handle player O selection
@@ -82,11 +84,35 @@ class Console
       when "2" then @p2_type = "perfect"
       when "3" then @p2_type = "random"
       when "4" then @p2_type = "sequential"
-      else @p2_type = "???"
+      else @p2_type = "invalid_p2"
     end
-    puts "\n"
-    tab(10, "Excellent!!!")
-    tab(5, "O is a #{@p2_type} player.", "-" * 31)
+    invalid_player_check(@p2_type)
+    # puts "\n"
+    # tab(10, "Excellent!!!")
+    # tab(5, "O is a #{@p2_type} player.", "-" * 31)
+  end
+
+  # Method to handle invalid input during player selection
+  def invalid_player_check(player_type)
+    unless player_type == "invalid_p1" || player_type == "invalid_p2"
+      if player_type == @p1_type
+        puts "\n"
+        tab(12, "Great!!!")
+        tab(5, "X is a #{@p1_type} player.", "-" * 31)
+      elsif player_type == @p2_type
+        puts "\n"
+        tab(10, "Excellent!!!")
+        tab(5, "O is a #{@p2_type} player.", "-" * 31)
+      end
+    else
+      if player_type == "invalid_p1"
+        puts "Invalid selection - try again!"
+        select_x
+      elsif player_type == "invalid_p2"
+        puts "Invalid selection - try again!"
+        select_o
+      end
+    end
   end
 
   # Method to display header and legend

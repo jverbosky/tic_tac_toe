@@ -1,10 +1,10 @@
 require_relative "board.rb"
+require_relative "console.rb"
 require_relative "player_hum.rb"
 require_relative "player_perf.rb"
-require_relative "player_seq.rb"
 require_relative "player_rand.rb"
+require_relative "player_seq.rb"
 require_relative "position.rb"
-require_relative "console.rb"
 
 class Game
 
