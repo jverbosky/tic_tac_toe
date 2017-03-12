@@ -1,14 +1,14 @@
 # class to handle web browser output
 
-# class Web
+class Web
 
-#   attr_reader :p1_type, :p2_type, :key
+  attr_reader :p1_type, :p2_type, :key
 
-  # def initialize
-  #   @p1_type = ""
-  #   @p2_type = ""
-  #   # @key = ""
-  # end
+  def initialize
+    @p1_type = ""
+    @p2_type = ""
+    # @key = ""
+  end
 
   # # Method to clear the screen regardless of OS
   # def clear_screen
@@ -139,26 +139,6 @@
     # end
   end
 
-test_board = ["", "", "X", "", "O", "", "X", "", ""]
-
-output_board(test_board)
-
-
-#   # Method to output the game board
-#   def output_board(board, x_score, o_score)
-#     clear_screen
-#     header
-#     scorekeeping(x_score, o_score)
-#     spaced = []
-#     board.each { |mark| mark == "" ? spaced.push(" ") : spaced.push(mark) }
-#     rows = spaced.each_slice(3).to_a
-#     rows.each_with_index do |row, index|
-#       index < 2 ? (tab(11, row.join(" | ")); tab(11, "-" * 9)) : tab(11, row.join(" | "))
-#     end
-#     puts "\n"
-#     legend
-#   end
-
 #   # Method to provide feedback on move selection
 #   def move_status(round, mark, move, taken)
 #     if round > 1
@@ -198,7 +178,7 @@ output_board(test_board)
 #     # @key = STDIN.getch
 #   end
 
-# end
+end
 
 # Sandbox testing
 # board = Board.new

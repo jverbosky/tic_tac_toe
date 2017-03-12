@@ -1,11 +1,9 @@
 require_relative "board.rb"
-# require_relative "console.rb"
 require_relative "player_hum.rb"
 require_relative "player_perf.rb"
 require_relative "player_rand.rb"
 require_relative "player_seq.rb"
 require_relative "position.rb"
-require_relative "web.rb"
 
 class Game
 
@@ -19,7 +17,6 @@ class Game
   def initialize
     @board = ""  # Board class instance
     @position = ""  # Position class instance
-    @display = ""  # Console/Web class instance
     @round = 0  # current game round
     @p1 = ""  # X player
     @p1_type = ""  # X player type
@@ -37,30 +34,33 @@ class Game
   def new_game
     @board = Board.new
     @position = Position.new
-    # @display = Console.new
-    @display = Web.new
-    play_game
-    show_results
-    play_again?
+    @board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]  # for output testing
+    # play_game
+    # show_results
+    # play_again?
+  end
+
+  # Method to output the game board
+  def output_board
+    rows = @board.game_board.each_slice(3).to_a
   end
 
   # Method to handle player type selection
-  def select_players
-    # @display.select_players  # prompt for player type selection
-    # case @display.p1_type
-    #   when "human" then @p1 = PlayerHuman.new; @p1_type = "human"
-    #   when "perfect" then @p1 = PlayerPerfect.new; @p1_type = "perfect"
-    #   when "random" then @p1 = PlayerRandom.new; @p1_type = "random"
-    #   when "sequential" then @p1 = PlayerSequential.new; @p1_type = "sequential"
-    #   else puts "not a valid type"
-    # end
-    # case @display.p2_type
-    #   when "human" then @p2 = PlayerHuman.new; @p2_type = "human"
-    #   when "perfect" then @p2 = PlayerPerfect.new; @p2_type = "perfect"
-    #   when "random" then @p2 = PlayerRandom.new; @p2_type = "random"
-    #   when "sequential" then @p2 = PlayerSequential.new; @p2_type = "sequential"
-    #   else puts "not a valid type"
-    # end
+  def select_players(player_type)
+    @p1_type = player_type["p1_type"]
+    case @p1_type
+      when "human" then @p1 = PlayerHuman.new
+      when "perfect" then @p1 = PlayerPerfect.new
+      when "random" then @p1 = PlayerRandom.new
+      when "sequential" then @p1 = PlayerSequential.new
+    end
+    @p2_type = player_type["p1_type"]
+    case @p2_type
+      when "human" then @p2 = PlayerHuman.new
+      when "perfect" then @p2 = PlayerPerfect.new
+      when "random" then @p2 = PlayerRandom.new
+      when "sequential" then @p2 = PlayerSequential.new
+    end
   end
 
   # Method to handle main game loop
@@ -113,6 +113,8 @@ class Game
   end
 
 end
+
+game = Game.new
 
 # Old stress testing code that only displays final game screen (just for reference)
 # Loops until game over condition reached - use for stress testing
