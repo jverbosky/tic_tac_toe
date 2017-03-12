@@ -9,7 +9,10 @@ require_relative 'game.rb'
 get '/' do  # route to load the initial Tic Tac Toe page
   # new_game
   # output_board
-  rows = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]
+  game = Game.new
+  game.new_game
+  rows = game.output_board
+  # rows = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]
   erb :start, locals: {rows: rows}
 end
 
