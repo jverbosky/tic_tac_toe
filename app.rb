@@ -27,19 +27,19 @@ end
 
 post '/player_1' do
   session[:rows] = session[:game].output_board
-  if session[:p1_type] == "human"
+  if session[:p1_type] == "Human"
     erb :play_human, locals: {rows: session[:rows]}
   else
-    erb :play_ai, locals: {rows: session[:rows]}
+    erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
   end
 end
 
 post '/player_2' do
   session[:rows] = session[:game].output_board
-  if session[:p1_type] == "human"
+  if session[:p1_type] == "Human"
     erb :play_human, locals: {rows: session[:rows]}
   else
-    erb :play_ai, locals: {rows: session[:rows]}
+    erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
   end
 end
 
@@ -47,9 +47,11 @@ post '/move_human' do
   move = params[:location]
   session[:game].human_move(move)
   session[:rows] = session[:game].output_board
-  erb :play_human, locals: {rows: session[:rows]}
+  erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
 end
 
 post '/move_ai' do
+  session[:game].ai_move
   session[:rows] = session[:game].output_board
+  erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
 end

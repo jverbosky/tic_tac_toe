@@ -5,18 +5,18 @@
   <form method="post" action="players">  <!-- action ~ "post '/guess' do" in app.rb -->
     <h4>Player 1 (X):
       <select type="text" name="player_type[p1_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
-        <option value="human">human</option>
-        <option value="perfect">perfect</option>
-        <option value="random">random</option>
-        <option value="sequential">sequential</option>
+        <option value="Human">Human</option>
+        <option value="Perfect">Perfect</option>
+        <option value="Random">Random</option>
+        <option value="Sequential">Sequential</option>
       </select>
     </h4>
     <h4>Player 2 (O):
       <select type="text" name="player_type[p2_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
-        <option value="human">human</option>
-        <option value="perfect">perfect</option>
-        <option value="random">random</option>
-        <option value="sequential">sequential</option>
+        <option value="Human">Human</option>
+        <option value="Perfect">Perfect</option>
+        <option value="Random">Random</option>
+        <option value="Sequential">Sequential</option>
       </select>
     </h4>
     <input type="submit" value="Submit">  <!-- button to submit letter to "post '/guess' do" route for evaluation -->

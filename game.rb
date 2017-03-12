@@ -49,23 +49,32 @@ class Game
   def select_players(player_type)
     @p1_type = player_type["p1_type"]
     case @p1_type
-      when "human" then @p1 = PlayerHuman.new
-      when "perfect" then @p1 = PlayerPerfect.new
-      when "random" then @p1 = PlayerRandom.new
-      when "sequential" then @p1 = PlayerSequential.new
+      when "Human" then @p1 = PlayerHuman.new
+      when "Perfect" then @p1 = PlayerPerfect.new
+      when "Random" then @p1 = PlayerRandom.new
+      when "Sequential" then @p1 = PlayerSequential.new
     end
     @p2_type = player_type["p2_type"]
     case @p2_type
-      when "human" then @p2 = PlayerHuman.new
-      when "perfect" then @p2 = PlayerPerfect.new
-      when "random" then @p2 = PlayerRandom.new
-      when "sequential" then @p2 = PlayerSequential.new
+      when "Human" then @p2 = PlayerHuman.new
+      when "Perfect" then @p2 = PlayerPerfect.new
+      when "Random" then @p2 = PlayerRandom.new
+      when "Sequential" then @p2 = PlayerSequential.new
     end
   end
 
   def human_move(move)
     @mark = @board.get_mark(@board.x_count, @board.o_count)
     location = @position.get_index(move)
+    @board.position_open?(location) ? @taken = false : @taken = true
+    @board.set_position(location, @mark) if @taken == false
+  end
+
+  def ai_move
+    wins = @board.wins  # constant needed by perfect player
+    @mark = @board.get_mark(@board.x_count, @board.o_count)
+    @move = @p1.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
+    location = @position.get_index(@move)
     @board.position_open?(location) ? @taken = false : @taken = true
     @board.set_position(location, @mark) if @taken == false
   end
