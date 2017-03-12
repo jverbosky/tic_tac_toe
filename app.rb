@@ -8,9 +8,8 @@ require_relative 'game.rb'
 
 enable :sessions
 
-get '/' do  # route to load the initial Tic Tac Toe page
-  # new_game
-  # output_board
+  # route to load the initial Tic Tac Toe page
+get '/' do
   session[:game] = Game.new
   session[:game].new_game
   session[:intro_rows] = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]
@@ -18,7 +17,6 @@ get '/' do  # route to load the initial Tic Tac Toe page
 end
 
 post '/players' do
-  session[:rows] = session[:game].output_board
   player_type = params[:player_type]
   session[:game].select_players(player_type)
   session[:p1_type] = session[:game].p1_type
@@ -45,19 +43,13 @@ post '/player_2' do
   end
 end
 
-  # "Player type: #{player_type}"  # Player type: {"p1_type"=>"perfect", "p2_type"=>"random"}
-  # if game.p1_type == "human"
-  #   erb :play_human
-  # else
-  #   erb :play_ai
-  # end
+post '/move_human' do
+  move = params[:location]
+  session[:game].human_move(move)
+  session[:rows] = session[:game].output_board
+  erb :play_human, locals: {rows: session[:rows]}
+end
 
-# post '/move_human' do
-#   location = params[:location]
-#   play_game(location)
-#   erb: 
-# end
-
-# post '/move_ai' do
-#   # location = 
-# end
+post '/move_ai' do
+  session[:rows] = session[:game].output_board
+end

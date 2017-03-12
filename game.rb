@@ -63,34 +63,37 @@ class Game
     end
   end
 
+  def human_move(move)
+    @mark = @board.get_mark(@board.x_count, @board.o_count)
+    location = @position.get_index(move)
+    @board.position_open?(location) ? @taken = false : @taken = true
+    @board.set_position(location, @mark) if @taken == false
+  end
+
   # Method to handle main game loop
   def play_game(board_location)
     # select_players
     # while @x_won == false && @o_won == false && @full == false  # Each iteration == 1 (attempted) move
       # @display.output_board(@board.game_board, $x_score, $o_score)
-      @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
-      @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
+      # @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
+      # @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
       # @display.move_status(@round, @mark, @move, @taken)  # display previous round info
       # @display.computer unless @p1_type == "human" || @p2_type == "human"
       @mark = @board.get_mark(@board.x_count, @board.o_count)
-      wins = @board.wins  # constant needed by perfect player
+      # wins = @board.wins  # constant needed by perfect player
       if player_type == "human"
         @move = board_location
       else
         @move = player.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
       end
       location = @position.get_index(@move)
-      if location == false
-        @move = "???"
-      else
-        @board.position_open?(location) ? @taken = false : @taken = true
-        @board.set_position(location, @mark) if @taken == false
-      end
-      @x_won = @board.x_won?(@board.get_x)
-      $x_score += 1 if @x_won
-      @o_won = @board.o_won?(@board.get_o)
-      $o_score += 1 if @o_won
-      @full = @board.board_full?
+      @board.position_open?(location) ? @taken = false : @taken = true
+      @board.set_position(location, @mark) if @taken == false
+      # @x_won = @board.x_won?(@board.get_x)
+      # $x_score += 1 if @x_won
+      # @o_won = @board.o_won?(@board.get_o)
+      # $o_score += 1 if @o_won
+      # @full = @board.board_full?
     # end
   end
 
@@ -119,6 +122,7 @@ class Game
 end
 
 # game = Game.new
+# position = Position.new
 
 # Old stress testing code that only displays final game screen (just for reference)
 # Loops until game over condition reached - use for stress testing
