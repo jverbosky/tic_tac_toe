@@ -7,18 +7,18 @@ require_relative "position.rb"
 
 class Game
 
-  attr_reader :round, :mark, :taken, :p1_type, :p2_type
+  attr_reader :round, :mark, :taken, :p1_type, :p2_type, :game_over, :x_won, :o_won
   attr_accessor :move
 
   # Variables for scores (global to persist through new game instances)
   $x_score = 0  # accumulator for X score
   $o_score = 0  # accumulator for O score
-  $game_over = false
+  # $game_over = false
 
   def initialize
     @board = ""  # Board class instance
     @position = ""  # Position class instance
-    @round = 0  # current game round
+    @round = 1  # current game round
     @p1 = ""  # X player
     @p1_type = ""  # X player type
     @p2 = ""  # O player
@@ -29,6 +29,7 @@ class Game
     @x_won = false  # endgame condition check 1
     @o_won = false  # endgame condition check 2
     @full = false  # endgame condition check 3
+    @game_over = false
   end
 
   # Method to initialize objects, call game loop and display endgame results
@@ -64,28 +65,28 @@ class Game
     end
   end
 
-  def human_move(move)
-    @mark = @board.get_mark(@board.x_count, @board.o_count)
-    location = @position.get_index(move)
-    @board.position_open?(location) ? @taken = false : @taken = true
-    @board.set_position(location, @mark) if @taken == false
-  end
+  # def human_move(move)
+  #   @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #   location = @position.get_index(move)
+  #   @board.position_open?(location) ? @taken = false : @taken = true
+  #   @board.set_position(location, @mark) if @taken == false
+  # end
 
-  def ai_move
-    wins = @board.wins  # constant needed by perfect player
-    @mark = @board.get_mark(@board.x_count, @board.o_count)
-    @move = @p1.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
-    location = @position.get_index(@move)
-    @board.position_open?(location) ? @taken = false : @taken = true
-    @board.set_position(location, @mark) if @taken == false
-  end
+  # def ai_move
+  #   wins = @board.wins  # constant needed by perfect player
+  #   @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #   @move = @p1.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
+  #   location = @position.get_index(@move)
+  #   @board.position_open?(location) ? @taken = false : @taken = true
+  #   @board.set_position(location, @mark) if @taken == false
+  # end
 
   # Method to handle main game loop
   def play_game
     # select_players
     # while @x_won == false && @o_won == false && @full == false  # Each iteration == 1 (attempted) move
       # @display.output_board(@board.game_board, $x_score, $o_score)
-      @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
+      # @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
       @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
       # @display.move_status(@round, @mark, @move, @taken)  # display previous round info
       # @display.computer unless @p1_type == "human" || @p2_type == "human"
@@ -97,11 +98,15 @@ class Game
       location = @position.get_index(@move)
       @board.position_open?(location) ? @taken = false : @taken = true
       @board.set_position(location, @mark) if @taken == false
-      # @x_won = @board.x_won?(@board.get_x)
+      @x_won = @board.x_won?(@board.get_x)
       # $x_score += 1 if @x_won
-      # @o_won = @board.o_won?(@board.get_o)
+      @o_won = @board.o_won?(@board.get_o)
       # $o_score += 1 if @o_won
-      # @full = @board.board_full?
+      @full = @board.board_full?
+      if @x_won || @o_won || @full
+        @game_over = true
+      end
+      @round += 1
     # end
   end
 

@@ -2,7 +2,7 @@
 
 <div class="padding blue">
   <h3>Please Select a Location</h3>
-  <form method="post" action="move_human">
+  <form method="post" action="play">
     <select type="text" name="location">
       <option value="t1">t1</option>
       <option value="t2">t2</option>
@@ -17,6 +17,8 @@
     <input type="submit" value="Submit">  <!-- button to submit letter to "post '/guess' do" route for evaluation -->
   </form>
 </div>
+
+<p>Round <%= round %></p>
 
 
 <!-- figure out how to show/hide this with a link/button/toggle

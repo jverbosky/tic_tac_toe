@@ -25,27 +25,97 @@ post '/players' do
   erb :player_type, locals: {rows: session[:intro_rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
 end
 
+# post '/play' do
+#   session[:rows] = session[:game].output_board
+#   if session[:p1_type] == "Human"
+#     erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#   else
+#     erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#   end
+# end
+
 post '/play' do
-  session[:rows] = session[:game].output_board
-  # need to access logic for rounds, p1/p2 selection based on rounds
-
-
-  if session[:p1_type] == "Human"
-    erb :play_human, locals: {rows: session[:rows]}
+  round = session[:game].round
+  game_over = session[:game].game_over
+  x_won = session[:game].x_won
+  o_won = session[:game].o_won
+  # if round == 1
+  #   session[:rows] = session[:game].output_board
+  # else
+    # if round % 2 == 1
+    #   if session[:p1_type] == "Human"
+    #     session[:game].move = params[:location]
+    #     session[:game].play_game
+    #   else
+    #     session[:game].play_game
+    #   end
+    # else
+    #   if session[:p2_type] == "Human"
+    #     session[:game].move = params[:location]
+    #     session[:game].play_game
+    #   else
+        # session[:game].play_game
+    #   end
+    # end
+    session[:rows] = session[:game].output_board
+    session[:game].play_game
+  # end
+  if game_over == true
+    if x_won == true
+      result = "X won the game!"
+      erb :game_over, locals: {rows: session[:rows], result: result}
+    elsif o_won == true
+      result = "O won the game!"
+      erb :game_over, locals: {rows: session[:rows], result: result}
+    else
+      result = "It was a tie!"
+      erb :game_over, locals: {rows: session[:rows], result: result}
+    end
+  elsif round % 2 == 1
+    if session[:p1_type] == "Human"
+      erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type], round: round}
+    else
+      erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type], round: round}
+    end
   else
-    erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+    if session[:p2_type] == "Human"
+      erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type], round: round}
+    else
+      erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type], round: round}
+    end
   end
 end
 
-post '/move_human' do
-  session[:game].move = params[:location]
-  session[:game].play_game
-  session[:rows] = session[:game].output_board
-  erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
-end
+# post '/play_more' do
+#   session[:rows] = session[:game].output_board
+#   # need to access logic for rounds, p1/p2 selection based on rounds
+#   round = session[:game].round
+#   unless round % 2 == 0
+#     if session[:p1_type] == "Human"
+#       erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#     else
+#       erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#     end
+#   else
+#     if session[:p2_type] == "Human"
+#       erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#     else
+#       erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#     end
+#   end
+# end
 
-post '/move_ai' do
-  session[:game].play_game
-  session[:rows] = session[:game].output_board
-  erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
-end
+# post '/move_human' do
+#   session[:game].move = params[:location]
+#   session[:game].play_game
+#   session[:rows] = session[:game].output_board
+#   # erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#   erb :play, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+# end
+
+# post '/move_ai' do
+#   session[:game].play_game
+#   session[:rows] = session[:game].output_board
+#   # erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+#   erb :play, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+# end
