@@ -7,7 +7,7 @@ require_relative "position.rb"
 
 class Game
 
-  attr_reader :round, :mark, :move, :taken
+  attr_reader :round, :mark, :move, :taken, :p1_type, :p2_type
 
   # Variables for scores (global to persist through new game instances)
   $x_score = 0  # accumulator for X score
@@ -64,9 +64,9 @@ class Game
   end
 
   # Method to handle main game loop
-  def play_game
-    select_players
-    while @x_won == false && @o_won == false && @full == false  # Each iteration == 1 (attempted) move
+  def play_game(board_location)
+    # select_players
+    # while @x_won == false && @o_won == false && @full == false  # Each iteration == 1 (attempted) move
       # @display.output_board(@board.game_board, $x_score, $o_score)
       @round = @board.get_round(@board.x_count, @board.o_count)  # puts round  # see the current round number
       @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
@@ -74,7 +74,11 @@ class Game
       # @display.computer unless @p1_type == "human" || @p2_type == "human"
       @mark = @board.get_mark(@board.x_count, @board.o_count)
       wins = @board.wins  # constant needed by perfect player
-      @move = player.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
+      if player_type == "human"
+        @move = board_location
+      else
+        @move = player.get_move(@board.game_board, @round, @mark, wins, @board.get_x, @board.get_o)
+      end
       location = @position.get_index(@move)
       if location == false
         @move = "???"
@@ -87,7 +91,7 @@ class Game
       @o_won = @board.o_won?(@board.get_o)
       $o_score += 1 if @o_won
       @full = @board.board_full?
-    end
+    # end
   end
 
   # Method to display final game results

@@ -4,9 +4,15 @@ require_relative "board.rb"
 class PlayerHuman
 
   def get_move(game_board, round, mark, wins, x_pos, o_pos)
-    print "Please enter the desired location: "
-    location = gets.chomp
+    
+    # print "Please enter the desired location: "
+    # location = gets.chomp
   end
+
+  # def get_move(game_board, round, mark, wins, x_pos, o_pos)
+  #   print "Please enter the desired location: "
+  #   location = gets.chomp
+  # end
 
 end
 
