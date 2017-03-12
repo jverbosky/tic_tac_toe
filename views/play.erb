@@ -4,51 +4,42 @@
 - provides form for entering letter and feedback on letter
  -->
 
-<!--
-# Original manual entry method
-<div class="row">
-  <p>Please enter a letter:</p>
-  <form method="post" action="guess">  # action ~ "post '/guess' do" in app.rb
-    <input type="text" name="letter">  # text == string, name ~ "@num = params[:letter]" in app.rb
-    <input type="submit" value="Enter">  # button to submit letter to "post '/guess' do" route for evaluation
-  </form>
-</div>
- -->
-
-<div class="padding">
-  <p>Please select a letter:</p>
-  <form method="post" action="guess">  <!-- action ~ "post '/guess' do" in app.rb -->
-    <select type="text" name="letter">  <!-- text == string, name ~ "@num = params[:letter]" in app.rb -->
-      <option value="a">a</option>
-      <option value="b">b</option>
-      <option value="c">c</option>
-      <option value="d">d</option>
-      <option value="e">e</option>
-      <option value="f">f</option>
-      <option value="g">g</option>
-      <option value="h">h</option>
-      <option value="i">i</option>
-      <option value="j">j</option>
-      <option value="k">k</option>
-      <option value="l">l</option>
-      <option value="m">m</option>
-      <option value="n">n</option>
-      <option value="o">o</option>
-      <option value="p">p</option>
-      <option value="q">q</option>
-      <option value="r">r</option>
-      <option value="s">s</option>
-      <option value="t">t</option>
-      <option value="u">u</option>
-      <option value="v">v</option>
-      <option value="w">w</option>
-      <option value="x">x</option>
-      <option value="y">y</option>
-      <option value="z">z</option>
+<div class="padding blue">
+  <h3>Please Select a Location</h3>
+  <form method="post" action="move">  <!-- action ~ "post '/guess' do" in app.rb -->
+    <select type="text" name="location">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
+      <option value="t1">t1</option>
+      <option value="t2">t2</option>
+      <option value="t3">t3</option>
+      <option value="m1">m1</option>
+      <option value="m2">m2</option>
+      <option value="m3">m3</option>
+      <option value="b1">b1</option>
+      <option value="b2">b2</option>
+      <option value="b3">b3</option>
     </select>
     <input type="submit" value="Submit">  <!-- button to submit letter to "post '/guess' do" route for evaluation -->
   </form>
 </div>
-<div class="padding">
-  <p><br><%= @feedback %></p>  <!-- indicates if letter is invalid, incorrect or correct -->
+
+
+<!-- figure out how to show/hide this with a link/button/toggle
+<div class="legend red">
+  <table>
+    <tr>
+      <th>Locations</th>
+    <tr>
+      <td>Top row:</td>
+      <td>t1, t2, t3</td>
+    </tr>
+    <tr>
+      <td>Middle row:</td>
+      <td>m1, m2, m3</td>
+    </tr>
+    <tr>
+      <td>Bottom row:</td>
+      <td>b1, b2, b3</td>
+    </tr>
+  </table>
 </div>
+-->

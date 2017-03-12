@@ -4,13 +4,13 @@
 
 require 'sinatra'
 require 'sinatra/reloader' if development?  # automatically reload app.rb on save via sinatra-contrib gem
-require_relative 'main.rb'  # load Ruby script (same directory)
+# require_relative 'main.rb'  # load Ruby script (same directory)
+require_relative 'web.rb'
 
 get '/' do  # route to load the initial Tic Tac Toe page
   # start = start_game(new_game)
-
-
-  erb :start
+  rows = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]
+  erb :play, locals: {rows: rows}
 
   # @start = start_game()  # necessary to start the game, won't run if method called by itself
   # @image = hangman(wrong_count())  # use incorrect guess count to load correct image

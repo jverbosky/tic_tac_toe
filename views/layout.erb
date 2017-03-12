@@ -31,7 +31,16 @@
     <div class = "red">
       <div class="center-block padding">
         <table class="board-table">
+          <% rows.each do |row| %>
           <tr>
+            <% row.each do |space| %>
+            <td class="board-td"><div class="board-space yellow"><%= space %></div></td>
+            <!-- <td class="board-td"><div class="board-space yellow"></div></td> -->
+            <!-- <td class="board-td"><div class="board-space yellow"></div></td> -->
+            <% end %>
+          </tr>
+          <% end %>
+<!--           <tr>
             <td class="board-td"><div class="board-space yellow"></div></td>
             <td class="board-td"><div class="board-space yellow"></div></td>
             <td class="board-td"><div class="board-space yellow"></div></td>
@@ -40,12 +49,7 @@
             <td class="board-td"><div class="board-space yellow"></div></td>
             <td class="board-td"><div class="board-space yellow"></div></td>
             <td class="board-td"><div class="board-space yellow"></div></td>
-          </tr>
-          <tr>
-            <td class="board-td"><div class="board-space yellow"></div></td>
-            <td class="board-td"><div class="board-space yellow"></div></td>
-            <td class="board-td"><div class="board-space yellow"></div></td>
-          </tr>
+          </tr> -->
         </table>
       </div>
     </div>
