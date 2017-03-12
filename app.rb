@@ -13,10 +13,8 @@ get '/' do  # route to load the initial Tic Tac Toe page
   # output_board
   session[:game] = Game.new
   session[:game].new_game
-  session[:rows] = session[:game].output_board
-  # "Rows: #{rows}"
-  # rows = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]
-  erb :start, locals: {rows: session[:rows]}
+  session[:intro_rows] = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]
+  erb :start, locals: {rows: session[:intro_rows]}
 end
 
 post '/players' do
@@ -25,13 +23,27 @@ post '/players' do
   session[:game].select_players(player_type)
   session[:p1_type] = session[:game].p1_type
   session[:p2_type] = session[:game].p2_type
-  erb :player_type, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+  # "Player type: #{player_type}, p1: #{session[:p1_type]}, p2: #{session[:p2_type]}"
+  erb :player_type, locals: {rows: session[:intro_rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
 end
 
-post '/play_game' do
+post '/player_1' do
   session[:rows] = session[:game].output_board
+  if session[:p1_type] == "human"
+    erb :play_human, locals: {rows: session[:rows]}
+  else
+    erb :play_ai, locals: {rows: session[:rows]}
+  end
 end
 
+post '/player_2' do
+  session[:rows] = session[:game].output_board
+  if session[:p1_type] == "human"
+    erb :play_human, locals: {rows: session[:rows]}
+  else
+    erb :play_ai, locals: {rows: session[:rows]}
+  end
+end
 
   # "Player type: #{player_type}"  # Player type: {"p1_type"=>"perfect", "p2_type"=>"random"}
   # if game.p1_type == "human"

@@ -1,5 +1,10 @@
 <!-- /views/player_type.erb -->
 
 <div>
-  <p>Great!!!  X is a <%= p1_type %> player and O is a <%= p2_type %> player.</p>
+  <p>Got it!</p>
+  <p>X is a <u><%= p1_type %></u> player and O is a <u><%= p2_type %></u> player.</p>
+  <p>Please press <b>Play</b> to begin the game!</p>
+  <form method="post" action="player_1">
+    <input type="submit" value="Play">
+  </form>
 </div>

@@ -34,7 +34,7 @@ class Game
   def new_game
     @board = Board.new
     @position = Position.new
-    @board.game_board = ["X", "", "X", "O", "O", "X", "X", "", ""]  # for output testing
+    # @board.game_board = ["X", "", "X", "O", "O", "X", "X", "", ""]  # for output testing
     # play_game
     # show_results
     # play_again?
@@ -54,7 +54,7 @@ class Game
       when "random" then @p1 = PlayerRandom.new
       when "sequential" then @p1 = PlayerSequential.new
     end
-    @p2_type = player_type["p1_type"]
+    @p2_type = player_type["p2_type"]
     case @p2_type
       when "human" then @p2 = PlayerHuman.new
       when "perfect" then @p2 = PlayerPerfect.new
