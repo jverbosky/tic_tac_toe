@@ -7,7 +7,7 @@ require_relative "position.rb"
 
 class Game
 
-  attr_reader :round, :mark, :taken, :p1_type, :p2_type, :game_over, :x_won, :o_won
+  attr_reader :round, :mark, :taken, :p1_type, :p2_type, :game_over, :x_won, :x_score, :o_won, :o_score
   attr_accessor :move
 
   # Variables for scores (global to persist through new game instances)
@@ -27,7 +27,9 @@ class Game
     @move = ""  # plain English position selected by player
     @taken = false  # used to provide feedback when position occupied
     @x_won = false  # endgame condition check 1
+    # @x_score = 0
     @o_won = false  # endgame condition check 2
+    # @o_score = 0
     @full = false  # endgame condition check 3
     @game_over = false
   end
@@ -104,6 +106,8 @@ class Game
       # $o_score += 1 if @o_won
       @full = @board.board_full?
       if @x_won || @o_won || @full
+        $x_score += 1 if @x_won
+        $o_score += 1 if @o_won
         @game_over = true
       end
       @round += 1
@@ -112,7 +116,10 @@ class Game
 
   # Method to display final game results
   def show_results
-    translated = @position.map_win(@board.win)  # board array index positions in human-friendly positions
+    @game_over = true
+    $x_score += 1 if @x_won
+    $o_score += 1 if @o_won
+    # translated = @position.map_win(@board.win)  # board array index positions in human-friendly positions
     # @display.output_board(@board.game_board, $x_score, $o_score)
     # @display.output_results(@x_won, @o_won, translated, @round, @mark, @move)
   end
