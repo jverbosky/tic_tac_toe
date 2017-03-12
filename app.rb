@@ -25,17 +25,11 @@ post '/players' do
   erb :player_type, locals: {rows: session[:intro_rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
 end
 
-post '/player_1' do
+post '/play' do
   session[:rows] = session[:game].output_board
-  if session[:p1_type] == "Human"
-    erb :play_human, locals: {rows: session[:rows]}
-  else
-    erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
-  end
-end
+  # need to access logic for rounds, p1/p2 selection based on rounds
 
-post '/player_2' do
-  session[:rows] = session[:game].output_board
+
   if session[:p1_type] == "Human"
     erb :play_human, locals: {rows: session[:rows]}
   else
@@ -44,14 +38,14 @@ post '/player_2' do
 end
 
 post '/move_human' do
-  move = params[:location]
-  session[:game].human_move(move)
+  session[:game].move = params[:location]
+  session[:game].play_game
   session[:rows] = session[:game].output_board
   erb :play_human, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
 end
 
 post '/move_ai' do
-  session[:game].ai_move
+  session[:game].play_game
   session[:rows] = session[:game].output_board
   erb :play_ai, locals: {rows: session[:rows], p1_type: session[:p1_type], p2_type: session[:p2_type]}
 end
