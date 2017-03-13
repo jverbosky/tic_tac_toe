@@ -66,8 +66,21 @@ class Game
       @board.position_open?(location) ? @taken = false : @taken = true
       @board.set_position(location, @mark) if @taken == false
     end
+    game_over?
     @round += 1
   end
+
+  ## Backup
+  # Method to temporarily handle human move logic
+  # def human_move(move)
+  #   unless move == nil
+  #     @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #     location = @position.get_index(move)
+  #     @board.position_open?(location) ? @taken = false : @taken = true
+  #     @board.set_position(location, @mark) if @taken == false
+  #   end
+  #   @round += 1
+  # end
 
   # Method to handle main game loop
   def play_game
