@@ -1,10 +1,6 @@
 <!-- /views/play_human.erb -->
 
-<% unless round == 10 %>
-  <h3>Round <%= round %></h3>
-<% else %>
-  <h3>Round <%= round - 1 %></h3>
-<% end %>
+<h3>Round <%= round %></h3>
 
 <% player_type = "Human" %>
 <% if round % 2 == 0 %>
