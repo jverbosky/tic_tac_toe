@@ -66,10 +66,9 @@ end
 # if game is over (win/tie), displays final game results
 post '/play' do
   session[:round] = session[:game].round
-  # game_over = session[:game].game_over
   x_won = session[:game].x_won
   o_won = session[:game].o_won
-  session[:game].play_game #unless session[:round] == 10 || game_over == true
+  session[:game].make_move("")
   move = session[:game].move
   session[:rows] = session[:game].output_board
   session[:game].game_over?  # check board to see if last move won or tied
@@ -77,7 +76,6 @@ post '/play' do
   if game_over == true
     result = session[:game].result
     win = session[:game].win
-    # win = session[:game].position.map_win(session[:game].board.win)
     if x_won == false && o_won == false
       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result}
     else
@@ -86,53 +84,32 @@ post '/play' do
   else
     erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
   end
-  #   if x_won == true
-  #     $x_score += 1
-  #     result = "#{session[:p1_type]} X won the game!<br>The winning positions were: #{win}"
-  #     erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
-  #   elsif o_won == true
-  #     $o_score += 1
-  #     result = "#{session[:p2_type]} O won the game!<br>The winning positions were: #{win}"
-  #     erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
-  #   elsif x_won == false && o_won == false
-  #     result = "It was a tie!"
-  #     erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result}
-  #   end
-  # else
-  #   erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
-  # end
 end
 
 ## Backup - AI logic only, working just fine ##
-# # route to display game board, round and previous player move
-# # if game is over (win/tie), displays final game results
+# route to display game board, round and previous player move - ai players
+# if game is over (win/tie), displays final game results
 # post '/play' do
 #   session[:round] = session[:game].round
-#   game_over = session[:game].game_over
 #   x_won = session[:game].x_won
 #   o_won = session[:game].o_won
-#   session[:game].play_game unless session[:round] == 10 || game_over == true
+#   session[:game].ai_move
 #   move = session[:game].move
 #   session[:rows] = session[:game].output_board
+#   session[:game].game_over?  # check board to see if last move won or tied
+#   game_over = session[:game].game_over
 #   if game_over == true
-#     win = session[:game].position.map_win(session[:game].board.win)
-#     if x_won == true
-#       $x_score += 1
-#       result = "#{session[:p1_type]} X won the game!<br>The winning positions were: #{win}"
-#       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
-#     elsif o_won == true
-#       $o_score += 1
-#       result = "#{session[:p2_type]} O won the game!<br>The winning positions were: #{win}"
-#       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
-#     elsif x_won == false && o_won == false
-#       result = "It was a tie!"
+#     result = session[:game].result
+#     win = session[:game].win
+#     if x_won == false && o_won == false
 #       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result}
+#     else
+#       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
 #     end
 #   else
 #     erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
 #   end
 # end
-
 
 ## Backup of /play route with human player logic
 # route to display game board, round and previous player move
