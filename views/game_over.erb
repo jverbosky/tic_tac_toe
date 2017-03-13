@@ -1,9 +1,9 @@
 <!-- /views/game_over.erb -->
 
-<% unless round == 10 %>
-  <h3>Round <%= round %></h3>
+<% if player_type == "Human" %>
+  <h3>Round <%= round -1 %></h3>
 <% else %>
-  <h3>Round <%= round - 1 %></h3>
+  <h3>Round <%= round %></h3>
 <% end %>
 
 <p><%= result %></p>

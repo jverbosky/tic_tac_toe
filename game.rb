@@ -7,7 +7,7 @@ require_relative "position.rb"
 
 class Game
 
-  attr_reader :board, :position, :p1_type, :p2_type, :mark, :taken, :x_won, :o_won, :game_over, :result, :win
+  attr_reader :board, :position, :p1_type, :p2_type, :player_type, :mark, :taken, :x_won, :o_won, :game_over, :result, :win
   attr_accessor :move, :round
 
   def initialize
@@ -18,6 +18,8 @@ class Game
     @p1_type = ""  # X player type
     @p2 = ""  # O player
     @p2_type = ""  # O player type
+    @player = ""  # current player
+    @player_type = ""  # current player type
     @mark = ""  # current player character (X/O)
     @move = ""  # plain English position selected by player
     @taken = false  # used to provide feedback when position occupied
@@ -78,12 +80,21 @@ class Game
   #   end
   # end
 
-  # Method to temporarily hold combined human & AI move logic
+  def set_player_type
+    # @round % 2 == 0 ? (@player = @p2; @player_type = @p2_type) : (@player = @p1; @player_type = @p1_type)
+    if @round % 2 == 1
+      (@player = @p1; @player_type = @p1_type)
+    else
+      (@player = @p2; @player_type = @p2_type)
+    end
+  end
+
+  # Method to hold combined human & AI move logic
   def make_move(move)
-    @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
-    unless player_type == "Human"
+    # @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
+    unless @player_type == "Human"
       @mark = @board.get_mark(@board.x_count, @board.o_count)
-      @move = player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
+      @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
       location = @position.get_index(@move)
       @board.set_position(location, @mark)
       @round += 1
