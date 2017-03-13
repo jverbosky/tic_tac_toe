@@ -7,7 +7,7 @@ require_relative "position.rb"
 
 class Game
 
-  attr_reader :board, :position, :round, :p1_type, :p2_type, :mark, :taken, :x_won, :o_won, :game_over
+  attr_reader :board, :position, :round, :p1_type, :p2_type, :mark, :taken, :x_won, :o_won, :game_over, :result, :win
   attr_accessor :move
 
   def initialize
@@ -26,6 +26,8 @@ class Game
     @full = false  # endgame condition check 3
     @game_over = false
     @wins = []  # constant needed by perfect player
+    @win = []  # final winning positions
+    @result = ""  # verbiage for winner
   end
 
   # Method to initialize objects, call game loop and display endgame results
@@ -60,14 +62,26 @@ class Game
 
   # Method to temporarily handle human move logic
   def human_move(move)
-    unless move == nil
-      @mark = @board.get_mark(@board.x_count, @board.o_count)
-      location = @position.get_index(move)
-      @board.position_open?(location) ? @taken = false : @taken = true
-      @board.set_position(location, @mark) if @taken == false
+    if game_over?
+      @win = @position.map_win(@board.win)
+      if @x_won == true
+        $x_score += 1
+        @result = "#{@p1_type} X won the game!<br>The winning positions were: #{@win}"
+      elsif @o_won == true
+        $o_score += 1
+        @result = "#{@p2_type} O won the game!<br>The winning positions were: #{@win}"
+      elsif @x_won == false && @o_won == false
+        @result = "It was a tie!"
+      end
+    else
+      unless move == nil
+        @mark = @board.get_mark(@board.x_count, @board.o_count)
+        location = @position.get_index(move)
+        @board.position_open?(location) ? @taken = false : @taken = true
+        @board.set_position(location, @mark) if @taken == false
+      end
+      @round += 1
     end
-    game_over?
-    @round += 1
   end
 
   ## Backup
@@ -79,6 +93,7 @@ class Game
   #     @board.position_open?(location) ? @taken = false : @taken = true
   #     @board.set_position(location, @mark) if @taken == false
   #   end
+  #   game_over?
   #   @round += 1
   # end
 
