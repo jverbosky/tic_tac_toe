@@ -1,6 +1,20 @@
 <!-- /views/play_human.erb -->
 
-<div class="padding blue">
+<h3>Round <%= round %></h3>
+
+<% player_type = "Human" %>
+<% if round % 2 == 0 %>
+  <% previous_player = "X" %>
+<% else %>
+  <% previous_player = "O" %>
+<% end %>
+<% if round > 1 %>
+  <p><%= player_type %> <%= previous_player %> took  <%= move %> in round <%= round -1 %>.</p>
+<% end %>
+
+<%= result %>
+
+<div class="blue">
   <h3>Please Select a Location</h3>
   <form method="post" action="play">
     <select type="text" name="location">
@@ -17,9 +31,6 @@
     <input type="submit" value="Submit">  <!-- button to submit letter to "post '/guess' do" route for evaluation -->
   </form>
 </div>
-
-<p>Round <%= round %></p>
-
 
 <!-- figure out how to show/hide this with a link/button/toggle
 <div class="legend red">
