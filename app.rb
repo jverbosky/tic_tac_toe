@@ -56,17 +56,18 @@ end
 post '/play' do
   session[:round] = session[:game].round
   puts "round: " + session[:round].inspect
-  game_over = session[:game].game_over
-  puts "game_over: " + game_over.inspect
   x_won = session[:game].x_won
   puts "x_won: " + x_won.inspect
   o_won = session[:game].o_won
   puts "x\o_won: " + o_won.inspect
   move = params[:location]
   puts "move: " + move.inspect
-  session[:game].human_move(move) unless session[:round] == 10 || game_over == true
+  session[:game].human_move(move)
   session[:rows] = session[:game].output_board
   puts "board: " + session[:rows].inspect
+  session[:game].game_over?  # check board to see if last move won or tied
+  game_over = session[:game].game_over  # update game_over for next conditional block
+  puts "game_over: " + game_over.inspect
   if game_over == true
     result = session[:game].result
     puts "result: " + result.inspect

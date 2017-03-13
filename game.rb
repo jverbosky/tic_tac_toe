@@ -60,9 +60,12 @@ class Game
     end
   end
 
-  # Method to temporarily handle human move logic
-  def human_move(move)
-    if game_over?
+  def game_over?
+    @x_won = @board.x_won?(@board.get_x)
+    @o_won = @board.o_won?(@board.get_o)
+    @full = @board.board_full?
+    @game_over = true if @x_won || @o_won || @full
+    if @game_over == true
       @win = @position.map_win(@board.win)
       if @x_won == true
         $x_score += 1
@@ -74,15 +77,58 @@ class Game
         @result = "It was a tie!"
       end
     else
-      unless move == nil
+      @round += 1
+    end
+  end
+
+  # Method to temporarily handle human move logic
+  def human_move(move)
+    unless move == nil
+      # if @game_over == true
+      #   @win = @position.map_win(@board.win)
+      #   if @x_won == true
+      #     $x_score += 1
+      #     @result = "#{@p1_type} X won the game!<br>The winning positions were: #{@win}"
+      #   elsif @o_won == true
+      #     $o_score += 1
+      #     @result = "#{@p2_type} O won the game!<br>The winning positions were: #{@win}"
+      #   elsif @x_won == false && @o_won == false
+      #     @result = "It was a tie!"
+      #   end
+      # else
         @mark = @board.get_mark(@board.x_count, @board.o_count)
         location = @position.get_index(move)
         @board.position_open?(location) ? @taken = false : @taken = true
         @board.set_position(location, @mark) if @taken == false
-      end
-      @round += 1
+      # end
     end
   end
+
+  ## Backup with endgame logic
+  # Method to temporarily handle human move logic
+  # def human_move(move)
+  #   if game_over?
+  #     @win = @position.map_win(@board.win)
+  #     if @x_won == true
+  #       $x_score += 1
+  #       @result = "#{@p1_type} X won the game!<br>The winning positions were: #{@win}"
+  #     elsif @o_won == true
+  #       $o_score += 1
+  #       @result = "#{@p2_type} O won the game!<br>The winning positions were: #{@win}"
+  #     elsif @x_won == false && @o_won == false
+  #       @result = "It was a tie!"
+  #     end
+  #   else
+  #     unless move == nil
+  #       @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #       location = @position.get_index(move)
+  #       @board.position_open?(location) ? @taken = false : @taken = true
+  #       @board.set_position(location, @mark) if @taken == false
+  #     end
+  #     @round += 1
+  #   end
+  # end
+
 
   ## Backup
   # Method to temporarily handle human move logic
@@ -110,11 +156,20 @@ class Game
     @round += 1
   end
 
-  def game_over?
-    @x_won = @board.x_won?(@board.get_x)
-    @o_won = @board.o_won?(@board.get_o)
-    @full = @board.board_full?
-    @game_over = true if @x_won || @o_won || @full
-  end
+  # def game_over?(move)
+  #   @x_won = @board.x_won?(@board.get_x)
+  #   @o_won = @board.o_won?(@board.get_o)
+  #   @full = @board.board_full?
+  #   @game_over = true if @x_won || @o_won || @full
+  #   human_move(move)
+  # end
+
+  ## Backup before adjusting endgame logic
+  # def game_over?
+  #   @x_won = @board.x_won?(@board.get_x)
+  #   @o_won = @board.o_won?(@board.get_o)
+  #   @full = @board.board_full?
+  #   @game_over = true if @x_won || @o_won || @full
+  # end
 
 end
