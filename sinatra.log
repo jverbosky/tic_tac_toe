@@ -1,161 +1,63 @@
-::1 - - [13/Mar/2017:18:42:31 -0400] "GET / HTTP/1.1" 200 3431 0.0500
-::1 - - [13/Mar/2017:18:42:31 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+::1 - - [13/Mar/2017:19:54:17 -0400] "GET / HTTP/1.1" 200 3431 0.0470
+::1 - - [13/Mar/2017:19:54:17 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
 - -> /
-::1 - - [13/Mar/2017:18:42:34 -0400] "POST /players HTTP/1.1" 200 2624 0.0410
-::1 - - [13/Mar/2017:18:42:34 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2624
+::1 - - [13/Mar/2017:19:54:18 -0400] "GET /style.css HTTP/1.1" 200 1243 0.0070
+::1 - - [13/Mar/2017:19:54:18 Eastern Daylight Time] "GET /style.css HTTP/1.1" 200 1243
+http://localhost:4567/ -> /style.css
+::1 - - [13/Mar/2017:19:54:21 -0400] "POST /players HTTP/1.1" 200 2638 0.0150
+::1 - - [13/Mar/2017:19:54:21 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
 http://localhost:4567/ -> /players
-round: 1
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:35 -0400] "POST /play HTTP/1.1" 200 3438 0.0090
-::1 - - [13/Mar/2017:18:42:35 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3438
-http://localhost:4567/players -> /play
-round: 2
-player_type: "Perfect"
-ai move: "b2"
-rows array: [["", "", ""], ["", "", ""], ["", "X", ""]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:37 -0400] "POST /play HTTP/1.1" 200 2578 0.0120
-::1 - - [13/Mar/2017:18:42:36 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2578
-http://localhost:4567/play -> /play
-round: 3
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["", "", ""], ["", "", ""], ["", "X", ""]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:38 -0400] "POST /play HTTP/1.1" 200 3478 0.0080
-::1 - - [13/Mar/2017:18:42:38 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3478
-http://localhost:4567/play -> /play
-round: 4
-player_type: "Perfect"
-ai move: "m1"
-rows array: [["", "", ""], ["O", "", ""], ["", "X", ""]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:39 -0400] "POST /play HTTP/1.1" 200 2579 0.0060
-::1 - - [13/Mar/2017:18:42:39 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2579
-http://localhost:4567/play -> /play
-round: 5
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["", "", ""], ["O", "", ""], ["", "X", ""]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:40 -0400] "POST /play HTTP/1.1" 200 3479 0.0100
-::1 - - [13/Mar/2017:18:42:40 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3479
-http://localhost:4567/play -> /play
-round: 6
-player_type: "Perfect"
-ai move: "m3"
-rows array: [["", "", ""], ["O", "", "X"], ["", "X", ""]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:41 -0400] "POST /play HTTP/1.1" 200 2580 0.0090
-::1 - - [13/Mar/2017:18:42:41 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2580
-http://localhost:4567/play -> /play
-round: 7
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["", "", ""], ["O", "", "X"], ["", "X", ""]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:42 -0400] "POST /play HTTP/1.1" 200 3480 0.0070
-::1 - - [13/Mar/2017:18:42:42 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3480
-http://localhost:4567/play -> /play
-round: 8
-player_type: "Perfect"
-ai move: "t1"
-rows array: [["O", "", ""], ["O", "", "X"], ["", "X", ""]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:43 -0400] "POST /play HTTP/1.1" 200 2581 0.0230
-::1 - - [13/Mar/2017:18:42:43 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2581
-http://localhost:4567/play -> /play
-round: 9
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["O", "", ""], ["O", "", "X"], ["", "X", ""]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:44 -0400] "POST /play HTTP/1.1" 200 3481 0.0060
-::1 - - [13/Mar/2017:18:42:44 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3481
-http://localhost:4567/play -> /play
-round: 10
-player_type: "Perfect"
-ai move: "b1"
-rows array: [["O", "", ""], ["O", "", "X"], ["X", "X", ""]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:45 -0400] "POST /play HTTP/1.1" 200 2583 0.0110
-::1 - - [13/Mar/2017:18:42:45 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2583
-http://localhost:4567/play -> /play
-round: 11
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["O", "", ""], ["O", "", "X"], ["X", "X", ""]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:47 -0400] "POST /play HTTP/1.1" 200 3484 0.0070
-::1 - - [13/Mar/2017:18:42:47 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3484
-http://localhost:4567/play -> /play
-round: 12
-player_type: "Perfect"
-ai move: "b3"
-rows array: [["O", "", ""], ["O", "", "X"], ["X", "X", "O"]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:48 -0400] "POST /play HTTP/1.1" 200 2584 0.0060
-::1 - - [13/Mar/2017:18:42:48 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2584
-http://localhost:4567/play -> /play
-round: 13
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["O", "", ""], ["O", "", "X"], ["X", "X", "O"]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:49 -0400] "POST /play HTTP/1.1" 200 3485 0.0080
-::1 - - [13/Mar/2017:18:42:49 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3485
-http://localhost:4567/play -> /play
-round: 14
-player_type: "Perfect"
-ai move: "m2"
-rows array: [["O", "", ""], ["O", "X", "X"], ["X", "X", "O"]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:50 -0400] "POST /play HTTP/1.1" 200 2585 0.0110
-::1 - - [13/Mar/2017:18:42:50 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2585
-http://localhost:4567/play -> /play
-round: 15
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["O", "", ""], ["O", "X", "X"], ["X", "X", "O"]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:51 -0400] "POST /play HTTP/1.1" 200 3486 0.0140
-::1 - - [13/Mar/2017:18:42:51 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3486
-http://localhost:4567/play -> /play
-round: 16
-player_type: "Perfect"
-ai move: "t3"
-rows array: [["O", "", "O"], ["O", "X", "X"], ["X", "X", "O"]]
-play_ai erb
-::1 - - [13/Mar/2017:18:42:51 -0400] "POST /play HTTP/1.1" 200 2586 0.0060
-::1 - - [13/Mar/2017:18:42:51 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2586
-http://localhost:4567/play -> /play
-round: 17
-player_type: "Human"
-human move: nil
-result: ""
-rows array: [["O", "", "O"], ["O", "X", "X"], ["X", "X", "O"]]
-play_human erb
-::1 - - [13/Mar/2017:18:42:52 -0400] "POST /play HTTP/1.1" 200 3487 0.0060
-::1 - - [13/Mar/2017:18:42:52 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3487
-http://localhost:4567/play -> /play
-round: 18
-player_type: "Perfect"
-ai move: "t2"
-rows array: [["O", "X", "O"], ["O", "X", "X"], ["X", "X", "O"]]
-::1 - - [13/Mar/2017:18:42:53 -0400] "POST /play HTTP/1.1" 200 2571 0.0060
-::1 - - [13/Mar/2017:18:42:53 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2571
-http://localhost:4567/play -> /play
+::1 - - [13/Mar/2017:19:54:23 -0400] "POST /play_human HTTP/1.1" 200 3403 0.0090
+::1 - - [13/Mar/2017:19:54:23 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3403
+http://localhost:4567/players -> /play_human
+::1 - - [13/Mar/2017:19:54:24 -0400] "POST /play_ai HTTP/1.1" 200 2498 0.0150
+::1 - - [13/Mar/2017:19:54:24 Eastern Daylight Time] "POST /play_ai HTTP/1.1" 200 2498
+http://localhost:4567/play_human -> /play_ai
+::1 - - [13/Mar/2017:19:54:27 -0400] "POST /play HTTP/1.1" 404 467 0.0030
+::1 - - [13/Mar/2017:19:54:27 Eastern Daylight Time] "POST /play HTTP/1.1" 404 467
+http://localhost:4567/play_ai -> /play
+::1 - - [13/Mar/2017:19:54:27 -0400] "GET /__sinatra__/404.png HTTP/1.1" 200 18893 0.0150
+::1 - - [13/Mar/2017:19:54:27 Eastern Daylight Time] "GET /__sinatra__/404.png HTTP/1.1" 200 18893
+http://localhost:4567/play -> /__sinatra__/404.png
 == Sinatra has ended his set (crowd applauds)
-[2017-03-13 18:42:59] INFO  going to shutdown ...
-[2017-03-13 18:42:59] INFO  WEBrick::HTTPServer#start done.
+[2017-03-13 19:54:41] INFO  going to shutdown ...
+[2017-03-13 19:54:41] INFO  WEBrick::HTTPServer#start done.
+::1 - - [13/Mar/2017:19:54:51 -0400] "GET / HTTP/1.1" 200 3431 0.0390
+::1 - - [13/Mar/2017:19:54:50 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [13/Mar/2017:19:54:51 -0400] "GET /style.css HTTP/1.1" 200 1243 0.0050
+::1 - - [13/Mar/2017:19:54:51 Eastern Daylight Time] "GET /style.css HTTP/1.1" 200 1243
+http://localhost:4567/ -> /style.css
+::1 - - [13/Mar/2017:19:54:53 -0400] "POST /players HTTP/1.1" 200 2638 0.0270
+::1 - - [13/Mar/2017:19:54:53 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
+http://localhost:4567/ -> /players
+::1 - - [13/Mar/2017:19:54:54 -0400] "POST /play_human HTTP/1.1" 200 3403 0.0080
+::1 - - [13/Mar/2017:19:54:54 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3403
+http://localhost:4567/players -> /play_human
+::1 - - [13/Mar/2017:19:54:55 -0400] "POST /play_ai HTTP/1.1" 200 2504 0.0420
+::1 - - [13/Mar/2017:19:54:55 Eastern Daylight Time] "POST /play_ai HTTP/1.1" 200 2504
+http://localhost:4567/play_human -> /play_ai
+::1 - - [13/Mar/2017:19:54:57 -0400] "POST /play_human HTTP/1.1" 200 3404 0.0080
+::1 - - [13/Mar/2017:19:54:57 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3404
+http://localhost:4567/play_ai -> /play_human
+== Sinatra has ended his set (crowd applauds)
+[2017-03-13 19:55:14] INFO  going to shutdown ...
+[2017-03-13 19:55:14] INFO  WEBrick::HTTPServer#start done.
+::1 - - [13/Mar/2017:19:55:27 -0400] "GET / HTTP/1.1" 200 3431 0.0360
+::1 - - [13/Mar/2017:19:55:27 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [13/Mar/2017:19:55:27 -0400] "GET /style.css HTTP/1.1" 200 1243 0.0050
+::1 - - [13/Mar/2017:19:55:27 Eastern Daylight Time] "GET /style.css HTTP/1.1" 200 1243
+http://localhost:4567/ -> /style.css
+::1 - - [13/Mar/2017:19:55:30 -0400] "POST /players HTTP/1.1" 200 2638 0.0070
+::1 - - [13/Mar/2017:19:55:30 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
+http://localhost:4567/ -> /players
+::1 - - [13/Mar/2017:19:55:32 -0400] "POST /play_human HTTP/1.1" 200 3403 0.0060
+::1 - - [13/Mar/2017:19:55:32 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3403
+http://localhost:4567/players -> /play_human
+::1 - - [13/Mar/2017:19:55:34 -0400] "POST /play_ai HTTP/1.1" 200 2501 0.0100
+::1 - - [13/Mar/2017:19:55:34 Eastern Daylight Time] "POST /play_ai HTTP/1.1" 200 2501
+http://localhost:4567/play_human -> /play_ai
+== Sinatra has ended his set (crowd applauds)
+[2017-03-13 19:58:48] INFO  going to shutdown ...
+[2017-03-13 19:58:48] INFO  WEBrick::HTTPServer#start done.

@@ -1,10 +1,16 @@
 <!-- /views/player_type.erb -->
 
+<% if p1_type == "Human" %>
+  <% route = "play_human" %>
+<% else %>
+  <% route = "play_ai" %>
+<% end %>
+
 <div>
   <p>Got it!</p>
   <p>X is a <u><%= p1_type %></u> player and O is a <u><%= p2_type %></u> player.</p>
   <p>Press <b>Play</b> to begin the game!</p>
-  <form method="post" action="play">
+  <form method="post" action=<%= route %>>
     <input type="submit" value="Play">
   </form>
 </div>

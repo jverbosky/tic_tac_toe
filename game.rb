@@ -90,31 +90,31 @@ class Game
   end
 
   # Method to hold combined human & AI move logic
-  def make_move(move)
-    # @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
-    unless @player_type == "Human"
-      @mark = @board.get_mark(@board.x_count, @board.o_count)
-      @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
-      location = @position.get_index(@move)
-      @board.set_position(location, @mark)
-      @round += 1
-    else
-      unless move == nil
-        @mark = @board.get_mark(@board.x_count, @board.o_count)
-        location = @position.get_index(move)
-        @board.position_open?(location) ? @taken = false : @taken = true
-        if @taken
-          @result = "That position isn't open. Please try again player "
-        else
-          @result = ""
-          @board.set_position(location, @mark)
-          @round += 1
-        end
-      else
-        @round += 1
-      end
-    end
-  end
+  # def make_move(move)
+  #   # @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
+  #   unless @player_type == "Human"
+  #     @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #     @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
+  #     location = @position.get_index(@move)
+  #     @board.set_position(location, @mark)
+  #     @round += 1
+  #   else
+  #     unless move == nil
+  #       @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #       location = @position.get_index(move)
+  #       @board.position_open?(location) ? @taken = false : @taken = true
+  #       if @taken
+  #         @result = "That position isn't open. Please try again player "
+  #       else
+  #         @result = ""
+  #         @board.set_position(location, @mark)
+  #         @round += 1
+  #       end
+  #     else
+  #       @round += 1
+  #     end
+  #   end
+  # end
 
 ## Backup @ 4:52 - trying to test human /play route
   # Method to temporarily hold combined human & AI move logic
@@ -147,34 +147,34 @@ class Game
 
   # ## Backup
   # # Method to temporarily handle AI move logic
-  # def ai_move
-  #   @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
-  #   @mark = @board.get_mark(@board.x_count, @board.o_count)
-  #   unless player_type == "Human"
-  #     @move = player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
-  #   end
-  #   location = @position.get_index(@move)
-  #   @board.set_position(location, @mark)
-  #   @round += 1
-  # end
+  def ai_move
+    @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
+    @mark = @board.get_mark(@board.x_count, @board.o_count)
+    unless player_type == "Human"
+      @move = player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
+    end
+    location = @position.get_index(@move)
+    @board.set_position(location, @mark)
+    @round += 1
+  end
 
   # # Method to temporarily handle human move logic
-  # def human_move(move)
-  #   unless move == nil
-  #     @mark = @board.get_mark(@board.x_count, @board.o_count)
-  #     location = @position.get_index(move)
-  #     @board.position_open?(location) ? @taken = false : @taken = true
-  #     if @taken
-  #       @result = "That position isn't open. Please try again!"
-  #     else
-  #       @result = ""
-  #       @board.set_position(location, @mark) if @taken == false
-  #       @round += 1
-  #     end
-  #   else
-  #     @round += 1
-  #   end
-  # end
+  def human_move(move)
+    unless move == nil
+      @mark = @board.get_mark(@board.x_count, @board.o_count)
+      location = @position.get_index(move)
+      @board.position_open?(location) ? @taken = false : @taken = true
+      if @taken
+        @result = "That position isn't open. Please try again!"
+      else
+        @result = ""
+        @board.set_position(location, @mark) if @taken == false
+        @round += 1
+      end
+    else
+      @round += 1
+    end
+  end
 
   def game_over?
     @x_won = @board.x_won?(@board.get_x)

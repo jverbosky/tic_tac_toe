@@ -1,24 +1,8 @@
 <!-- /views/play_human.erb -->
 
-<h3>Round <%= round %></h3>
-
-<% player_type = "Human" %>
-<% if round % 2 == 0 %>
-  <% previous_player = "X" %>
-  <% current_player = "O" %>
-<% else %>
-  <% previous_player = "O" %>
-  <% current_player = "X" %>
-<% end %>
-<% if round > 1 && result == "" %>
-  <p><%= player_type %> <%= previous_player %> took  <%= move %> in round <%= round -1 %>.</p>
-<% elsif round > 1 && result != "" %>
-  <p><%= result %> <%= current_player %>!<p>
-<% end %>
-
 <div class="blue">
   <h3>Please Select a Location</h3>
-  <form method="post" action="play">
+  <form method="post" action="play_ai">
     <select type="text" name="location">
       <option value="t1">t1</option>
       <option value="t2">t2</option>

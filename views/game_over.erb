@@ -1,11 +1,5 @@
 <!-- /views/game_over.erb -->
 
-<% if player_type == "Human" %>
-  <h3>Round <%= round -1 %></h3>
-<% else %>
-  <h3>Round <%= round %></h3>
-<% end %>
-
 <p><%= result %></p>
 <p>Press <b>Play</b> to start a new game.</p>
 <button><a href="/">Play</a></button>
