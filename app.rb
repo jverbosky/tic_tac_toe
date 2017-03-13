@@ -48,13 +48,23 @@ end
 
 post '/play' do
   session[:round] = session[:game].round
-  unless params[:location] == nil
-    move = params[:location]
-    session[:game].human_move(move)
-  end
+  move = params[:location]
+  session[:game].human_move(move)
   session[:rows] = session[:game].output_board
   erb :play_human, locals: {rows: session[:rows], round: session[:round]}
 end
+
+## Backup - route working correctly for human player for all rounds
+# post '/play' do
+#   session[:round] = session[:game].round
+#   unless params[:location] == nil
+#     move = params[:location]
+#     session[:game].human_move(move)
+#   end
+#   session[:rows] = session[:game].output_board
+#   erb :play_human, locals: {rows: session[:rows], round: session[:round]}
+# end
+
 
 ## Backup - AI logic only, working just fine ##
 # # route to display game board, round and previous player move
