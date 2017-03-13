@@ -107,7 +107,7 @@ class Game
           @result = "That position isn't open. Please try again player "
         else
           @result = ""
-          @board.set_position(location, @mark) #if @taken == false
+          @board.set_position(location, @mark)
           @round += 1
         end
       else

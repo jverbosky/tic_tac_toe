@@ -14,11 +14,11 @@ $x_score = 0  # global for X score to persist through multiple games
 $o_score = 0  # global for O score to persist through multiple games
 
 # route to tracing variables through route iterations
-# before do
-#   log = File.new("sinatra.log", "a")
-#   STDOUT.reopen(log)
-#   STDERR.reopen(log)
-# end
+before do
+  log = File.new("sinatra.log", "a")
+  STDOUT.reopen(log)
+  STDERR.reopen(log)
+end
 
 # route to load the player selection screen
 get '/' do
@@ -42,20 +42,25 @@ end
 # # if game is over (win/tie), displays final game results
 post '/play' do
   session[:round] = session[:game].round
+  puts "round: " + session[:round].inspect
   player_type = session[:game].set_player_type
+  puts "player_type: " + player_type.inspect
   x_won = session[:game].x_won
   o_won = session[:game].o_won
-  session[:game].set_player_type
   if player_type == "Human"
     move = params[:location]
+    puts "human move: " + move.inspect
     session[:game].make_move(move)
     result = session[:game].result
+    puts "result: " + result.inspect
     session[:round] -= 1 unless result == ""  # logic to decrement round number if position already taken
   else
     session[:game].make_move("")
     move = session[:game].move
+    puts "ai move: " + move.inspect
   end
   session[:rows] = session[:game].output_board
+  puts "rows array: " + session[:rows].inspect
   session[:game].game_over?  # check board to see if last move won or tied
   game_over = session[:game].game_over  # update game_over for next conditional block
   if game_over == true
@@ -67,8 +72,10 @@ post '/play' do
       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
     end
   elsif player_type == "Human"
+    puts "play_human erb"
     erb :play_human, locals: {rows: session[:rows], round: session[:round], move: move, result: result}
   else
+    puts "play_ai erb"
     erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
   end
 end
