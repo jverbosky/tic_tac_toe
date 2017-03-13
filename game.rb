@@ -58,6 +58,14 @@ class Game
     end
   end
 
+  # Method to temporarily handle human move logic
+  def human_move(move)
+    @mark = @board.get_mark(@board.x_count, @board.o_count)
+    location = @position.get_index(move)
+    @board.position_open?(location) ? @taken = false : @taken = true
+    @board.set_position(location, @mark) if @taken == false
+  end
+
   # Method to handle main game loop
   def play_game
     @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
