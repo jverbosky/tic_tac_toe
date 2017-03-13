@@ -1,0 +1,83 @@
+::1 - - [13/Mar/2017:11:34:47 -0400] "GET / HTTP/1.1" 200 3431 0.0420
+::1 - - [13/Mar/2017:11:34:47 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [13/Mar/2017:11:34:48 -0400] "POST /players HTTP/1.1" 200 2622 0.0280
+::1 - - [13/Mar/2017:11:34:48 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2622
+http://localhost:4567/ -> /players
+round: 1
+game_over: false
+x_won: false
+xo_won: false
+move: nil
+board: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [13/Mar/2017:11:34:49 -0400] "POST /play HTTP/1.1" 200 3428 0.0060
+::1 - - [13/Mar/2017:11:34:49 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3428
+http://localhost:4567/players -> /play
+round: 2
+game_over: false
+x_won: false
+xo_won: false
+move: "t1"
+board: [["X", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [13/Mar/2017:11:34:51 -0400] "POST /play HTTP/1.1" 200 3429 0.0120
+::1 - - [13/Mar/2017:11:34:51 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3429
+http://localhost:4567/play -> /play
+round: 3
+game_over: false
+x_won: false
+xo_won: false
+move: "m1"
+board: [["X", "", ""], ["O", "", ""], ["", "", ""]]
+::1 - - [13/Mar/2017:11:34:54 -0400] "POST /play HTTP/1.1" 200 3430 0.0070
+::1 - - [13/Mar/2017:11:34:54 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3430
+http://localhost:4567/play -> /play
+round: 4
+game_over: false
+x_won: false
+xo_won: false
+move: "t2"
+board: [["X", "X", ""], ["O", "", ""], ["", "", ""]]
+::1 - - [13/Mar/2017:11:34:56 -0400] "POST /play HTTP/1.1" 200 3431 0.0080
+::1 - - [13/Mar/2017:11:34:56 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3431
+http://localhost:4567/play -> /play
+round: 5
+game_over: false
+x_won: false
+xo_won: false
+move: "m2"
+board: [["X", "X", ""], ["O", "O", ""], ["", "", ""]]
+::1 - - [13/Mar/2017:11:34:58 -0400] "POST /play HTTP/1.1" 200 3432 0.0090
+::1 - - [13/Mar/2017:11:34:58 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3432
+http://localhost:4567/play -> /play
+round: 6
+game_over: false
+x_won: false
+xo_won: false
+move: "t3"
+board: [["X", "X", "X"], ["O", "O", ""], ["", "", ""]]
+::1 - - [13/Mar/2017:11:35:01 -0400] "POST /play HTTP/1.1" 200 3433 0.0060
+::1 - - [13/Mar/2017:11:35:01 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3433
+http://localhost:4567/play -> /play
+round: 7
+game_over: false
+x_won: false
+xo_won: false
+move: "m3"
+board: [["X", "X", "X"], ["O", "O", ""], ["", "", ""]]
+::1 - - [13/Mar/2017:11:35:04 -0400] "POST /play HTTP/1.1" 200 3433 0.0080
+::1 - - [13/Mar/2017:11:35:04 Eastern Daylight Time] "POST /play HTTP/1.1" 200 3433
+http://localhost:4567/play -> /play
+round: 7
+game_over: true
+x_won: true
+xo_won: false
+move: "b1"
+board: [["X", "X", "X"], ["O", "O", ""], ["", "", ""]]
+result: "Human X won the game!<br>The winning positions were: t1, t2, t3"
+win: "t1, t2, t3"
+::1 - - [13/Mar/2017:11:35:08 -0400] "POST /play HTTP/1.1" 200 2558 0.0050
+::1 - - [13/Mar/2017:11:35:08 Eastern Daylight Time] "POST /play HTTP/1.1" 200 2558
+http://localhost:4567/play -> /play
+== Sinatra has ended his set (crowd applauds)
+[2017-03-13 11:35:22] INFO  going to shutdown ...
+[2017-03-13 11:35:22] INFO  WEBrick::HTTPServer#start done.

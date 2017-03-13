@@ -7,10 +7,17 @@ require 'sinatra'
 require_relative 'game.rb'
 
 enable :sessions
+enable :logging, :dump_errors, :raise_errors
 
 # Variables for scores (global to persist through new game instances)
 $x_score = 0  # global for X score to persist through multiple games
 $o_score = 0  # global for O score to persist through multiple games
+
+before do
+  log = File.new("sinatra.log", "a")
+  STDOUT.reopen(log)
+  STDERR.reopen(log)
+end
 
 # route to load the player selection screen
 get '/' do
@@ -48,27 +55,27 @@ end
 
 post '/play' do
   session[:round] = session[:game].round
+  puts "round: " + session[:round].inspect
   game_over = session[:game].game_over
+  puts "game_over: " + game_over.inspect
   x_won = session[:game].x_won
+  puts "x_won: " + x_won.inspect
   o_won = session[:game].o_won
+  puts "x\o_won: " + o_won.inspect
   move = params[:location]
+  puts "move: " + move.inspect
   session[:game].human_move(move) unless session[:round] == 10 || game_over == true
   session[:rows] = session[:game].output_board
+  puts "board: " + session[:rows].inspect
   if game_over == true
-    # win = session[:game].position.map_win(session[:game].board.win)
     result = session[:game].result
+    puts "result: " + result.inspect
     win = session[:game].win
-    if x_won == true
-      # $x_score += 1
-      # result = "#{session[:p1_type]} X won the game!<br>The winning positions were: #{win}"
-      erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
-    elsif o_won == true
-      # $o_score += 1
-      # result = "#{session[:p2_type]} O won the game!<br>The winning positions were: #{win}"
-      erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
-    elsif x_won == false && o_won == false
-      # result = "It was a tie!"
+    puts "win: " + win.inspect
+    if x_won == false && o_won == false
       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result}
+    else
+      erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
     end
   else
     erb :play_human, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
