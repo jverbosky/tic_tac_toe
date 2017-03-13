@@ -1,15 +1,6 @@
 <!-- /views/game_over.erb -->
 
-<%= result %>
-
-<!-- <div class="padding blue">
-  <h3>Press Play to start a new game.</h3>
-  <button><hrefform method="get" action="/">
-    <input type="submit" value="Play">
-  </form>
-</div> -->
-
-<div class="padding blue">
-  <h3>Press Play to start a new game.</h3>
-  <button><a href="/">Play</a></button>
-</div>
+<h3>Round <%= round - 1 %></h3>
+<p><%= result %></p>
+<p>Press <b>Play</b> to start a new game.</p>
+<button><a href="/">Play</a></button>

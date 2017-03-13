@@ -1,17 +1,16 @@
 <!-- /views/play_ai.erb -->
 
-<div class="padding blue">
-  <h3>Press Submit for AI move.</h3>
-  <form method="post" action="play">
-    <input type="submit" value="Submit">
-  </form>
-</div>
+<% if round % 2 == 0 %>
+  <% previous_player = "O" %>
+  <% previous_ai_type = p2_type %>
+<% else %>
+  <% previous_player = "X" %>
+  <% previous_ai_type = p1_type %>
+<% end %>
 
-<p>Round <%= round %></p>
-
-<!-- <div class="padding blue">
-  <h3>Press Submit for <%= p1_type %> AI Move</h3>
-  <form method="post" action="play">
-    <input type="submit" value="Submit">
-  </form>
-</div> -->
+<h3>Round <%= round %></h3>
+<p><%= previous_ai_type %> <%= previous_player %> took  <%= move %>.</p>
+<p>Press <b>Next</b> to continue.</p>
+<form method="post" action="play">
+  <input type="submit" value="Next">
+</form>

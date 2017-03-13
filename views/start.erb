@@ -1,24 +1,24 @@
 <!-- /views/start.erb -->
 
 <div class="padding blue">
-  <h3>Please Select the Player Types</h3>
+  <p>Please select the player types:</p>
   <form method="post" action="players">  <!-- action ~ "post '/guess' do" in app.rb -->
-    <h4>Player 1 (X):
+    <p>Player 1 (X):
       <select type="text" name="player_type[p1_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
         <option value="Human">Human</option>
         <option value="Perfect">Perfect</option>
         <option value="Random">Random</option>
         <option value="Sequential">Sequential</option>
       </select>
-    </h4>
-    <h4>Player 2 (O):
+    </p>
+    <p>Player 2 (O):
       <select type="text" name="player_type[p2_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
         <option value="Human">Human</option>
         <option value="Perfect">Perfect</option>
         <option value="Random">Random</option>
         <option value="Sequential">Sequential</option>
       </select>
-    </h4>
+    </p>
     <input type="submit" value="Submit">  <!-- button to submit letter to "post '/guess' do" route for evaluation -->
   </form>
 </div>

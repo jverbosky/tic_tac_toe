@@ -4,27 +4,14 @@
 */
 
 body {
-  /*background-color: #000000;*/
   font-family: sans-serif;
-  /*color: #ffffff;*/
+  text-align: center;
 }
 
 div {
   display: table;
   margin: 0 auto;
   max-width: 470px;
-}
-
-h1 {
-  text-align: center;
-}
-
-h3 {
-  text-align: center;
-}
-
-p {
-  text-align: center;
 }
 
 a {
