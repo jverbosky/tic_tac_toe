@@ -7,8 +7,8 @@ require_relative "position.rb"
 
 class Game
 
-  attr_reader :board, :position, :round, :p1_type, :p2_type, :mark, :taken, :x_won, :o_won, :game_over, :result, :win
-  attr_accessor :move
+  attr_reader :board, :position, :p1_type, :p2_type, :mark, :taken, :x_won, :o_won, :game_over, :result, :win
+  attr_accessor :move, :round
 
   def initialize
     @board = ""  # Board class instance
@@ -86,22 +86,53 @@ class Game
       @move = player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
       location = @position.get_index(@move)
       @board.set_position(location, @mark)
+      @round += 1
     else
       unless move == nil
         @mark = @board.get_mark(@board.x_count, @board.o_count)
         location = @position.get_index(move)
         @board.position_open?(location) ? @taken = false : @taken = true
         if @taken
-          @result = "That position isn't open. Please try again!"
+          @result = "That position isn't open. Please try again player "
         else
           @result = ""
-          @board.set_position(location, @mark) if @taken == false
+          @board.set_position(location, @mark) #if @taken == false
           @round += 1
         end
+      else
+        @round += 1
       end
     end
-    @round += 1
   end
+
+## Backup @ 4:52 - trying to test human /play route
+  # Method to temporarily hold combined human & AI move logic
+  # def make_move(move)
+  #   @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
+  #   unless player_type == "Human"
+  #     @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #     @move = player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
+  #     location = @position.get_index(@move)
+  #     @board.set_position(location, @mark)
+  #     @round += 1
+  #   else
+  #     unless move == nil
+  #       @mark = @board.get_mark(@board.x_count, @board.o_count)
+  #       location = @position.get_index(move)
+  #       @board.position_open?(location) ? @taken = false : @taken = true
+  #       if @taken
+  #         @result = "That position isn't open. Please try again!"
+  #       else
+  #         @result = ""
+  #         @board.set_position(location, @mark) #if @taken == false
+  #         @round += 1
+  #       end
+  #     else
+  #       @round += 1
+  #     end
+  #   end
+  # end
+
 
   # ## Backup
   # # Method to temporarily handle AI move logic

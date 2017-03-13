@@ -39,40 +39,17 @@ end
 
 # route to display game board, round and previous player move - human players
 # if game is over (win/tie), displays final game results
-# post '/play' do
-#   session[:round] = session[:game].round
-#   x_won = session[:game].x_won
-#   o_won = session[:game].o_won
-#   move = params[:location]
-#   session[:game].human_move(move)
-#   result = session[:game].result
-#   session[:rows] = session[:game].output_board
-#   session[:game].game_over?  # check board to see if last move won or tied
-#   game_over = session[:game].game_over  # update game_over for next conditional block
-#   if game_over == true
-#     result = session[:game].result
-#     win = session[:game].win
-#     if x_won == false && o_won == false
-#       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result}
-#     else
-#       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
-#     end
-#   else
-#     erb :play_human, locals: {rows: session[:rows], round: session[:round], move: move, result: result}
-#   end
-# end
-
-# route to display game board, round and previous player move - ai players
-# if game is over (win/tie), displays final game results
 post '/play' do
   session[:round] = session[:game].round
   x_won = session[:game].x_won
   o_won = session[:game].o_won
-  session[:game].make_move("")
-  move = session[:game].move
+  move = params[:location]
+  session[:game].make_move(move)
+  result = session[:game].result
+  session[:round] -= 1 unless result == ""  # logic to decrement round number if position already taken
   session[:rows] = session[:game].output_board
   session[:game].game_over?  # check board to see if last move won or tied
-  game_over = session[:game].game_over
+  game_over = session[:game].game_over  # update game_over for next conditional block
   if game_over == true
     result = session[:game].result
     win = session[:game].win
@@ -82,9 +59,34 @@ post '/play' do
       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
     end
   else
-    erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
+    erb :play_human, locals: {rows: session[:rows], round: session[:round], move: move, result: result}
   end
 end
+
+## Tested with make_move() and working (4:23 PM)
+# route to display game board, round and previous player move - ai players
+# if game is over (win/tie), displays final game results
+# post '/play' do
+#   session[:round] = session[:game].round
+#   x_won = session[:game].x_won
+#   o_won = session[:game].o_won
+#   session[:game].make_move("")
+#   move = session[:game].move
+#   session[:rows] = session[:game].output_board
+#   session[:game].game_over?  # check board to see if last move won or tied
+#   game_over = session[:game].game_over
+#   if game_over == true
+#     result = session[:game].result
+#     win = session[:game].win
+#     if x_won == false && o_won == false
+#       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result}
+#     else
+#       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
+#     end
+#   else
+#     erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
+#   end
+# end
 
 ## Backup - AI logic only, working just fine ##
 # route to display game board, round and previous player move - ai players
