@@ -7,7 +7,8 @@ require_relative "position.rb"
 
 class Game
 
-  attr_reader :board, :position, :round, :p1_type, :p2_type, :mark, :move, :taken, :x_won, :o_won, :game_over
+  attr_reader :board, :position, :round, :p1_type, :p2_type, :mark, :taken, :x_won, :o_won, :game_over
+  attr_accessor :move
 
   def initialize
     @board = ""  # Board class instance

@@ -36,31 +36,9 @@ post '/play' do
   game_over = session[:game].game_over
   x_won = session[:game].x_won
   o_won = session[:game].o_won
-  # if round == 1
-  #   session[:rows] = session[:game].output_board
-  # else
-    # if round % 2 == 1
-    #   if session[:p1_type] == "Human"
-    #     session[:game].move = params[:location]
-    #     session[:game].play_game
-    #   else
-    #     session[:game].play_game
-    #   end
-    # else
-    #   if session[:p2_type] == "Human"
-    #     session[:game].move = params[:location]
-    #     session[:game].play_game
-    #   else
-        # session[:game].play_game
-    #   end
-    # end
-  # session[:rows] = session[:game].output_board
-  unless session[:round] == 10 || game_over == true
-    session[:game].play_game
-  end
+  session[:game].play_game unless session[:round] == 10 || game_over == true
   move = session[:game].move
   session[:rows] = session[:game].output_board
-  # end
   if game_over == true
     win = session[:game].position.map_win(session[:game].board.win)
     if x_won == true
@@ -75,23 +53,13 @@ post '/play' do
       result = "It was a tie!"
       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result}
     end
-  elsif session[:round] % 2 == 1
-    if session[:p1_type] == "Human"
-      erb :play_human, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
-    else
-      erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
-    end
   else
-    if session[:p2_type] == "Human"
-      erb :play_human, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
-    else
-      erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
-    end
+    erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
   end
 end
 
 
-## Backup ##
+## Backup - AI logic working, leaving non-working human logic in for reference ##
 # route to display game board, round and previous player move
 # if game is over (win/tie), displays final game results
 # post '/play' do
