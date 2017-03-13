@@ -3,14 +3,18 @@
 <% if round % 2 == 0 %>
   <% previous_player = "O" %>
   <% previous_ai_type = p2_type %>
+  <% current_player = "X" %>
+  <% current_ai_type = p1_type %>
 <% else %>
   <% previous_player = "X" %>
   <% previous_ai_type = p1_type %>
+  <% current_player = "O" %>
+  <% current_ai_type = p2_type %>
 <% end %>
 
 <h3>Round <%= round %></h3>
 <p><%= previous_ai_type %> <%= previous_player %> took  <%= move %>.</p>
-<p>Press <b>Next</b> to continue.</p>
+<p>Press <b>Next</b> for <%=current_ai_type %> <%= current_player %>'s next move.</p>
 <form method="post" action="play">
   <input type="submit" value="Next">
 </form>
