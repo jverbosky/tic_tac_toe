@@ -87,7 +87,7 @@ class Game
         location = @position.get_index(move)
         @board.position_open?(location) ? @taken = false : @taken = true
         if @taken
-          @result = "That position isn't open. Please try again Human"
+          @result = "That position isn't open. Try again Human"
         else
           @result = ""
           @board.set_position(location, @mark)

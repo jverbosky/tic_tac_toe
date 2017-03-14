@@ -18,22 +18,22 @@
   <% if result == "" %>
     <p>It's Human <%= current_player %>'s move again!</p>
   <% else %>
-    <p><%= result %> <%= current_player %>.</p>
+    <p><%= result %> <%= current_player %>!</p>
   <% end %>
 <% end %>
 
 <p>Please select a location and press <b>Submit</b>.</p>
 <form method="post" action="result_human">
   <select type="text" name="location">
-    <option value="t1">t1</option>
-    <option value="t2">t2</option>
-    <option value="t3">t3</option>
-    <option value="m1">m1</option>
-    <option value="m2">m2</option>
-    <option value="m3">m3</option>
-    <option value="b1">b1</option>
-    <option value="b2">b2</option>
-    <option value="b3">b3</option>
+    <option value="t1">T1 (top left)</option>
+    <option value="t2">T2 (top center)</option>
+    <option value="t3">T3 (top right)</option>
+    <option value="m1">M1 (middle left)</option>
+    <option value="m2">M2 (middle center)</option>
+    <option value="m3">M3 (middle right)</option>
+    <option value="b1">B1 (bottom left)</option>
+    <option value="b2">B2 (bottom center)</option>
+    <option value="b3">B3 (bottom right)</option>
   </select>
   <input type="submit" value="Submit">
 </form>

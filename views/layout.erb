@@ -8,29 +8,31 @@
   <head>
     <title>Tic Tac Toe</title>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <!-- <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'> -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/images/favicon.ico?" type="image/x-icon">
   </head>
   <body>
   <header class="red">
-    <h1><a href="https://www.linkedin.com/in/johnverbosky" target="_blank">Tic Tac Toe</a></h1>  <!-- use target="_blank" to open link in new tab/page -->
   </header>
   <section>
 
-    <div class="padding-sides blue">
+    <div class="blue">
       <table class="center-block">
         <tr>
-          <td class="padding-sides yellow"><h3>X Score: <%= $x_score %></h3></td>
-          <td class="padding-sides yellow"><h3>O Score: <%= $o_score %></h3></td>
+          <a class="title" href="https://www.linkedin.com/in/johnverbosky" target="_blank">Tic Tac Toe</a>
+        </tr>
+        <tr>
+          <td class="score yellow">X Score: <%= $x_score %></td>
+          <td class="score yellow">O Score: <%= $o_score %></td>
         </tr>
       </table>
     </div>
 
     <!-- game board -->
     <div class = "red">
-      <div class="center-block padding">
+      <div class="center-block">
         <table class="board-table">
           <% rows.each do |row| %>
           <tr>
