@@ -1,24 +1,37 @@
 <!-- /views/play_human.erb -->
 
+<% if round % 2 == 0 %>
+  <% current_player = "O" %>
+  <% next_player = "X" %>
+<% else %>
+  <% current_player = "X" %>
+  <% next_player = "O" %>
+<% end %>
+
 <h3>Round <%= round %></h3>
 
-<div class="blue">
-  <h3>Please Select a Location</h3>
-  <form method="post" action="result_human">
-    <select type="text" name="location">
-      <option value="t1">t1</option>
-      <option value="t2">t2</option>
-      <option value="t3">t3</option>
-      <option value="m1">m1</option>
-      <option value="m2">m2</option>
-      <option value="m3">m3</option>
-      <option value="b1">b1</option>
-      <option value="b2">b2</option>
-      <option value="b3">b3</option>
-    </select>
-    <input type="submit" value="Submit">  <!-- button to submit letter to "post '/guess' do" route for evaluation -->
-  </form>
-</div>
+<% if round == 1 %>
+  <p>It's Human <%= current_player %>'s move!</p>
+<% else %>
+  <p>It's Human <%= current_player %>'s move again!</p>
+<% end %>
+
+<p>Please select a location and press <b>Submit</b>.</p>
+<form method="post" action="result_human">
+  <select type="text" name="location">
+    <option value="t1">t1</option>
+    <option value="t2">t2</option>
+    <option value="t3">t3</option>
+    <option value="m1">m1</option>
+    <option value="m2">m2</option>
+    <option value="m3">m3</option>
+    <option value="b1">b1</option>
+    <option value="b2">b2</option>
+    <option value="b3">b3</option>
+  </select>
+  <input type="submit" value="Submit">  <!-- button to submit letter to "post '/guess' do" route for evaluation -->
+</form>
+
 
 <!-- figure out how to show/hide this with a link/button/toggle
 <div class="legend red">

@@ -14,11 +14,11 @@ $x_score = 0  # global for X score to persist through multiple games
 $o_score = 0  # global for O score to persist through multiple games
 
 # route to tracing variables through route iterations
-before do
-  log = File.new("sinatra.log", "a")
-  STDOUT.reopen(log)
-  STDERR.reopen(log)
-end
+# before do
+#   log = File.new("sinatra.log", "a")
+#   STDOUT.reopen(log)
+#   STDERR.reopen(log)
+# end
 
 # route to load the player selection screen
 get '/' do
@@ -44,9 +44,8 @@ get '/play_ai' do
   player_type = session[:game].set_player_type
   x_won = session[:game].x_won
   o_won = session[:game].o_won
-  # session[:game].make_move("")
-  session[:game].ai_move
-  session[:move] = session[:game].move
+  session[:game].make_move("")
+  move = session[:game].move
   session[:rows] = session[:game].output_board
   session[:game].game_over?  # check board to see if last move won or tied
   game_over = session[:game].game_over
@@ -59,45 +58,32 @@ get '/play_ai' do
       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
     end
   else
-    erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: session[:move]}
+    erb :play_ai, locals: {rows: session[:rows], round: session[:round], p1_type: session[:p1_type], p2_type: session[:p2_type], move: move}
   end
 end
 
-# route to display game board, round and previous player move - human players
-# if game is over (win/tie), displays final game results
+# route to allow input of human player move
 get '/play_human' do
   session[:round] = session[:game].round
-  puts "round: " + session[:round].inspect
   player_type = session[:game].set_player_type
-  puts "player_type: " + player_type.inspect
-  x_won = session[:game].x_won
-  o_won = session[:game].o_won
   session[:rows] = session[:game].output_board
-  puts "rows array: " + session[:rows].inspect
   # erb :play_human, locals: {rows: session[:rows], round: session[:round], move: session[:move], result: result}
   erb :play_human, locals: {rows: session[:rows], round: session[:round]}
 end
 
-# route to display game board, round and previous player move - human players
+# route to collect and display results of human player move
 # if game is over (win/tie), displays final game results
 post '/result_human' do
+  result = session[:game].result
+  session[:game].round -= 1 unless result == "" # decrement round number if position already taken
   session[:round] = session[:game].round
-  puts "round: " + session[:round].inspect
   player_type = session[:game].set_player_type
-  puts "player_type: " + player_type.inspect
   x_won = session[:game].x_won
   o_won = session[:game].o_won
-  # session[:move] = params[:location]
   move = params[:location]
-  puts "human move: " + move.inspect
-  # session[:game].make_move(move)
-  # session[:game].human_move(session[:move])
-  session[:game].human_move(move)
-  result = session[:game].result
-  puts "result: " + result.inspect
-  session[:round] -= 1 unless result == ""  # logic to decrement round number if position already taken
+  session[:game].make_move(move)
+  # session[:round] -= 1 unless result == ""  # logic to decrement round number if position already taken
   session[:rows] = session[:game].output_board
-  puts "rows array: " + session[:rows].inspect
   session[:game].game_over?  # check board to see if last move won or tied
   game_over = session[:game].game_over  # update game_over for next conditional block
   if game_over == true
@@ -108,10 +94,8 @@ post '/result_human' do
     else
       erb :game_over, locals: {rows: session[:rows], round: session[:round], result: result, win: win}
     end
-  else
-    puts "result_human erb" + session[:rows].inspect
-    # erb :play_human, locals: {rows: session[:rows], round: session[:round], move: session[:move], result: result}
-    erb :result_human, locals: {rows: session[:rows], round: session[:round], move: move, result: result}
+  else  # need to add an elsif to go back to /play_human if result != ""
+    erb :result_human, locals: {rows: session[:rows], round: session[:round], move: move, result: result, p1_type: session[:p1_type], p2_type: session[:p2_type]}
   end
 end
 

@@ -1,5 +1,21 @@
 <!-- /views/result_human.erb -->
 
+<% if round % 2 == 0 %>
+  <% current_player = "O" %>
+  <% next_player = "X" %>
+  <% next_player_type = p1_type %>
+<% else %>
+  <% current_player = "X" %>
+  <% next_player = "O" %>
+  <% next_player_type = p2_type %>
+<% end %>
+
 <h3>Round <%= round %></h3>
-<p>Press <b>Next</b> for next move.</p>
+<% if result == "" %>
+  <p>Human <%= current_player %> took <%= move %> in round <%= round %>.</p>
+<% else %>
+  <p><%= result %> <%= current_player %>!<p>
+<% end %>
+
+<p>Press <b>Next</b> for <%= next_player_type %> <%= next_player %>'s move.</p>
 <button><a href="/play_ai">Next</a></button>
