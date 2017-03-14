@@ -1,63 +1,524 @@
-::1 - - [13/Mar/2017:19:54:17 -0400] "GET / HTTP/1.1" 200 3431 0.0470
-::1 - - [13/Mar/2017:19:54:17 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+::1 - - [14/Mar/2017:09:26:15 -0400] "GET / HTTP/1.1" 200 3431 0.0470
+::1 - - [14/Mar/2017:09:26:14 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
 - -> /
-::1 - - [13/Mar/2017:19:54:18 -0400] "GET /style.css HTTP/1.1" 200 1243 0.0070
-::1 - - [13/Mar/2017:19:54:18 Eastern Daylight Time] "GET /style.css HTTP/1.1" 200 1243
-http://localhost:4567/ -> /style.css
-::1 - - [13/Mar/2017:19:54:21 -0400] "POST /players HTTP/1.1" 200 2638 0.0150
-::1 - - [13/Mar/2017:19:54:21 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
+::1 - - [14/Mar/2017:09:26:17 -0400] "POST /players HTTP/1.1" 200 2638 0.0080
+::1 - - [14/Mar/2017:09:26:17 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
 http://localhost:4567/ -> /players
-::1 - - [13/Mar/2017:19:54:23 -0400] "POST /play_human HTTP/1.1" 200 3403 0.0090
-::1 - - [13/Mar/2017:19:54:23 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3403
+round: 1
+player_type: "Human"
+human move: nil
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:26:19 -0400] "POST /play_human HTTP/1.1" 200 3428 0.0000
+::1 - - [14/Mar/2017:09:26:19 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3428
 http://localhost:4567/players -> /play_human
-::1 - - [13/Mar/2017:19:54:24 -0400] "POST /play_ai HTTP/1.1" 200 2498 0.0150
-::1 - - [13/Mar/2017:19:54:24 Eastern Daylight Time] "POST /play_ai HTTP/1.1" 200 2498
-http://localhost:4567/play_human -> /play_ai
-::1 - - [13/Mar/2017:19:54:27 -0400] "POST /play HTTP/1.1" 404 467 0.0030
-::1 - - [13/Mar/2017:19:54:27 Eastern Daylight Time] "POST /play HTTP/1.1" 404 467
-http://localhost:4567/play_ai -> /play
-::1 - - [13/Mar/2017:19:54:27 -0400] "GET /__sinatra__/404.png HTTP/1.1" 200 18893 0.0150
-::1 - - [13/Mar/2017:19:54:27 Eastern Daylight Time] "GET /__sinatra__/404.png HTTP/1.1" 200 18893
-http://localhost:4567/play -> /__sinatra__/404.png
+round: 2
+player_type: "Perfect"
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+2017-03-14 09:26:22 - NameError - undefined local variable or method `result' for #<Sinatra::Application:0x1ea0908>:
+	./app.rb:125:in `block in <main>'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1611:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1611:in `block in compile!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:975:in `block (3 levels) in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:994:in `route_eval'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:975:in `block (2 levels) in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1015:in `block in process_route'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1013:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1013:in `process_route'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:973:in `block in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:972:in `each'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:972:in `route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1085:in `block in dispatch!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `block in invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1082:in `dispatch!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:907:in `block in call!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `block in invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:907:in `call!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:895:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/session/abstract/id.rb:225:in `context'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/session/abstract/id.rb:220:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/logger.rb:15:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/commonlogger.rb:33:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:219:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:212:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/head.rb:13:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/methodoverride.rb:22:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/show_exceptions.rb:25:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:182:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:2013:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1487:in `block in call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1787:in `synchronize'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1487:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/handler/webrick.rb:88:in `service'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+::1 - - [14/Mar/2017:09:26:22 Eastern Daylight Time] "POST /result_human HTTP/1.1" 500 155755
+http://localhost:4567/play_human -> /result_human
 == Sinatra has ended his set (crowd applauds)
-[2017-03-13 19:54:41] INFO  going to shutdown ...
-[2017-03-13 19:54:41] INFO  WEBrick::HTTPServer#start done.
-::1 - - [13/Mar/2017:19:54:51 -0400] "GET / HTTP/1.1" 200 3431 0.0390
-::1 - - [13/Mar/2017:19:54:50 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+[2017-03-14 09:27:18] INFO  going to shutdown ...
+[2017-03-14 09:27:18] INFO  WEBrick::HTTPServer#start done.
+::1 - - [14/Mar/2017:09:27:20 -0400] "GET / HTTP/1.1" 200 3431 0.0290
+::1 - - [14/Mar/2017:09:27:20 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
 - -> /
-::1 - - [13/Mar/2017:19:54:51 -0400] "GET /style.css HTTP/1.1" 200 1243 0.0050
-::1 - - [13/Mar/2017:19:54:51 Eastern Daylight Time] "GET /style.css HTTP/1.1" 200 1243
-http://localhost:4567/ -> /style.css
-::1 - - [13/Mar/2017:19:54:53 -0400] "POST /players HTTP/1.1" 200 2638 0.0270
-::1 - - [13/Mar/2017:19:54:53 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
+::1 - - [14/Mar/2017:09:27:23 -0400] "POST /players HTTP/1.1" 200 2638 0.0100
+::1 - - [14/Mar/2017:09:27:23 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
 http://localhost:4567/ -> /players
-::1 - - [13/Mar/2017:19:54:54 -0400] "POST /play_human HTTP/1.1" 200 3403 0.0080
-::1 - - [13/Mar/2017:19:54:54 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3403
+round: 1
+player_type: "Human"
+human move: nil
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:27:25 -0400] "POST /play_human HTTP/1.1" 200 3428 0.0090
+::1 - - [14/Mar/2017:09:27:25 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3428
 http://localhost:4567/players -> /play_human
-::1 - - [13/Mar/2017:19:54:55 -0400] "POST /play_ai HTTP/1.1" 200 2504 0.0420
-::1 - - [13/Mar/2017:19:54:55 Eastern Daylight Time] "POST /play_ai HTTP/1.1" 200 2504
-http://localhost:4567/play_human -> /play_ai
-::1 - - [13/Mar/2017:19:54:57 -0400] "POST /play_human HTTP/1.1" 200 3404 0.0080
-::1 - - [13/Mar/2017:19:54:57 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3404
-http://localhost:4567/play_ai -> /play_human
+round: 2
+player_type: "Perfect"
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+2017-03-14 09:27:26 - NameError - undefined local variable or method `move' for #<Sinatra::Application:0x1f79e38>:
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_human.erb:16:in `block in singleton class'
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_human.erb:131062:in `instance_eval'
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_human.erb:131062:in `singleton class'
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_human.erb:131060:in `__tilt_16030956'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/tilt-2.0.6/lib/tilt/template.rb:161:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/tilt-2.0.6/lib/tilt/template.rb:161:in `evaluate'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/tilt-2.0.6/lib/tilt/template.rb:100:in `render'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:823:in `render'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:667:in `erb'
+	./app.rb:128:in `block in <main>'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1611:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1611:in `block in compile!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:975:in `block (3 levels) in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:994:in `route_eval'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:975:in `block (2 levels) in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1015:in `block in process_route'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1013:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1013:in `process_route'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:973:in `block in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:972:in `each'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:972:in `route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1085:in `block in dispatch!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `block in invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1082:in `dispatch!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:907:in `block in call!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `block in invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:907:in `call!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:895:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/session/abstract/id.rb:225:in `context'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/session/abstract/id.rb:220:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/logger.rb:15:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/commonlogger.rb:33:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:219:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:212:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/head.rb:13:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/methodoverride.rb:22:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/show_exceptions.rb:25:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:182:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:2013:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1487:in `block in call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1787:in `synchronize'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1487:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/handler/webrick.rb:88:in `service'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+::1 - - [14/Mar/2017:09:27:26 Eastern Daylight Time] "POST /result_human HTTP/1.1" 500 172344
+http://localhost:4567/play_human -> /result_human
 == Sinatra has ended his set (crowd applauds)
-[2017-03-13 19:55:14] INFO  going to shutdown ...
-[2017-03-13 19:55:14] INFO  WEBrick::HTTPServer#start done.
-::1 - - [13/Mar/2017:19:55:27 -0400] "GET / HTTP/1.1" 200 3431 0.0360
-::1 - - [13/Mar/2017:19:55:27 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+[2017-03-14 09:30:05] INFO  going to shutdown ...
+[2017-03-14 09:30:05] INFO  WEBrick::HTTPServer#start done.
+::1 - - [14/Mar/2017:09:30:07 -0400] "GET / HTTP/1.1" 200 3431 0.0380
+::1 - - [14/Mar/2017:09:30:07 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
 - -> /
-::1 - - [13/Mar/2017:19:55:27 -0400] "GET /style.css HTTP/1.1" 200 1243 0.0050
-::1 - - [13/Mar/2017:19:55:27 Eastern Daylight Time] "GET /style.css HTTP/1.1" 200 1243
-http://localhost:4567/ -> /style.css
-::1 - - [13/Mar/2017:19:55:30 -0400] "POST /players HTTP/1.1" 200 2638 0.0070
-::1 - - [13/Mar/2017:19:55:30 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
+::1 - - [14/Mar/2017:09:30:09 -0400] "POST /players HTTP/1.1" 200 2638 0.0070
+::1 - - [14/Mar/2017:09:30:09 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
 http://localhost:4567/ -> /players
-::1 - - [13/Mar/2017:19:55:32 -0400] "POST /play_human HTTP/1.1" 200 3403 0.0060
-::1 - - [13/Mar/2017:19:55:32 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3403
+round: 1
+player_type: "Human"
+human move: nil
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:30:10 -0400] "POST /play_human HTTP/1.1" 200 3428 0.0000
+::1 - - [14/Mar/2017:09:30:10 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3428
 http://localhost:4567/players -> /play_human
-::1 - - [13/Mar/2017:19:55:34 -0400] "POST /play_ai HTTP/1.1" 200 2501 0.0100
-::1 - - [13/Mar/2017:19:55:34 Eastern Daylight Time] "POST /play_ai HTTP/1.1" 200 2501
-http://localhost:4567/play_human -> /play_ai
+round: 2
+player_type: "Perfect"
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:09:30:11 -0400] "POST /result_human HTTP/1.1" 200 2453 0.0000
+::1 - - [14/Mar/2017:09:30:11 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2453
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:09:30:15 -0400] "GET /play_ai HTTP/1.1" 200 2533 0.0000
+::1 - - [14/Mar/2017:09:30:15 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2533
+http://localhost:4567/result_human -> /play_ai
+2017-03-14 09:30:34 - NameError - undefined local variable or method `move' for #<Sinatra::Application:0x225cfc0>:
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_ai.erb:16:in `block in singleton class'
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_ai.erb:131063:in `instance_eval'
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_ai.erb:131063:in `singleton class'
+	F:/Documents/Dropbox/TechHire/tic_tac_toe/views/result_ai.erb:131061:in `__tilt_17839320'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/tilt-2.0.6/lib/tilt/template.rb:161:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/tilt-2.0.6/lib/tilt/template.rb:161:in `evaluate'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/tilt-2.0.6/lib/tilt/template.rb:100:in `render'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:823:in `render'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:667:in `erb'
+	./app.rb:72:in `block in <main>'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1611:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1611:in `block in compile!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:975:in `block (3 levels) in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:994:in `route_eval'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:975:in `block (2 levels) in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1015:in `block in process_route'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1013:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1013:in `process_route'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:973:in `block in route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:972:in `each'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:972:in `route!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1085:in `block in dispatch!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `block in invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1082:in `dispatch!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:907:in `block in call!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `block in invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `catch'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1067:in `invoke'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:907:in `call!'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:895:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/session/abstract/id.rb:225:in `context'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/session/abstract/id.rb:220:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/logger.rb:15:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/commonlogger.rb:33:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:219:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:212:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/head.rb:13:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/methodoverride.rb:22:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/show_exceptions.rb:25:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:182:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:2013:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1487:in `block in call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1787:in `synchronize'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/sinatra-1.4.8/lib/sinatra/base.rb:1487:in `call'
+	C:/Ruby23/lib/ruby/gems/2.3.0/gems/rack-1.6.5/lib/rack/handler/webrick.rb:88:in `service'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+	C:/Ruby23/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+::1 - - [14/Mar/2017:09:30:34 Eastern Daylight Time] "GET /result_ai HTTP/1.1" 500 169616
+http://localhost:4567/play_ai -> /result_ai
 == Sinatra has ended his set (crowd applauds)
-[2017-03-13 19:58:48] INFO  going to shutdown ...
-[2017-03-13 19:58:48] INFO  WEBrick::HTTPServer#start done.
+[2017-03-14 09:32:11] INFO  going to shutdown ...
+[2017-03-14 09:32:11] INFO  WEBrick::HTTPServer#start done.
+::1 - - [14/Mar/2017:09:32:16 -0400] "GET / HTTP/1.1" 200 3431 0.0280
+::1 - - [14/Mar/2017:09:32:16 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [14/Mar/2017:09:32:18 -0400] "POST /players HTTP/1.1" 200 2638 0.0110
+::1 - - [14/Mar/2017:09:32:18 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
+http://localhost:4567/ -> /players
+round: 1
+player_type: "Human"
+human move: nil
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:32:19 -0400] "POST /play_human HTTP/1.1" 200 3428 0.0000
+::1 - - [14/Mar/2017:09:32:19 Eastern Daylight Time] "POST /play_human HTTP/1.1" 200 3428
+http://localhost:4567/players -> /play_human
+round: 2
+player_type: "Perfect"
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:09:32:20 -0400] "POST /result_human HTTP/1.1" 200 2485 0.0000
+::1 - - [14/Mar/2017:09:32:20 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2485
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:09:32:23 -0400] "GET /play_ai HTTP/1.1" 200 2533 0.0000
+::1 - - [14/Mar/2017:09:32:23 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2533
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:09:32:37 -0400] "GET /result_ai HTTP/1.1" 200 2486 0.0000
+::1 - - [14/Mar/2017:09:32:37 Eastern Daylight Time] "GET /result_ai HTTP/1.1" 200 2486
+http://localhost:4567/play_ai -> /result_ai
+::1 - - [14/Mar/2017:09:32:39 -0400] "GET /play_human HTTP/1.1" 404 472 0.0040
+::1 - - [14/Mar/2017:09:32:39 Eastern Daylight Time] "GET /play_human HTTP/1.1" 404 472
+http://localhost:4567/result_ai -> /play_human
+== Sinatra has ended his set (crowd applauds)
+[2017-03-14 09:34:30] INFO  going to shutdown ...
+[2017-03-14 09:34:30] INFO  WEBrick::HTTPServer#start done.
+::1 - - [14/Mar/2017:09:34:41 -0400] "GET / HTTP/1.1" 200 3431 0.0290
+::1 - - [14/Mar/2017:09:34:41 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [14/Mar/2017:09:34:44 -0400] "POST /players HTTP/1.1" 200 2638 0.0090
+::1 - - [14/Mar/2017:09:34:44 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2638
+http://localhost:4567/ -> /players
+::1 - - [14/Mar/2017:09:34:45 -0400] "POST /play_human HTTP/1.1" 404 473 0.0040
+::1 - - [14/Mar/2017:09:34:45 Eastern Daylight Time] "POST /play_human HTTP/1.1" 404 473
+http://localhost:4567/players -> /play_human
+== Sinatra has ended his set (crowd applauds)
+[2017-03-14 09:36:17] INFO  going to shutdown ...
+[2017-03-14 09:36:17] INFO  WEBrick::HTTPServer#start done.
+::1 - - [14/Mar/2017:09:36:20 -0400] "GET / HTTP/1.1" 200 3431 0.0300
+::1 - - [14/Mar/2017:09:36:20 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [14/Mar/2017:09:36:23 -0400] "POST /players HTTP/1.1" 200 2586 0.0090
+::1 - - [14/Mar/2017:09:36:23 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2586
+http://localhost:4567/ -> /players
+round: 1
+player_type: "Human"
+human move: nil
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:36:25 -0400] "GET /play_human HTTP/1.1" 200 3428 0.0080
+::1 - - [14/Mar/2017:09:36:25 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3428
+http://localhost:4567/players -> /play_human
+round: 2
+player_type: "Perfect"
+result: ""
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:09:36:26 -0400] "POST /result_human HTTP/1.1" 200 2485 0.0080
+::1 - - [14/Mar/2017:09:36:26 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2485
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:09:36:29 -0400] "GET /play_ai HTTP/1.1" 200 2533 0.0000
+::1 - - [14/Mar/2017:09:36:29 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2533
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:09:37:18 -0400] "GET /result_ai HTTP/1.1" 200 2486 0.0070
+::1 - - [14/Mar/2017:09:37:18 Eastern Daylight Time] "GET /result_ai HTTP/1.1" 200 2486
+http://localhost:4567/play_ai -> /result_ai
+round: 3
+player_type: "Human"
+human move: nil
+result: ""
+rows array: [["", "", "X"], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:37:20 -0400] "GET /play_human HTTP/1.1" 200 3429 0.0000
+::1 - - [14/Mar/2017:09:37:20 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3429
+http://localhost:4567/result_ai -> /play_human
+round: 4
+player_type: "Perfect"
+result: ""
+rows array: [["", "", "X"], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:09:37:26 -0400] "POST /result_human HTTP/1.1" 200 2486 0.0070
+::1 - - [14/Mar/2017:09:37:26 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2486
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:09:37:28 -0400] "GET /play_ai HTTP/1.1" 200 2534 0.0110
+::1 - - [14/Mar/2017:09:37:28 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2534
+http://localhost:4567/result_human -> /play_ai
+== Sinatra has ended his set (crowd applauds)
+[2017-03-14 09:40:48] INFO  going to shutdown ...
+[2017-03-14 09:40:48] INFO  WEBrick::HTTPServer#start done.
+::1 - - [14/Mar/2017:09:40:50 -0400] "GET / HTTP/1.1" 200 3431 0.0300
+::1 - - [14/Mar/2017:09:40:50 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [14/Mar/2017:09:40:53 -0400] "POST /players HTTP/1.1" 200 2586 0.0000
+::1 - - [14/Mar/2017:09:40:53 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2586
+http://localhost:4567/ -> /players
+round: 1
+player_type: "Human"
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:09:40:54 -0400] "GET /play_human HTTP/1.1" 200 3428 0.0000
+::1 - - [14/Mar/2017:09:40:54 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3428
+http://localhost:4567/players -> /play_human
+round: 1
+player_type: "Human"
+human move: "t1"
+result: ""
+rows array: [["X", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:40:55 -0400] "POST /result_human HTTP/1.1" 200 2486 0.0120
+::1 - - [14/Mar/2017:09:40:55 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2486
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:09:41:00 -0400] "GET /play_ai HTTP/1.1" 200 2534 0.0000
+::1 - - [14/Mar/2017:09:41:00 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2534
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:09:41:03 -0400] "GET /result_ai HTTP/1.1" 200 2487 0.0100
+::1 - - [14/Mar/2017:09:41:03 Eastern Daylight Time] "GET /result_ai HTTP/1.1" 200 2487
+http://localhost:4567/play_ai -> /result_ai
+round: 3
+player_type: "Human"
+rows array: [["X", "", ""], ["", "O", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:09:41:05 -0400] "GET /play_human HTTP/1.1" 200 3430 0.0000
+::1 - - [14/Mar/2017:09:41:05 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3430
+http://localhost:4567/result_ai -> /play_human
+round: 3
+player_type: "Human"
+human move: "t2"
+result: ""
+rows array: [["X", "X", ""], ["", "O", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:41:09 -0400] "POST /result_human HTTP/1.1" 200 2488 0.0000
+::1 - - [14/Mar/2017:09:41:09 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2488
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:09:41:11 -0400] "GET /play_ai HTTP/1.1" 200 2536 0.0090
+::1 - - [14/Mar/2017:09:41:11 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2536
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:09:41:16 -0400] "GET /result_ai HTTP/1.1" 200 2489 0.0000
+::1 - - [14/Mar/2017:09:41:16 Eastern Daylight Time] "GET /result_ai HTTP/1.1" 200 2489
+http://localhost:4567/play_ai -> /result_ai
+round: 5
+player_type: "Human"
+rows array: [["X", "X", "O"], ["", "O", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:09:41:17 -0400] "GET /play_human HTTP/1.1" 200 3432 0.0050
+::1 - - [14/Mar/2017:09:41:17 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3432
+http://localhost:4567/result_ai -> /play_human
+round: 5
+player_type: "Human"
+human move: "m1"
+result: ""
+rows array: [["X", "X", "O"], ["X", "O", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:09:41:20 -0400] "POST /result_human HTTP/1.1" 200 2490 0.0000
+::1 - - [14/Mar/2017:09:41:20 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2490
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:09:41:21 -0400] "GET /play_ai HTTP/1.1" 200 2543 0.0000
+::1 - - [14/Mar/2017:09:41:21 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2543
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:09:41:30 -0400] "GET / HTTP/1.1" 200 3431 0.0050
+::1 - - [14/Mar/2017:09:41:30 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+http://localhost:4567/play_ai -> /
+::1 - - [14/Mar/2017:10:24:09 -0400] "POST /players HTTP/1.1" 200 2586 4.7439
+::1 - - [14/Mar/2017:10:24:04 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2586
+http://localhost:4567/ -> /players
+round: 1
+player_type: "Human"
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:10:24:14 -0400] "GET /play_human HTTP/1.1" 200 3428 0.0196
+::1 - - [14/Mar/2017:10:24:14 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3428
+http://localhost:4567/players -> /play_human
+round: 1
+player_type: "Human"
+human move: "t1"
+result: ""
+rows array: [["X", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:10:24:16 -0400] "POST /result_human HTTP/1.1" 200 2486 0.0240
+::1 - - [14/Mar/2017:10:24:16 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2486
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:10:24:17 -0400] "GET /play_ai HTTP/1.1" 200 2534 0.0266
+::1 - - [14/Mar/2017:10:24:17 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2534
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:10:24:33 -0400] "GET /result_ai HTTP/1.1" 200 2487 0.0346
+::1 - - [14/Mar/2017:10:24:33 Eastern Daylight Time] "GET /result_ai HTTP/1.1" 200 2487
+http://localhost:4567/play_ai -> /result_ai
+round: 3
+player_type: "Human"
+rows array: [["X", "", ""], ["", "O", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:10:24:52 -0400] "GET /play_human HTTP/1.1" 200 3430 0.0070
+::1 - - [14/Mar/2017:10:24:52 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3430
+http://localhost:4567/result_ai -> /play_human
+round: 3
+player_type: "Human"
+human move: "t1"
+result: "That position isn't open. Please try again!"
+rows array: [["X", "", ""], ["", "O", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:10:25:05 -0400] "POST /result_human HTTP/1.1" 200 2487 0.0000
+::1 - - [14/Mar/2017:10:25:05 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2487
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:10:25:07 -0400] "GET /play_ai HTTP/1.1" 200 2534 0.0090
+::1 - - [14/Mar/2017:10:25:07 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2534
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:10:25:13 -0400] "GET /result_ai HTTP/1.1" 200 2487 0.0060
+::1 - - [14/Mar/2017:10:25:13 Eastern Daylight Time] "GET /result_ai HTTP/1.1" 200 2487
+http://localhost:4567/play_ai -> /result_ai
+round: 4
+player_type: "Perfect"
+rows array: [["X", "", ""], ["", "O", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:10:25:14 -0400] "GET /play_human HTTP/1.1" 200 3430 0.0000
+::1 - - [14/Mar/2017:10:25:14 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3430
+http://localhost:4567/result_ai -> /play_human
+round: 4
+player_type: "Perfect"
+human move: "t2"
+result: ""
+rows array: [["X", "X", ""], ["", "O", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:10:25:19 -0400] "POST /result_human HTTP/1.1" 200 2488 0.0060
+::1 - - [14/Mar/2017:10:25:19 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2488
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:10:25:26 -0400] "GET /play_ai HTTP/1.1" 200 2535 0.0000
+::1 - - [14/Mar/2017:10:25:26 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2535
+http://localhost:4567/result_human -> /play_ai
+::1 - - [14/Mar/2017:10:25:29 -0400] "GET / HTTP/1.1" 200 3431 0.0060
+::1 - - [14/Mar/2017:10:25:29 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [14/Mar/2017:10:25:32 -0400] "POST /players HTTP/1.1" 200 2586 0.0000
+::1 - - [14/Mar/2017:10:25:32 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2586
+http://localhost:4567/ -> /players
+round: 1
+player_type: "Human"
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:10:25:33 -0400] "GET /play_human HTTP/1.1" 200 3428 0.0060
+::1 - - [14/Mar/2017:10:25:33 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3428
+http://localhost:4567/players -> /play_human
+round: 1
+player_type: "Human"
+human move: "t1"
+result: ""
+rows array: [["X", "", ""], ["", "", ""], ["", "", ""]]
+play_human erb
+::1 - - [14/Mar/2017:10:25:35 -0400] "POST /result_human HTTP/1.1" 200 2486 0.0070
+::1 - - [14/Mar/2017:10:25:35 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2486
+http://localhost:4567/play_human -> /result_human
+::1 - - [14/Mar/2017:10:25:36 -0400] "GET /play_ai HTTP/1.1" 200 2534 0.0110
+::1 - - [14/Mar/2017:10:25:36 Eastern Daylight Time] "GET /play_ai HTTP/1.1" 200 2534
+http://localhost:4567/result_human -> /play_ai
+== Sinatra has ended his set (crowd applauds)
+[2017-03-14 10:27:48] INFO  going to shutdown ...
+[2017-03-14 10:27:48] INFO  WEBrick::HTTPServer#start done.
+::1 - - [14/Mar/2017:10:27:54 -0400] "GET / HTTP/1.1" 200 3431 0.0330
+::1 - - [14/Mar/2017:10:27:54 Eastern Daylight Time] "GET / HTTP/1.1" 200 3431
+- -> /
+::1 - - [14/Mar/2017:10:27:57 -0400] "POST /players HTTP/1.1" 200 2586 0.0070
+::1 - - [14/Mar/2017:10:27:57 Eastern Daylight Time] "POST /players HTTP/1.1" 200 2586
+http://localhost:4567/ -> /players
+round: 1
+player_type: "Human"
+rows array: [["", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:10:27:58 -0400] "GET /play_human HTTP/1.1" 200 3428 0.0080
+::1 - - [14/Mar/2017:10:27:58 Eastern Daylight Time] "GET /play_human HTTP/1.1" 200 3428
+http://localhost:4567/players -> /play_human
+round: 1
+player_type: "Human"
+human move: "t1"
+result: ""
+rows array: [["X", "", ""], ["", "", ""], ["", "", ""]]
+result_human erb[["X", "", ""], ["", "", ""], ["", "", ""]]
+::1 - - [14/Mar/2017:10:27:59 -0400] "POST /result_human HTTP/1.1" 200 2486 0.0436
+::1 - - [14/Mar/2017:10:27:59 Eastern Daylight Time] "POST /result_human HTTP/1.1" 200 2486
+http://localhost:4567/play_human -> /result_human
+== Sinatra has ended his set (crowd applauds)
+[2017-03-14 10:30:01] INFO  going to shutdown ...
+[2017-03-14 10:30:01] INFO  WEBrick::HTTPServer#start done.
