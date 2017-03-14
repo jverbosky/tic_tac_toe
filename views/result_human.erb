@@ -4,10 +4,20 @@
   <% current_player = "O" %>
   <% next_player = "X" %>
   <% next_player_type = p1_type %>
+  <% if p1_type == "Human" %>
+    <% route = "/play_human" %>
+  <% else %>
+    <% route = "/play_ai" %>
+  <% end %>
 <% else %>
   <% current_player = "X" %>
   <% next_player = "O" %>
   <% next_player_type = p2_type %>
+  <% if p2_type == "Human" %>
+    <% route = "/play_human" %>
+  <% else %>
+    <% route = "/play_ai" %>
+  <% end %>
 <% end %>
 
 <h3>Round <%= round %></h3>
@@ -18,4 +28,4 @@
 <% end %>
 
 <p>Press <b>Next</b> for <%= next_player_type %> <%= next_player %>'s move.</p>
-<button><a href="/play_ai">Next</a></button>
+<button><a href=<%= route %>>Next</a></button>

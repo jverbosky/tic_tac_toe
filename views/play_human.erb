@@ -2,15 +2,13 @@
 
 <% if round % 2 == 0 %>
   <% current_player = "O" %>
-  <% next_player = "X" %>
 <% else %>
   <% current_player = "X" %>
-  <% next_player = "O" %>
 <% end %>
 
 <h3>Round <%= round %></h3>
 
-<% if round == 1 %>
+<% if round <= 2 %>
   <p>It's Human <%= current_player %>'s move!</p>
 <% else %>
   <p>It's Human <%= current_player %>'s move again!</p>
