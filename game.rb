@@ -11,8 +11,8 @@ class Game
   attr_accessor :move, :round
 
   def initialize
-    @board = ""  # Board class instance
-    @position = ""  # Position class instance
+    @board = Board.new  # Board class instance
+    @position = Position.new  # Position class instance
     @round = 1  # current game round
     @p1 = ""  # X player
     @p1_type = ""  # X player type
@@ -22,22 +22,22 @@ class Game
     @player_type = ""  # current player type
     @mark = ""  # current player character (X/O)
     @move = ""  # plain English position selected by player
+    @result = ""  # verbiage for winner
+    @wins = @board.wins  # constant needed by perfect player
     @taken = false  # used to provide feedback when position occupied
     @x_won = false  # endgame condition check 1
     @o_won = false  # endgame condition check 2
     @full = false  # endgame condition check 3
     @game_over = false
-    @wins = []  # constant needed by perfect player
     @win = []  # final winning positions
-    @result = ""  # verbiage for winner
   end
 
-  # Method to initialize objects, call game loop and display endgame results
-  def new_game
-    @board = Board.new
-    @position = Position.new
-    @wins = @board.wins
-  end
+  # Method to initialize objects and update @wins
+  # def new_game
+  #   @board = Board.new
+  #   @position = Position.new
+  #   @wins = @board.wins
+  # end
 
   # Method to output the game board
   def output_board
@@ -62,36 +62,19 @@ class Game
     end
   end
 
-  # # Method to temporarily handle human move logic
-  # def make_move(move)
-  #   unless move == nil
-  #     @mark = @board.get_mark(@board.x_count, @board.o_count)
-  #     location = @position.get_index(move)
-  #     @board.position_open?(location) ? @taken = false : @taken = true
-  #     if @taken
-  #       @result = "That position isn't open. Please try again!"
-  #     else
-  #       @result = ""
-  #       @board.set_position(location, @mark) if @taken == false
-  #       @round += 1
-  #     end
-  #   else
-  #     @round += 1
-  #   end
-  # end
-
+  # Method to update @player and @player_type for make_move()
   def set_player_type
-    # @round % 2 == 0 ? (@player = @p2; @player_type = @p2_type) : (@player = @p1; @player_type = @p1_type)
     if @round % 2 == 1
-      (@player = @p1; @player_type = @p1_type)
+      @player = @p1
+      @player_type = @p1_type
     else
-      (@player = @p2; @player_type = @p2_type)
+      @player = @p2
+      @player_type = @p2_type
     end
   end
 
   # Method to hold combined human & AI move logic
   def make_move(move)
-    # @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
     unless @player_type == "Human"
       @mark = @board.get_mark(@board.x_count, @board.o_count)
       @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
@@ -136,65 +119,3 @@ class Game
   end
 
 end
-
-## Backup/Reference ##
-=begin
-
-  # Method to temporarily handle AI move logic
-  def ai_move
-    @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
-    @mark = @board.get_mark(@board.x_count, @board.o_count)
-    unless player_type == "Human"
-      @move = player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
-    end
-    location = @position.get_index(@move)
-    @board.set_position(location, @mark)
-    @round += 1
-  end
-
-  # Method to temporarily handle human move logic
-  def human_move(move)
-    unless move == nil
-      @mark = @board.get_mark(@board.x_count, @board.o_count)
-      location = @position.get_index(move)
-      @board.position_open?(location) ? @taken = false : @taken = true
-      if @taken
-        @result = "That position isn't open. Please try again!"
-      else
-        @result = ""
-        @board.set_position(location, @mark) if @taken == false
-        @round += 1
-      end
-    else
-      @round += 1
-    end
-  end
-
-  # Method to temporarily hold combined human & AI move logic
-  def make_move(move)
-    @round % 2 == 0 ? (player = @p2; player_type = @p2_type) : (player = @p1; player_type = @p1_type)
-    unless player_type == "Human"
-      @mark = @board.get_mark(@board.x_count, @board.o_count)
-      @move = player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
-      location = @position.get_index(@move)
-      @board.set_position(location, @mark)
-      @round += 1
-    else
-      unless move == nil
-        @mark = @board.get_mark(@board.x_count, @board.o_count)
-        location = @position.get_index(move)
-        @board.position_open?(location) ? @taken = false : @taken = true
-        if @taken
-          @result = "That position isn't open. Please try again!"
-        else
-          @result = ""
-          @board.set_position(location, @mark) #if @taken == false
-          @round += 1
-        end
-      else
-        @round += 1
-      end
-    end
-  end
-
-=end
