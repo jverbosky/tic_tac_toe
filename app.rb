@@ -40,9 +40,8 @@ class TicTacToeApp < Sinatra::Base
     session[:game].make_move("")
     move = session[:game].move
     rows = session[:game].output_board  # grab the current board to display via layout.erb
-    session[:game].game_over?  # check board to see if last move won or tied
-    game_over = session[:game].game_over  # update game_over for next conditional block
-    if game_over == true
+    if session[:game].game_over?  # check board to see if last move won or tied
+      session[:game].display_results
       result = session[:game].result  # update result based on game over condition
       erb :game_over, locals: {rows: rows, round: round, result: result}
     else
@@ -67,9 +66,8 @@ class TicTacToeApp < Sinatra::Base
     session[:game].make_move(move)  # pass selected move to make_move() in game.rb
     result = session[:game].result  # update to see if any feedback about position being taken
     rows = session[:game].output_board  # grab the current board to display via layout.erb
-    session[:game].game_over?  # check board to see if last move won or tied
-    game_over = session[:game].game_over  # update game_over for next conditional block
-    if game_over == true
+    if session[:game].game_over?  # check board to see if last move won or tied
+      session[:game].display_results
       result = session[:game].result  # update result based on game over condition
       erb :game_over, locals: {rows: rows, round: round, result: result}
     elsif result != ""

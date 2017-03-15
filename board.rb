@@ -67,7 +67,7 @@ class Board
 
 end
 
-board = Board.new
-board.game_board = ["X", "X", "X", "O", "O", "X", "O", "O", "X"]
-p board.game_board
-p board.x_won?(board.get_x)
+# board = Board.new
+# board.game_board = ["X", "X", "X", "O", "O", "X", "O", "O", "X"]
+# p board.game_board
+# p board.x_won?(board.get_x)

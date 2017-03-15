@@ -22,13 +22,14 @@ class Game
     @player_type = ""  # current player type
     @mark = ""  # current player character (X/O)
     @move = ""  # plain English position selected by player
+    @board_index = ""  # board array index value (based on @move)
     @result = ""  # verbiage for winner
     @wins = @board.wins  # constant needed by perfect player
     @taken = false  # used to provide feedback when position occupied
     @x_won = false  # endgame condition check 1
     @o_won = false  # endgame condition check 2
     @full = false  # endgame condition check 3
-    @game_over = false
+    # @game_over = false
     @win = []  # final winning positions
   end
 
@@ -68,54 +69,75 @@ class Game
 
   # Method to call human_move() or ai_move methods depending on player type
   def make_move(move)
+    determine_mark
     @player_type == "Human" ? human_move(move) : ai_move
   end
 
   # Method to handle human move logic
   def human_move(move)
-      @mark = @board.get_mark(@board.x_count, @board.o_count)  # determine if player mark is X or O
-      location = @position.get_index(move)  # conver the human friendly position into array index value
-      check_taken(location)  # determine if location is taken and act accordingly
+    @move = move
+    convert_move
+    check_taken  # determine if location is taken and act accordingly
   end
 
   # Method to handle ai move logic
   def ai_move
-    @mark = @board.get_mark(@board.x_count, @board.o_count)  # determine if player mark is X or O
     @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
-    location = @position.get_index(@move)
-    @board.set_position(location, @mark)
+    convert_move
+    @board.set_position(@board_index, @mark)
     @round += 1
   end
 
-  # Method that provides feedback if position is taken or updates the board if position is open
-  def check_taken(location)
-      @board.position_open?(location) ? @taken = false : @taken = true  # determine if position open
-      if @taken
-        @result = "That position isn't open. Try again Human"
-      else
-        @result = ""
-        @board.set_position(location, @mark)
-        @round += 1
-      end
+  # Method to determine if player mark is X or O
+  # Good candidate for revision - simply abstracting at the moment
+  def determine_mark
+    @mark = @board.get_mark(@board.x_count, @board.o_count)  # determine if player mark is X or O
   end
 
+  # Method to convert human friendly location name to board array index position
+  def convert_move
+    @board_index = @position.get_index(@move)
+  end
+
+  # Method that provides feedback if position is taken or updates the board if position is open
+  def check_taken
+    @board.position_open?(@board_index) ? @taken = false : @taken = true  # determine if position open
+    if @taken
+      @result = "That position isn't open. Try again Human"
+    else
+      @result = ""
+      @board.set_position(@board_index, @mark)
+      @round += 1
+    end
+  end
+
+  # Method to determine if game is over
   def game_over?
     @x_won = @board.x_won?(@board.get_x)
     @o_won = @board.o_won?(@board.get_o)
     @full = @board.board_full?
-    @game_over = true if @x_won || @o_won || @full
-    if @game_over == true
-      @win = @position.map_win(@board.win)
-      if @x_won == true
-        $x_score += 1
-        @result = "#{@p1_type} X won the game!<br>The winning positions were: #{@win}"
-      elsif @o_won == true
-        $o_score += 1
-        @result = "#{@p2_type} O won the game!<br>The winning positions were: #{@win}"
-      elsif @x_won == false && @o_won == false
-        @result = "It was a tie!"
-      end
+    @x_won || @o_won || @full
+  end
+
+  # Method to display endgame messaging
+  def display_results
+    @win = @position.map_win(@board.win)
+    if @x_won == true
+      $x_score += 1
+      @result = "#{@p1_type} X won the game!<br>The winning positions were: #{@win}"
+    elsif @o_won == true
+      $o_score += 1
+      @result = "#{@p2_type} O won the game!<br>The winning positions were: #{@win}"
+    elsif @x_won == false && @o_won == false
+      @result = "It was a tie!"
     end
   end
 
 end
+
+# game = Game.new
+# # game.board.game_board = ["", "X", "", "", "", "", "", "O", ""]
+# game.board.game_board = ["X", "X", "X", "", "O", "", "", "O", ""]
+# puts game.game_over?
+# game.display_results
+# p game.result
