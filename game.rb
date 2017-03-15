@@ -32,13 +32,6 @@ class Game
     @win = []  # final winning positions
   end
 
-  # Method to initialize objects and update @wins
-  # def new_game
-  #   @board = Board.new
-  #   @position = Position.new
-  #   @wins = @board.wins
-  # end
-
   # Method to output the game board
   def output_board
     rows = @board.game_board.each_slice(3).to_a
@@ -73,30 +66,37 @@ class Game
     end
   end
 
-  # Method to hold combined human & AI move logic
+  # Method to call human_move() or ai_move methods depending on player type
   def make_move(move)
-    unless @player_type == "Human"
-      @mark = @board.get_mark(@board.x_count, @board.o_count)
-      @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
-      location = @position.get_index(@move)
-      @board.set_position(location, @mark)
-      @round += 1
-    else
-      unless move == nil
-        @mark = @board.get_mark(@board.x_count, @board.o_count)
-        location = @position.get_index(move)
-        @board.position_open?(location) ? @taken = false : @taken = true
-        if @taken
-          @result = "That position isn't open. Try again Human"
-        else
-          @result = ""
-          @board.set_position(location, @mark)
-          @round += 1
-        end
+    @player_type == "Human" ? human_move(move) : ai_move
+  end
+
+  # Method to handle human move logic
+  def human_move(move)
+      @mark = @board.get_mark(@board.x_count, @board.o_count)  # determine if player mark is X or O
+      location = @position.get_index(move)  # conver the human friendly position into array index value
+      check_taken(location)  # determine if location is taken and act accordingly
+  end
+
+  # Method to handle ai move logic
+  def ai_move
+    @mark = @board.get_mark(@board.x_count, @board.o_count)  # determine if player mark is X or O
+    @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
+    location = @position.get_index(@move)
+    @board.set_position(location, @mark)
+    @round += 1
+  end
+
+  # Method that provides feedback if position is taken or updates the board if position is open
+  def check_taken(location)
+      @board.position_open?(location) ? @taken = false : @taken = true  # determine if position open
+      if @taken
+        @result = "That position isn't open. Try again Human"
       else
+        @result = ""
+        @board.set_position(location, @mark)
         @round += 1
       end
-    end
   end
 
   def game_over?
