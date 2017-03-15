@@ -21,9 +21,7 @@ class Game
     @player = ""  # current player
     @player_type = ""  # current player type
     @mark = ""  # current player character (X/O)
-    @move = ""  # plain English position selected by player
     @board_index = ""  # board array index value (based on @move)
-    @result = ""  # verbiage for winner
     @wins = @board.wins  # constant needed by perfect player
   end
 
@@ -50,7 +48,7 @@ class Game
     end
   end
 
-  # Method to update @player and @player_type for make_move()
+  # Method to update @player for make_move() and @player_type for ai_move
   def set_player_type
     if @round % 2 == 1
       @player = @p1
@@ -61,46 +59,49 @@ class Game
     end
   end
 
-  # Method to call human_move() or ai_move methods depending on player type
-  def make_move(move)
-    determine_mark
-    @player_type == "Human" ? human_move(move) : ai_move
-  end
-
-  # Method to handle human move logic
-  def human_move(move)
-    @move = move
-    convert_move
-    check_taken  # determine if location is taken and act accordingly
-  end
-
-  # Method to handle ai move logic
-  def ai_move
-    @move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
-    convert_move
-    @board.set_position(@board_index, @mark)
-    @round += 1
-  end
-
   # Method to determine if player mark is X or O
   # Good candidate for revision - simply abstracting at the moment
   def determine_mark
     @mark = @board.get_mark(@board.x_count, @board.o_count)  # determine if player mark is X or O
   end
 
+  # Method to call human_move() or ai_move methods depending on player type
+  def make_move(move)
+    determine_mark
+    set_player_type
+    @player_type == "Human" ? human_move(move) : ai_move
+  end
+
+  # Method to handle human move logic
+  # Update candidate > return move instead of using instance variable
+  def human_move(move)
+    convert_move(move)  # convert human friendly location name to board array index position
+    check_taken  # determine if location is taken and act accordingly
+  end
+
+  # Method to handle ai move logic
+  # Update candidate > return move instead of using instance variable
+  def ai_move
+    move = @player.get_move(@board.game_board, @round, @mark, @wins, @board.get_x, @board.get_o)
+    convert_move(move)  # convert human friendly location name to board array index position
+    @board.set_position(@board_index, @mark)
+    @round += 1
+    return move
+  end
+
   # Method to convert human friendly location name to board array index position
-  def convert_move
-    @board_index = @position.get_index(@move)
+  def convert_move(move)
+    @board_index = @position.get_index(move)
   end
 
   # Method that provides feedback if position is taken or updates the board if position is open
   def check_taken
     if @board.position_open?(@board_index) # determine if position open
-      @result = ""
       @board.set_position(@board_index, @mark)
       @round += 1
+      return ""  # feedback if position open, used for comparisons in /result_human route and human views
     else
-      @result = "That position isn't open. Try again Human"  # conver to return
+      return "That position isn't open. Try again Human"  # feedback if position taken
     end
   end
 

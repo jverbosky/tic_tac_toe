@@ -1,0 +1,79 @@
+127.0.0.1 - - [15/Mar/2017:14:16:33 -0400] "GET / HTTP/1.1" 200 3262 0.0554
+127.0.0.1 - - [15/Mar/2017:14:16:35 -0400] "POST /players HTTP/1.1" 200 2481 0.0110
+play_human - round: 1
+play_human - session[:result]: nil
+127.0.0.1 - - [15/Mar/2017:14:16:38 -0400] "GET /play_human HTTP/1.1" 200 3006 0.0036
+result_human - round: 1
+result_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:16:41 -0400] "POST /result_human HTTP/1.1" 200 2475 0.0190
+play_human - round: 2
+play_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:16:43 -0400] "GET /play_human HTTP/1.1" 200 3023 0.0103
+[2017-03-15 14:18:11] INFO  going to shutdown ...
+[2017-03-15 14:18:11] INFO  WEBrick::HTTPServer#start done.
+127.0.0.1 - - [15/Mar/2017:14:18:16 -0400] "GET / HTTP/1.1" 200 3262 0.0497
+127.0.0.1 - - [15/Mar/2017:14:18:18 -0400] "POST /players HTTP/1.1" 200 2481 0.0086
+play_human - round: 1
+play_human - session[:result]: nil
+127.0.0.1 - - [15/Mar/2017:14:18:19 -0400] "GET /play_human HTTP/1.1" 200 3016 0.0064
+result_human - round: 1
+result_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:18:22 -0400] "POST /result_human HTTP/1.1" 200 2475 0.0148
+play_human - round: 2
+play_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:18:24 -0400] "GET /play_human HTTP/1.1" 200 3017 0.0057
+result_human - round: 2
+result_human - session[:result]: "That position isn't open. Try again Human"
+127.0.0.1 - - [15/Mar/2017:14:18:26 -0400] "POST /result_human HTTP/1.1" 200 3041 0.0075
+result_human - round: 2
+result_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:18:29 -0400] "POST /result_human HTTP/1.1" 200 2476 0.0073
+play_human - round: 3
+play_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:18:31 -0400] "GET /play_human HTTP/1.1" 200 3024 0.0062
+result_human - round: 3
+result_human - session[:result]: "That position isn't open. Try again Human"
+127.0.0.1 - - [15/Mar/2017:14:18:33 -0400] "POST /result_human HTTP/1.1" 200 3042 0.0078
+result_human - round: 3
+result_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:18:37 -0400] "POST /result_human HTTP/1.1" 200 2477 0.0075
+play_human - round: 4
+play_human - session[:result]: ""
+127.0.0.1 - - [15/Mar/2017:14:18:39 -0400] "GET /play_human HTTP/1.1" 200 3025 0.0067
+result_human - round: 4
+result_human - session[:result]: "That position isn't open. Try again Human"
+127.0.0.1 - - [15/Mar/2017:14:18:41 -0400] "POST /result_human HTTP/1.1" 200 3043 0.0119
+[2017-03-15 14:18:57] INFO  going to shutdown ...
+[2017-03-15 14:18:57] INFO  WEBrick::HTTPServer#start done.
+127.0.0.1 - - [15/Mar/2017:14:19:02 -0400] "GET / HTTP/1.1" 200 3262 0.0508
+127.0.0.1 - - [15/Mar/2017:14:19:04 -0400] "POST /players HTTP/1.1" 200 2481 0.0126
+play_human - round: 1
+play_human - session[:result]: nil
+127.0.0.1 - - [15/Mar/2017:14:19:05 -0400] "GET /play_human HTTP/1.1" 200 2999 0.0036
+[2017-03-15 14:23:20] INFO  going to shutdown ...
+[2017-03-15 14:23:20] INFO  WEBrick::HTTPServer#start done.
+127.0.0.1 - - [15/Mar/2017:14:23:25 -0400] "GET / HTTP/1.1" 200 3262 0.0407
+127.0.0.1 - - [15/Mar/2017:14:23:27 -0400] "POST /players HTTP/1.1" 200 2481 0.0138
+127.0.0.1 - - [15/Mar/2017:14:23:30 -0400] "GET /play_human HTTP/1.1" 200 3016 0.0036
+127.0.0.1 - - [15/Mar/2017:14:23:33 -0400] "POST /result_human HTTP/1.1" 200 2475 0.0081
+127.0.0.1 - - [15/Mar/2017:14:23:35 -0400] "GET /play_human HTTP/1.1" 200 3017 0.0037
+127.0.0.1 - - [15/Mar/2017:14:23:37 -0400] "POST /result_human HTTP/1.1" 200 3000 0.0129
+[2017-03-15 14:24:30] INFO  going to shutdown ...
+[2017-03-15 14:24:30] INFO  WEBrick::HTTPServer#start done.
+127.0.0.1 - - [15/Mar/2017:14:24:34 -0400] "GET / HTTP/1.1" 200 3262 0.0413
+127.0.0.1 - - [15/Mar/2017:14:24:37 -0400] "POST /players HTTP/1.1" 200 2481 0.0072
+127.0.0.1 - - [15/Mar/2017:14:24:38 -0400] "GET /play_human HTTP/1.1" 200 3016 0.0064
+127.0.0.1 - - [15/Mar/2017:14:24:39 -0400] "POST /result_human HTTP/1.1" 200 2475 0.0177
+127.0.0.1 - - [15/Mar/2017:14:24:41 -0400] "GET /play_human HTTP/1.1" 200 3017 0.0062
+127.0.0.1 - - [15/Mar/2017:14:24:44 -0400] "POST /result_human HTTP/1.1" 200 3041 0.0074
+127.0.0.1 - - [15/Mar/2017:14:24:50 -0400] "POST /result_human HTTP/1.1" 200 2476 0.0068
+127.0.0.1 - - [15/Mar/2017:14:24:52 -0400] "GET /play_human HTTP/1.1" 200 3024 0.0036
+127.0.0.1 - - [15/Mar/2017:14:24:54 -0400] "POST /result_human HTTP/1.1" 200 3042 0.0072
+127.0.0.1 - - [15/Mar/2017:14:24:58 -0400] "POST /result_human HTTP/1.1" 200 2477 0.0093
+127.0.0.1 - - [15/Mar/2017:14:24:59 -0400] "GET /play_human HTTP/1.1" 200 3025 0.0051
+127.0.0.1 - - [15/Mar/2017:14:25:02 -0400] "POST /result_human HTTP/1.1" 200 3043 0.0097
+127.0.0.1 - - [15/Mar/2017:14:25:07 -0400] "POST /result_human HTTP/1.1" 200 2478 0.0095
+127.0.0.1 - - [15/Mar/2017:14:25:09 -0400] "GET /play_human HTTP/1.1" 200 3026 0.0087
+127.0.0.1 - - [15/Mar/2017:14:25:11 -0400] "POST /result_human HTTP/1.1" 200 3044 0.0142
+[2017-03-15 14:39:39] INFO  going to shutdown ...
+[2017-03-15 14:39:39] INFO  WEBrick::HTTPServer#start done.

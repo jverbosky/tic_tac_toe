@@ -9,16 +9,16 @@
 <h3>Round <%= round %></h3>
 
 <% if round <= 2 %>
-  <% if result == "" %>
+  <% if feedback == nil || feedback == "" %>
     <p>It's Human <%= current_player %>'s move!</p>
   <% else %>
-    <p><%= result %> <%= current_player %>.</p>
+    <p><%= feedback %> <%= current_player %>.</p>
   <% end %>
 <% else %>
-  <% if result == "" %>
+  <% if feedback == "" %>
     <p>It's Human <%= current_player %>'s move again!</p>
   <% else %>
-    <p><%= result %> <%= current_player %>!</p>
+    <p><%= feedback %> <%= current_player %>!</p>
   <% end %>
 <% end %>
 
