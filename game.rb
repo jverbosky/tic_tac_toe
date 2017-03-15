@@ -25,12 +25,6 @@ class Game
     @board_index = ""  # board array index value (based on @move)
     @result = ""  # verbiage for winner
     @wins = @board.wins  # constant needed by perfect player
-    @taken = false  # used to provide feedback when position occupied
-    @x_won = false  # endgame condition check 1
-    @o_won = false  # endgame condition check 2
-    @full = false  # endgame condition check 3
-    # @game_over = false
-    @win = []  # final winning positions
   end
 
   # Method to output the game board
@@ -101,35 +95,31 @@ class Game
 
   # Method that provides feedback if position is taken or updates the board if position is open
   def check_taken
-    @board.position_open?(@board_index) ? @taken = false : @taken = true  # determine if position open
-    if @taken
-      @result = "That position isn't open. Try again Human"
-    else
+    if @board.position_open?(@board_index) # determine if position open
       @result = ""
       @board.set_position(@board_index, @mark)
       @round += 1
+    else
+      @result = "That position isn't open. Try again Human"  # conver to return
     end
   end
 
-  # Method to determine if game is over
+  # Method to determine if game is over based on conditions (x won, o won, board full)
   def game_over?
-    @x_won = @board.x_won?(@board.get_x)
-    @o_won = @board.o_won?(@board.get_o)
-    @full = @board.board_full?
-    @x_won || @o_won || @full
+    @board.x_won?(@board.get_x) || @board.o_won?(@board.get_o) || @board.board_full?
   end
 
   # Method to display endgame messaging
   def display_results
-    @win = @position.map_win(@board.win)
-    if @x_won == true
+    win = @position.map_win(@board.win)  # break this out
+    if @board.x_won?(@board.get_x)
       $x_score += 1
-      @result = "#{@p1_type} X won the game!<br>The winning positions were: #{@win}"
-    elsif @o_won == true
+      return "#{@p1_type} X won the game!<br>The winning positions were: #{win}"
+    elsif @board.o_won?(@board.get_o)
       $o_score += 1
-      @result = "#{@p2_type} O won the game!<br>The winning positions were: #{@win}"
-    elsif @x_won == false && @o_won == false
-      @result = "It was a tie!"
+      return "#{@p2_type} O won the game!<br>The winning positions were: #{win}"
+    elsif !@board.x_won?(@board.get_x) && !@board.o_won?(@board.get_o)
+      return "It was a tie!"
     end
   end
 

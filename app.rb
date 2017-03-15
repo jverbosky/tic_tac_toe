@@ -41,8 +41,7 @@ class TicTacToeApp < Sinatra::Base
     move = session[:game].move
     rows = session[:game].output_board  # grab the current board to display via layout.erb
     if session[:game].game_over?  # check board to see if last move won or tied
-      session[:game].display_results
-      result = session[:game].result  # update result based on game over condition
+      result = session[:game].display_results
       erb :game_over, locals: {rows: rows, round: round, result: result}
     else
       erb :play_ai, locals: {rows: rows, round: round, move: move, p1_type: session[:p1_type], p2_type: session[:p2_type]}
@@ -67,8 +66,7 @@ class TicTacToeApp < Sinatra::Base
     result = session[:game].result  # update to see if any feedback about position being taken
     rows = session[:game].output_board  # grab the current board to display via layout.erb
     if session[:game].game_over?  # check board to see if last move won or tied
-      session[:game].display_results
-      result = session[:game].result  # update result based on game over condition
+      result = session[:game].display_results
       erb :game_over, locals: {rows: rows, round: round, result: result}
     elsif result != ""
       erb :play_human, locals: {rows: rows, round: round, result: result}
