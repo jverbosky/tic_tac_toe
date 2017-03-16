@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require_relative "../player_rand.rb"
+require_relative "../players/player_rand.rb"
 
 class TestPlayerRandom < Minitest::Test
 

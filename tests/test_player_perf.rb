@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require_relative "../player_perf.rb"
+require_relative "../players/player_perf.rb"
 
 class TestPlayerSequential < Minitest::Test
 
