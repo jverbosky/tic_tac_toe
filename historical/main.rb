@@ -2,7 +2,7 @@
 # Program for running tic tac toe #
 ###################################
 
-require_relative "game.rb"
+require_relative "../game.rb"
 
 new_game = Game.new
 
