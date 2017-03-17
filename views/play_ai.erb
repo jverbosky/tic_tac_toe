@@ -1,28 +1,6 @@
 <!-- /views/play_ai.erb -->
 
-<% if round % 2 == 0 %>
-  <% current_ai = "O" %>
-  <% current_ai_type = p2_type %>
-  <% next_player = "X" %>
-  <% next_player_type = p1_type %>
-  <% if p1_type == "Human" %>
-    <% route = "/play_human" %>
-  <% else %>
-    <% route = "/play_ai" %>
-  <% end %>
-<% else %>
-  <% current_ai = "X" %>
-  <% current_ai_type = p1_type %>
-  <% next_player = "O" %>
-  <% next_player_type = p2_type %>
-  <% if p2_type == "Human" %>
-    <% route = "/play_human" %>
-  <% else %>
-    <% route = "/play_ai" %>
-  <% end %>
-<% end %>
-
 <h3>Round <%= round %></h3>
-<p><%= current_ai_type %> <%= current_ai %> took <%= move %> in round <%= round %>.</p>
-<p>Press <b>Next</b> for <%=next_player_type %> <%= next_player %>'s next move.</p>
+<p><%= ptc %> <%= mc %> took <%= move %> in round <%= round %>.</p>
+<p>Press <b>Next</b> for <%= ptn %> <%= mn %>'s next move.</p>
 <button><a href=<%= route %>>Next</a></button>

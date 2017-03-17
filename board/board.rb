@@ -41,8 +41,12 @@ class Board
      @game_board.count("O")
   end
 
-  def get_mark(x_count, o_count)
+  def get_current_mark(x_count, o_count)
     x_count > o_count ? "O" : "X"
+  end
+
+  def get_next_mark(x_count, o_count)
+    x_count > o_count ? "X" : "O"
   end
 
   def get_round(x_count, o_count)
