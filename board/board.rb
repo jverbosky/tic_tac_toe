@@ -33,26 +33,6 @@ class Board
     @game_board.each_index.select { |position| @game_board[position] == "O" }
   end
 
-  def x_count
-    @game_board.count("X")
-  end
-
-  def o_count
-     @game_board.count("O")
-  end
-
-  def get_current_mark(x_count, o_count)
-    x_count > o_count ? "O" : "X"
-  end
-
-  def get_next_mark(x_count, o_count)
-    x_count > o_count ? "X" : "O"
-  end
-
-  def get_round(x_count, o_count)
-    x_count + o_count + 1
-  end
-
   def game_won?(positions)
     won = false
     @wins.each { |win| (won = true; @win = win) if positions & win == win }

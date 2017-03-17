@@ -26,7 +26,6 @@ class Game
     @mark_next = ""  # next player character (O/X)
     @board_index = ""  # board array index value (based on @move)
     @wins = @board.wins  # constant needed by perfect player
-    # @route = ""  # used for Sinatra route selection
   end
 
   # Method to output the game board
@@ -38,58 +37,47 @@ class Game
   def select_players(player_type)
     @p1_type = player_type["p1_type"]
     case @p1_type
-      # when "Human" then @p1 = PlayerHuman.new
       when "Perfect" then @p1 = PlayerPerfect.new
-      # when "Perfect" then PlayerPerfect.new
       when "Random" then @p1 = PlayerRandom.new
-      # when "Random" then PlayerRandom.new
       when "Sequential" then @p1 = PlayerSequential.new
-      # when "Sequential" then PlayerSequential.new
     end
     @p2_type = player_type["p2_type"]
     case @p2_type
-      # when "Human" then @p2 = PlayerHuman.new
       when "Perfect" then @p2 = PlayerPerfect.new
-      # when "Perfect" then PlayerPerfect.new
       when "Random" then @p2 = PlayerRandom.new
-      # when "Random" then PlayerRandom.new
       when "Sequential" then @p2 = PlayerSequential.new
-      # when "Sequential" then PlayerSequential.new
     end
-    # puts "@p1: #{@p1}"
-    # puts "@p2: #{@p2}"
   end
 
-  # Method to update @player for make_move() and @player_type_current for ai_move
-  def set_player_type
+  # Method to update @player, @player_type_ and @mark_ variables for view details
+  def set_players
     if @round % 2 == 1
       @player = @p1
       @player_type_current = @p1_type
       @player_type_next = @p2_type
-      # puts "@player (@p1): #{@player}"
-      # puts "@player_type_current (@p1): #{@player_type_current}"
+      @mark_current = "X"
+      @mark_next = "O"
     else
       @player = @p2
       @player_type_current = @p2_type
       @player_type_next = @p1_type
-      # puts "@player (@p2)}: #{@player}"
-      # puts "@player_type_current (@p2): #{@player_type_current}"
+      @mark_current = "O"
+      @mark_next = "X"
     end
   end
 
-  # Method to set current and next player marks to X or O
-  # Good candidate for revision - simply abstracting at the moment
-  def determine_mark
-    # @mark_current = @board.get_current_mark(@board.x_count, @board.o_count)
-    # @mark_next = @board.get_next_mark(@board.x_count, @board.o_count)
-    round % 2 == 1 ? @mark_current = "X" : @mark_current = "O"
-    round % 2 == 1 ? @mark_next = "O" : @mark_next = "X"
+  # Method to select appropriate route based on next player
+  def get_route
+    if @round == 1
+      @p1_type == "Human" ? route = "/play_human" : route = "/play_ai"
+    else
+      @player_type_next == "Human" ? route = "/play_human" : route = "/play_ai"
+    end
   end
 
   # Method to call human_move() or ai_move methods depending on player type
   def make_move(move)
-    determine_mark  #  determine player mark (X/O)
-    set_player_type  # update @player and @player_type for generalized use
+    set_players  # update @player_, @player_type_ and @mark_ variables for current round
     @player_type_current == "Human" ? human_move(move) : ai_move  # move() call based on player type
   end
 
@@ -145,23 +133,6 @@ class Game
     end
   end
 
-  # Expand to input player type as an argument (see play_ai)
-  def get_route
-    if @round == 1
-      @p1_type == "Human" ? route = "/play_human" : route = "/play_ai"
-    else
-      @player_type_next == "Human" ? route = "/play_human" : route = "/play_ai"
-    end
-  end
-
-  # def play_ai
-  #   if @player_type_next == "Human"
-  #     route = "/play_human"
-  #   else
-  #     route = "/play_ai"
-  #   end
-  # end
-
 end
 
 # game = Game.new
@@ -173,11 +144,11 @@ end
 # # puts "@p2: #{game.p2}"
 # game.round = 1
 # puts "@round: #{game.round}"
-# game.set_player_type
+# game.set_players
 # # puts "@player: #{game.player}"
 # puts "@player_type_current: #{game.player_type_current}"
 # puts "@player_type_next: #{game.player_type_next}"
-# game.determine_mark
+# game.set_marks
 # puts "@mark_current: #{game.mark_current}"
 # puts "@mark_next: #{game.mark_next}"
 # # puts "@player: #{@player}"
