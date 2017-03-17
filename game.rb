@@ -24,6 +24,7 @@ class Game
     @mark = ""  # current player character (X/O)
     @board_index = ""  # board array index value (based on @move)
     @wins = @board.wins  # constant needed by perfect player
+    # @route = ""  # used for Sinatra route selection
   end
 
   # Method to output the game board
@@ -122,6 +123,14 @@ class Game
       return "#{@p2_type} O won the game!<br>The winning positions were: #{win}"  # advise on win
     elsif !@board.x_won?(@board.get_x) && !@board.o_won?(@board.get_o)  # if no one won
       return "It was a tie!"  # advise on tie
+    end
+  end
+
+  def get_route
+    if @p1_type == "Human"
+      route = "/play_human"
+    else
+      route = "/play_ai"
     end
   end
 

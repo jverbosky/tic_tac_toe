@@ -8,7 +8,7 @@ require_relative 'game.rb'
 class TicTacToeApp < Sinatra::Base
 
   enable :sessions  # allow variable value to persist through routes (don't use when need to update value)
-  # enable :logging, :dump_errors, :raise_errors
+  enable :logging, :dump_errors, :raise_errors
 
   # reference for tracing variable value:
   # player_type = "Human"
@@ -19,11 +19,11 @@ class TicTacToeApp < Sinatra::Base
   $o_score = 0  # global for O score to persist through multiple games
 
   # route to trace variables through route iterations
-  # before do
-  #   log = File.new("sinatra.log", "a")
-  #   STDOUT.reopen(log)
-  #   STDERR.reopen(log)
-  # end
+  before do
+    log = File.new("sinatra.log", "a")
+    STDOUT.reopen(log)
+    STDERR.reopen(log)
+  end
 
   # route to load the player selection screen
   get '/' do
@@ -38,7 +38,9 @@ class TicTacToeApp < Sinatra::Base
     session[:game].select_players(player_type)  # initialize player objects based on player_type hash
     session[:p1_type] = session[:game].p1_type  # assign p1_type session to @p1_type in game.rb
     session[:p2_type] = session[:game].p2_type  # assign p1_type session to @p2_type in game.rb
-    erb :player_type, locals: {rows: session[:intro], p1_type: session[:p1_type], p2_type: session[:p2_type]}
+    route = session[:game].get_route
+    puts "route: " + route.inspect
+    erb :player_type, locals: {route: route, rows: session[:intro], p1_type: session[:p1_type], p2_type: session[:p2_type]}
   end
 
   # route to display game board, round and AI player move details
