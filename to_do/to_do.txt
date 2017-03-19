@@ -1,0 +1,50 @@
+Bug 1 - crash
+
+Perfect X versus Human O
+
+R1 - Perfect X takes corner (B3)
+	/play_ai
+
+R2 - Human O takes opposite corner (T1)
+	/play_human
+	/result_human
+
+R3 - Perfect X takes adjacent corner (B1)
+	/play_ai
+
+R4 - Human O selects occupied position
+	/play_human
+	/result_human (play_human view)
+
+R4 - Click Next to select move > *Crash*
+
+
+TypeError at /play_ai
+no implicit conversion of false into Integer
+
+F:/Documents/Dropbox/TechHire/tic_tac_toe/board/board.rb in []
+    @game_board[position] == ""
+
+F:/Documents/Dropbox/TechHire/tic_tac_toe/board/board.rb in position_open?
+    @game_board[position] == ""
+
+F:/Documents/Dropbox/TechHire/tic_tac_toe/game.rb in valid_move?
+    if @board.position_open?(@board_index) # determine if position open
+
+F:/Documents/Dropbox/TechHire/tic_tac_toe/game.rb in update_messaging
+    if valid_move?  # if the move is valid, update messaing and increment round
+
+F:/Documents/Dropbox/TechHire/tic_tac_toe/game.rb in make_move
+    update_messaging  # evaluate move and update messaging accordingly
+
+F:/Documents/Dropbox/TechHire/tic_tac_toe/app.rb in block in <class:TicTacToeApp>
+    move = session[:game].make_move("")  # collect AI player move via make_move() > ai_move
+---------------------------------------
+
+Bug 2 - X prioritizing block over win in r5
+
+O - -     O O -     O O X
+- - -  >  - - -  >  - - -
+X - X     X - X     X - X
+
+---------------------------------------
