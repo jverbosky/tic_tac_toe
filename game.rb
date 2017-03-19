@@ -15,9 +15,9 @@ class Game
     @position = Position.new  # Position class instance
     @display = Display.new  # Web class instance
     @round = 1  # current game round
-    @p1 = ""  # Player class instance for X
+    @p1 = ""  # Player object instance for X
     @p1_type = ""  # X player type ("Human", "Perfect", "Random", "Sequential")
-    @p2 = ""  # Player class instance for O
+    @p2 = ""  # Player object instance for O
     @p2_type = ""  # O player type ("Human", "Perfect", "Random", "Sequential")
     @player = ""  # used to generically collect AI player move
     @player_type_current = ""  # view messaging - current player type
@@ -96,9 +96,9 @@ class Game
   def valid_move?
     if @board.position_open?(@board_index) # determine if position open
       @board.set_position(@board_index, @mark_current)  # if so, update the board
-      return true
+      return true  # drives selection of if statements in update_messaging
     else  # if position is already taken
-      return false
+      return false  # drives selection of else statement in update_messaging
     end
   end
 
@@ -115,18 +115,18 @@ class Game
 
   # Method to handle /play_human view messaging for human players
   def human_messaging
-    if @round <= 2
+    if @round <= 2  # if it's round 1 or 2, use messaging for X/O's first move
       return "It's Human #{@mark_current}'s move!"
-    else
+    else  # otherwise use messaging for subsequent moves
       return "It's Human #{@mark_current}'s move again!"
     end
   end
 
   # Method to select appropriate route based on next player
   def get_route
-    if @round == 1
+    if @round == 1  # select round 1 route based on player 1's type
       @p1_type == "Human" ? route = "/play_human" : route = "/play_ai"
-    else
+    else  # otherwise select the route based on the next player's type
       @player_type_next == "Human" ? route = "/play_human" : route = "/play_ai"
     end
   end
