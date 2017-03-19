@@ -7,7 +7,7 @@ require_relative "players/player_seq.rb"
 
 class Game
 
-  attr_reader :p1_type, :p2_type, :player_type_current, :player_type_next, :mark_current, :mark_next, :feedback, :prompt
+  attr_reader :p1_type, :p2_type, :feedback, :prompt
   attr_accessor :move, :round
 
   def initialize
@@ -19,15 +19,15 @@ class Game
     @p1_type = ""  # X player type ("Human", "Perfect", "Random", "Sequential")
     @p2 = ""  # Player class instance for O
     @p2_type = ""  # O player type ("Human", "Perfect", "Random", "Sequential")
-    @player = ""  # Player class instance for current player
-    @player_type_current = ""  # current player type
-    @player_type_next = ""  # next player type
-    @mark_current = ""  # current player character (X/O)
-    @mark_next = ""  # next player character (O/X)
-    @move = ""
+    @player = ""  # used to generically collect AI player move
+    @player_type_current = ""  # view messaging - current player type
+    @player_type_next = ""  # view messaging - next player type
+    @mark_current = ""  # view messaging - current player character (X/O)
+    @mark_next = ""  # view messaging - next player character (O/X)
+    @feedback = ""  # view messaging - move status or reprompt
+    @prompt = ""  # view messaging - player advance prompt
+    @move = ""  # view messaging - current player's move
     @board_index = ""  # board array index value (based on @move)
-    @feedback = ""
-    @prompt = ""
     @wins = @board.wins  # constant needed by perfect player
   end
 
@@ -52,20 +52,73 @@ class Game
     end
   end
 
-  # Method to update @player, @player_type_ and @mark_ variables for view details
+  # Method to update instance variables for AI move collection and view messaging
   def set_players
-    if @round % 2 == 1
+    if @round % 2 == 1  # X is current if odd-numbered round
       @player = @p1
       @player_type_current = @p1_type
       @player_type_next = @p2_type
       @mark_current = "X"
       @mark_next = "O"
-    else
+    else  # otherwise O is current
       @player = @p2
       @player_type_current = @p2_type
       @player_type_next = @p1_type
       @mark_current = "O"
       @mark_next = "X"
+    end
+  end
+
+  # Method to call human_move() or ai_move methods depending on player type
+  def make_move(move)
+    set_players  # update @player_, @player_type_ and @mark_ variables for current round
+    @player_type_current == "Human" ? human_move(move) : ai_move  # move() call based on player type
+    convert_move  # convert human friendly location name to board array index position
+    update_messaging  # evaluate move and update messaging accordingly
+  end
+
+  # Method to assign move to @move instance variable for ease-of-access
+  def human_move(move)
+    @move = move
+  end
+
+  # Method to collect move from AI player instance
+  def ai_move
+    @move = @player.get_move(@board.game_board, @round, @mark_current, @wins, @board.get_x, @board.get_o)
+  end
+
+  # Method to convert human friendly location name to board array index position
+  def convert_move
+    @board_index = @position.get_index(@move)  # update @board_index with index value
+  end
+
+  # Method that updates the board if position is open, called by update_messaging
+  def valid_move?
+    if @board.position_open?(@board_index) # determine if position open
+      @board.set_position(@board_index, @mark_current)  # if so, update the board
+      return true
+    else  # if position is already taken
+      return false
+    end
+  end
+
+  #Method to update round messaging and count if move is valid
+  def update_messaging
+    if valid_move?  # if the move is valid, update messaing and increment round
+      @feedback = "#{@player_type_current} #{@mark_current} took #{@move} in round #{@round}."
+      @prompt = "Press <b>Next</b> for #{@player_type_next} #{@mark_next}'s move."
+      @round += 1  # increment the round count by 1
+    else  # otherwise, update @feedback with reprompt text
+      @feedback = "That position isn't open. Try again Human #{@mark_current}."
+    end
+  end
+
+  # Method to handle /play_human view messaging for human players
+  def human_messaging
+    if @round <= 2
+      return "It's Human #{@mark_current}'s move!"
+    else
+      return "It's Human #{@mark_current}'s move again!"
     end
   end
 
@@ -75,76 +128,6 @@ class Game
       @p1_type == "Human" ? route = "/play_human" : route = "/play_ai"
     else
       @player_type_next == "Human" ? route = "/play_human" : route = "/play_ai"
-    end
-  end
-
-  # Method to call human_move() or ai_move methods depending on player type
-  def make_move(move)
-    set_players  # update @player_, @player_type_ and @mark_ variables for current round
-    @player_type_current == "Human" ? human_move(move) : ai_move  # move() call based on player type
-  end
-
-  # Method to handle human move logic
-  # Update candidate > return move instead of using instance variable
-  def human_move(move)
-    @move = move  # save move for messaging
-    convert_move  # convert human friendly location name to board array index position
-    update_messaging
-  end
-
-  # Method to handle ai move logic
-  # Update candidate > return move instead of using instance variable
-  def ai_move
-    @move = @player.get_move(@board.game_board, @round, @mark_current, @wins, @board.get_x, @board.get_o)
-    convert_move  # convert human friendly location name to board array index position
-    update_messaging
-    # @board.set_position(@board_index, @mark_current)  # then update the board
-    # @round += 1  # increment the round count by 1
-    # return @move  # return the move for use in round info messaging
-  end
-
-  # Method to convert human friendly location name to board array index position
-  def convert_move
-    @board_index = @position.get_index(@move)  # update @board_index with index value
-  end
-
-  def human_messaging
-    if @round <= 2
-      # unless @feedback =~ /^That/ || @feedback == ""
-        @feedback = "It's Human #{@mark_current}'s move!"
-      # end
-    else
-      # unless @feedback =~ /^That/
-        @feedback = "It's Human #{@mark_current}'s move again!"
-      # end
-    end
-  end
-
-  #Method to update round messaging and count if move is valid
-  def update_messaging
-    if valid_move?
-      @feedback = "#{@player_type_current} #{@mark_current} took #{@move} in round #{@round}."
-      @prompt = "Press <b>Next</b> for #{@player_type_next} #{@mark_next}'s move."
-      @round += 1  # increment the round count by 1
-    else
-      @feedback = "That position isn't open. Try again Human #{@mark_current}."
-    end
-  end
-
-  # Method that provides feedback if position is taken or updates the board if position is open
-  # def check_taken
-  def valid_move?
-    if @board.position_open?(@board_index) # determine if position open
-      @board.set_position(@board_index, @mark_current)  # if so, update the board
-      # return ""  # clear any feedback (used for comparisons in /result_human route and human views)
-      # @feedback = "Human #{@mark_current} took #{@move} in round #{@round}."
-      # @prompt = "Press Next for #{@player_type_next} #{@mark_next}'s move."
-      # @round += 1  # increment the round count by 1
-      return true
-    else  # if position is already taken
-      # return "That position isn't open. Try again Human"  # return appropriate feedback
-      # @feedback = "That position isn't open. Try again Human #{@mark_current}."
-      return false
     end
   end
 
@@ -168,29 +151,3 @@ class Game
   end
 
 end
-
-# game = Game.new
-# types = {"p1_type"=>"Perfect", "p2_type"=>"Human"}
-# game.select_players(types)
-# puts "@p1_type: #{game.p1_type}"
-# puts "@p2_type: #{game.p2_type}"
-# # puts "@p1: #{game.p1}"
-# # puts "@p2: #{game.p2}"
-# game.round = 1
-# puts "@round: #{game.round}"
-# game.set_players
-# # puts "@player: #{game.player}"
-# puts "@player_type_current: #{game.player_type_current}"
-# puts "@player_type_next: #{game.player_type_next}"
-# game.set_marks
-# puts "@mark_current: #{game.mark_current}"
-# puts "@mark_next: #{game.mark_next}"
-# # puts "@player: #{@player}"
-# # puts "@player_type_current: #{@player_type_current}"
-
-
-# game.board.game_board = ["", "X", "", "", "", "", "", "O", ""]
-# game.board.game_board = ["X", "X", "X", "", "O", "", "", "O", ""]
-# puts game.game_over?
-# game.display_results
-# p game.result
