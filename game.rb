@@ -7,7 +7,7 @@ require_relative "players/player_seq.rb"
 
 class Game
 
-  attr_reader :p1_type, :p2_type, :player_type_current, :player_type_next, :mark_current, :mark_next
+  attr_reader :p1_type, :p2_type, :player_type_current, :player_type_next, :mark_current, :mark_next, :feedback, :prompt
   attr_accessor :move, :round
 
   def initialize
@@ -24,7 +24,10 @@ class Game
     @player_type_next = ""  # next player type
     @mark_current = ""  # current player character (X/O)
     @mark_next = ""  # next player character (O/X)
+    @move = ""
     @board_index = ""  # board array index value (based on @move)
+    @feedback = ""
+    @prompt = ""
     @wins = @board.wins  # constant needed by perfect player
   end
 
@@ -84,33 +87,52 @@ class Game
   # Method to handle human move logic
   # Update candidate > return move instead of using instance variable
   def human_move(move)
-    convert_move(move)  # convert human friendly location name to board array index position
-    check_taken  # determine if location is taken and act accordingly
+    @move = move  # save move for messaging
+    convert_move  # convert human friendly location name to board array index position
+    update_messaging
   end
 
   # Method to handle ai move logic
   # Update candidate > return move instead of using instance variable
   def ai_move
-    move = @player.get_move(@board.game_board, @round, @mark_current, @wins, @board.get_x, @board.get_o)
-    convert_move(move)  # convert human friendly location name to board array index position
-    @board.set_position(@board_index, @mark_current)  # then update the board
-    @round += 1  # increment the round count by 1
-    return move  # return the move for use in round info messaging
+    @move = @player.get_move(@board.game_board, @round, @mark_current, @wins, @board.get_x, @board.get_o)
+    convert_move  # convert human friendly location name to board array index position
+    update_messaging
+    # @board.set_position(@board_index, @mark_current)  # then update the board
+    # @round += 1  # increment the round count by 1
+    # return @move  # return the move for use in round info messaging
   end
 
   # Method to convert human friendly location name to board array index position
-  def convert_move(move)
-    @board_index = @position.get_index(move)  # update @board_index with index value
+  def convert_move
+    @board_index = @position.get_index(@move)  # update @board_index with index value
+  end
+
+  #Method to update round messaging and count if move is valid
+  def update_messaging
+    if valid_move?
+      @feedback = "#{@player_type_current} #{@mark_current} took #{@move} in round #{@round}."
+      @prompt = "Press <b>Next</b> for #{@player_type_next} #{@mark_next}'s move."
+      @round += 1  # increment the round count by 1
+    else
+      @feedback = "That position isn't open. Try again Human #{@mark_current}."
+    end
   end
 
   # Method that provides feedback if position is taken or updates the board if position is open
-  def check_taken
+  # def check_taken
+  def valid_move?
     if @board.position_open?(@board_index) # determine if position open
       @board.set_position(@board_index, @mark_current)  # if so, update the board
-      @round += 1  # increment the round count by 1
-      return ""  # clear any feedback (used for comparisons in /result_human route and human views)
+      # return ""  # clear any feedback (used for comparisons in /result_human route and human views)
+      # @feedback = "Human #{@mark_current} took #{@move} in round #{@round}."
+      # @prompt = "Press Next for #{@player_type_next} #{@mark_next}'s move."
+      # @round += 1  # increment the round count by 1
+      return true
     else  # if position is already taken
-      return "That position isn't open. Try again Human"  # return appropriate feedback
+      # return "That position isn't open. Try again Human"  # return appropriate feedback
+      # @feedback = "That position isn't open. Try again Human #{@mark_current}."
+      return false
     end
   end
 

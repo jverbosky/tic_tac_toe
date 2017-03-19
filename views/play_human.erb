@@ -1,24 +1,18 @@
 <!-- /views/play_human.erb -->
 
-<% if round % 2 == 0 %>
-  <% current_player = "O" %>
-<% else %>
-  <% current_player = "X" %>
-<% end %>
-
 <h3>Round <%= round %></h3>
 
 <% if round <= 2 %>
   <% if feedback == nil || feedback == "" %>
-    <p>It's Human <%= current_player %>'s move!</p>
+    <p>It's Human <%= mc %>'s move!</p>
   <% else %>
-    <p><%= feedback %> <%= current_player %>.</p>
+    <p><%= feedback %> <%= mc %>.</p>
   <% end %>
 <% else %>
   <% if feedback == "" %>
-    <p>It's Human <%= current_player %>'s move again!</p>
+    <p>It's Human <%= mc %>'s move again!</p>
   <% else %>
-    <p><%= feedback %> <%= current_player %>!</p>
+    <p><%= feedback %> <%= mc %>!</p>
   <% end %>
 <% end %>
 
