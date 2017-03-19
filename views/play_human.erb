@@ -1,21 +1,7 @@
 <!-- /views/play_human.erb -->
 
 <h3>Round <%= round %></h3>
-
-<% if round <= 2 %>
-  <% if feedback == nil || feedback == "" %>
-    <p>It's Human <%= mc %>'s move!</p>
-  <% else %>
-    <p><%= feedback %> <%= mc %>.</p>
-  <% end %>
-<% else %>
-  <% if feedback == "" %>
-    <p>It's Human <%= mc %>'s move again!</p>
-  <% else %>
-    <p><%= feedback %> <%= mc %>!</p>
-  <% end %>
-<% end %>
-
+<p><%= feedback %></p>
 <p>Please select a location and press <b>Submit</b>.</p>
 <form method="post" action="result_human">
   <select type="text" name="location">

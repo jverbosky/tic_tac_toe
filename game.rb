@@ -108,6 +108,18 @@ class Game
     @board_index = @position.get_index(@move)  # update @board_index with index value
   end
 
+  def human_messaging
+    if @round <= 2
+      # unless @feedback =~ /^That/ || @feedback == ""
+        @feedback = "It's Human #{@mark_current}'s move!"
+      # end
+    else
+      # unless @feedback =~ /^That/
+        @feedback = "It's Human #{@mark_current}'s move again!"
+      # end
+    end
+  end
+
   #Method to update round messaging and count if move is valid
   def update_messaging
     if valid_move?

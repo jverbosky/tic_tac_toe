@@ -67,8 +67,12 @@ class TicTacToeApp < Sinatra::Base
     round = session[:game].round  # collect current round for messaging
     rows = session[:game].output_board  # grab the current board to display via layout.erb
     session[:game].set_players  # update player info
+    session[:game].human_messaging
+    feedback = session[:game].feedback
+    prompt = session[:game].prompt
+    puts "feedback: " + session[:feedback].inspect
     mc = session[:game].mark_current  # current mark for view details
-    erb :play_human, locals: {rows: rows, round: round, mc: mc, feedback: session[:feedback]}
+    erb :play_human, locals: {rows: rows, round: round, mc: mc, feedback: feedback, prompt: prompt}
   end
 
   # route to display game board, round and human player move details
@@ -76,7 +80,7 @@ class TicTacToeApp < Sinatra::Base
     round = session[:game].round  # collect current round for messaging
     move = params[:location]  # collect the specified move from play_human form
     session[:game].make_move(move)
-    session[:feedback] = session[:game].feedback
+    feedback = session[:game].feedback
     puts "feedback: " + session[:feedback].inspect
     prompt = session[:game].prompt
     # session[:feedback] = session[:game].make_move(move)  # feedback for occupied positions
@@ -87,12 +91,12 @@ class TicTacToeApp < Sinatra::Base
     if session[:game].game_over?  # if game is over
       endgame_result = session[:game].display_results  # collect endgame messaging
       erb :game_over, locals: {rows: rows, round: round, result: endgame_result}  # display final results
-    elsif session[:game].valid_move? == false  # if there's feedback, position taken so reprompt via play_human
-      erb :play_human, locals: {rows: rows, round: round, mc: mc, feedback: session[:feedback]}
+    elsif session[:game].feedback =~ /^That/  # if position taken feedback, reprompt via play_human
+      erb :play_human, locals: {rows: rows, round: round, mc: mc, feedback: feedback}
     else  # otherwise display move results
       # erb :result_human, locals: {rows: rows, round: round, feedback: session[:feedback], move: move, p1_type: session[:p1_type], p2_type: session[:p2_type]}
       route = session[:game].get_route  # get route and update @player_type_ and @mark_ variables
-      erb :result_human, locals: {rows: rows, round: round, feedback: session[:feedback], prompt: prompt, route: route}
+      erb :result_human, locals: {rows: rows, round: round, feedback: feedback, prompt: prompt, route: route}
     end
   end
 
