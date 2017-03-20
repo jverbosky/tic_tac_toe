@@ -128,18 +128,13 @@ class PlayerPerfect
   def fork_check(wins, player, opponent)
     block_fork = find_fork(wins, opponent, player)
     get_fork = find_fork(wins, player, opponent)
-    if get_fork.size > 0
+    if get_fork.size > 0  # if possible to create fork, do it
       move = get_fork.sample
-    elsif block_fork.size > 0
+    elsif block_fork.size > 0  # otherwise if opponent can create fork, block it
       move = block_fork.sample
-    # if block_fork.size > 0
-    #   move = block_fork.sample
-    # elsif get_fork.size > 0
-    #   move = get_fork.sample
     else
-      move = sel_rand(player, opponent)
+      move = sel_rand(player, opponent)  # otherwise take random position
     end
-    return move
   end
 
   # Method to return array of positions that will result in a fork
@@ -196,6 +191,7 @@ end
 # board.game_board = ["O", "", "X", "", "", "", "", "", ""]
 # board.game_board = ["X", "O", "X", "", "O", "", "", "X", ""]
 # board.game_board = ["X", "", "", "", "O", "X", "", "X", "O"]
+# board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]
 # board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]
 #-----------------------------------------------------------------------------
 # round = 5

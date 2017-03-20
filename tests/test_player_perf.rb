@@ -507,7 +507,7 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("b1", result)
   end
 
-  def test_38_round_5_O_took_edge_after_opposite_corner_X_blocks_fork
+  def test_38_round_5_O_took_edge_after_opposite_corner_X_makes_fork
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]
@@ -517,7 +517,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = board.get_x
     o_pos = board.get_o
     result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    assert_equal("b2", result)
+    assert_equal("b1", result)
   end
 
   def test_39_round_5_O_took_corner_after_center_X_block_and_sets_2_wins
