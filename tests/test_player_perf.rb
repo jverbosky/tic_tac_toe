@@ -6,8 +6,8 @@ class TestPlayerSequential < Minitest::Test
   def test_1_round_1_X_takes_a_random_corner
     board = Board.new
     p1 = PlayerPerfect.new
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 1
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -21,8 +21,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 2
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -34,8 +34,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "", "", "X", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 2
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -49,8 +49,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "X", "", "", "", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 2
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -62,8 +62,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "", "X", "", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 2
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -75,8 +75,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -88,8 +88,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "", "O", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -101,8 +101,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "", "", "O", "", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -114,8 +114,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "", "", "O", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -127,8 +127,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "", "", "", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -136,38 +136,42 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("m2", result)
   end
 
-  def test_11_round_3_O_took_corner_X_takes_opposite_corner_v1
+  def test_11_round_3_O_took_corner_X_takes_open_corner_v1
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "", "", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
-    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    assert_equal("b3", result)
+    corners = ["b1", "b3"]
+    move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    result = corners.include? move
+    assert_equal(true, result)
   end
 
-  def test_12_round_3_O_took_corner_X_takes_opposite_corner_v2
+  def test_12_round_3_O_took_corner_X_takes_open_corner_v2
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "X", "", "", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
-    result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    assert_equal("b1", result)
+    corners = ["b1", "b3"]
+    move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
+    result = corners.include? move
+    assert_equal(true, result)
   end
 
   def test_13_round_3_O_took_opposite_corner_X_takes_corner_v1
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "", "", "", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -181,8 +185,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "", "", "", "O", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 3
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -196,8 +200,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -211,8 +215,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "", "O", "", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -226,8 +230,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "X", "", "O", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -239,8 +243,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "", "O", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -252,8 +256,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "", "", "O", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -265,8 +269,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "", "O", "X", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -278,8 +282,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "", "", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -291,8 +295,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "X", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -304,8 +308,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "X", "", "X", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -317,8 +321,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "O", "", "X", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -330,8 +334,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "", "", "X", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -345,8 +349,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "", "X", "", "O", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -360,8 +364,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "", "X", "X", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -373,8 +377,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "", "", "X", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -386,8 +390,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "X", "", "", "O", "", "", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -401,8 +405,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "", "X", "O", "X", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -416,8 +420,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "X", "", "", "O", "X", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -429,8 +433,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "", "", "O", "X", "", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 4
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -442,8 +446,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "", "", "O", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -455,8 +459,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "O", "O", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -468,8 +472,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "O", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -481,8 +485,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "", "", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -494,8 +498,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "", "O", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -503,25 +507,25 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("b1", result)
   end
 
-  def test_38_round_5_O_took_edge_after_opposite_corner_X_sets_2_wins
+  def test_38_round_5_O_took_edge_after_opposite_corner_X_blocks_fork
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "", "", "", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
     result = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    assert_equal("b1", result)
+    assert_equal("b2", result)
   end
 
   def test_39_round_5_O_took_corner_after_center_X_block_and_sets_2_wins
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "", "O", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -533,8 +537,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "X", "O", "", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -546,8 +550,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "X", "", "", "O", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -559,8 +563,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "", "", "O", "X", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -572,8 +576,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "X", "", "", "", "O", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -585,8 +589,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "O", "O", "X", "", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -598,8 +602,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "O", "X", "", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 5
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -611,8 +615,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -624,8 +628,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "", "", "O", "", "", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -637,8 +641,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -650,8 +654,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -659,33 +663,33 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("t1", result)
   end
 
-  def test_50_round_6_X_took_adjacent_corners_and_opposite_edge_O_takes_open_edge_v1
+  def test_50_round_6_X_took_adjacent_corners_and_opposite_edge_O_takes_open_corner_v1
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "O", "", "", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
-    edges = ["m1", "m3"]
+    corners = ["b1", "b3"]
     move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    result = edges.include? move
+    result = corners.include? move
     assert_equal(true, result)
   end
 
-  def test_51_round_6_X_took_adjacent_corners_and_opposite_edge_O_takes_open_edge_v2
+  def test_51_round_6_X_took_adjacent_corners_and_opposite_edge_O_takes_open_corner_v2
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "X", "O", "O", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
-    edges = ["t2", "b2"]
+    corners = ["t1", "b1"]
     move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    result = edges.include? move
+    result = corners.include? move
     assert_equal(true, result)
   end
 
@@ -693,8 +697,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "O", "", "O", "", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -706,8 +710,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "X", "", "O", "X", "", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -719,8 +723,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "X", "O", "O", "", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -732,8 +736,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "", "", "O", "X", "", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -745,8 +749,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "X", "X", "X", "", "O", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -758,8 +762,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "O", "", "X", "", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -771,8 +775,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "", "X", "X", "O", "", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -784,8 +788,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "", "X", "X", "", "", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -797,8 +801,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "", "X", "X", "O", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -810,8 +814,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "X", "", "X", "", "", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -823,8 +827,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "", "", "O", "", "", "X", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -836,8 +840,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "X", "O", "X", "", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -845,33 +849,33 @@ class TestPlayerSequential < Minitest::Test
     assert_equal("b1", result)
   end
 
-  def test_64_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_open_corner_v1
+  def test_64_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_random_v1
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "X", "O", "", "O", "X", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
-    corners = ["t1", "b3"]
+    positions = ["t1", "m1", "b2", "b3"]
     move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    result = corners.include? move
+    result = positions.include? move
     assert_equal(true, result)
   end
 
-  def test_65_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_open_corner_v2
+  def test_65_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_random_v2
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "", "", "O", "X", "", "X", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 6
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
-    corners = ["t3", "b1"]
+    positions = ["t2", "t3", "m1", "b1"]
     move = p1.get_move(board.game_board, round, mark, wins, x_pos, o_pos)
-    result = corners.include? move
+    result = positions.include? move
     assert_equal(true, result)
   end
 
@@ -879,8 +883,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "O", "O", "", "X", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -892,8 +896,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "", "O", "", "X", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -905,8 +909,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "O", "", "", "X", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -918,8 +922,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "O", "", "X", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -931,8 +935,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "O", "", "O", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -944,8 +948,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "X", "", "O", "O", "O", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -957,8 +961,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "", "", "O", "", "O", "X", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -970,8 +974,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -983,8 +987,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -996,8 +1000,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "X", "X", "O", "O", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1009,8 +1013,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "O", "", "X", "O", "X", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1024,8 +1028,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "", "O", "X", "O", "O", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1039,8 +1043,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "O", "", "O", "X", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1052,8 +1056,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "O", "", "O", "", "X", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1065,8 +1069,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "X", "O", "O", "X", "X", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1078,8 +1082,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "X", "X", "O", "O", "X", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 7
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1091,8 +1095,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "O", "O", "X", "", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1104,8 +1108,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["", "X", "X", "X", "O", "O", "", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1117,8 +1121,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "O", "O", "O", "X", "X", "", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1132,8 +1136,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "O", "X", "", "X", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1147,8 +1151,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "X", "X", "O", "O", "O", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1160,8 +1164,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "O", "", "O", "X", "X", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1173,8 +1177,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "X", "X", "X", "O", "O", "X", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1186,8 +1190,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "O", "", "X", "X", "", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1199,8 +1203,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "", "X", "X", "O", "X", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1212,8 +1216,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "X", "X", "X", "O", "", "O", ""]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1225,8 +1229,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "O", "X", "X", "O", "X", "", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1238,8 +1242,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "X", "", "X", "", "O", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1251,8 +1255,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "", "X", "O", "", "O", "X", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1264,8 +1268,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "X", "X", "O", "X", "O", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1277,8 +1281,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "X", "O", "", "O", "X", "X", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1290,8 +1294,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "", "O", "X", "X", "X", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 8
+    mark = "O"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1303,8 +1307,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "", "O", "O", "O", "X", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 9
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1316,8 +1320,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "", "O", "O", "O", "X", "X", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 9
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1329,8 +1333,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "O", "O", "X", "X", "", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 9
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1342,8 +1346,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "", "X", "X", "O", "O", "X", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 9
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1355,8 +1359,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["X", "O", "X", "O", "O", "X", "", "X", "O"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 9
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o
@@ -1368,8 +1372,8 @@ class TestPlayerSequential < Minitest::Test
     board = Board.new
     p1 = PlayerPerfect.new
     board.game_board = ["O", "X", "X", "X", "O", "O", "", "O", "X"]
-    round = board.get_round(board.x_count, board.o_count)
-    mark = board.get_mark(board.x_count, board.o_count)
+    round = 9
+    mark = "X"
     wins = board.wins
     x_pos = board.get_x
     o_pos = board.get_o

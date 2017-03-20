@@ -50,5 +50,50 @@ X - X     X - X     X - X
 O - -     O - -     O - X
 - - -  >  - O -  >  - O -
 X - X     X - X     X - X
-
 ---------------------------------------
+
+R4 - blocking forks
+
+- X -
+X O -  > O should take T1 (corner between adjacent edges)
+- - -
+
+
+X - -
+- X -  > O should take a corner
+- - O
+
+
+X - -
+- O -  > O should take m1
+- X -
+
+
+X - -
+- O X  > O should take t3
+- - -
+---------------------------------------
+
+
+  | X |  
+---------
+O | O | X  > "get_matchups: [[0, 1, 2], [6, 7, 8], [2, 5, 8]]"
+---------
+X |   |  
+
+
+  | X | O
+---------
+O | O | X
+---------
+X |   |  
+
+
+- X -
+- O X
+- O -
+
+
+- X -
+O O X
+X - -

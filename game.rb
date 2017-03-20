@@ -1,6 +1,5 @@
 require_relative "board/board.rb"
 require_relative "board/position.rb"
-require_relative "display/display.rb"
 require_relative "players/player_perf.rb"
 require_relative "players/player_rand.rb"
 require_relative "players/player_seq.rb"
@@ -13,7 +12,6 @@ class Game
   def initialize
     @board = Board.new  # Board class instance
     @position = Position.new  # Position class instance
-    @display = Display.new  # Web class instance
     @round = 1  # current game round
     @p1 = ""  # Player object instance for X
     @p1_type = ""  # X player type ("Human", "Perfect", "Random", "Sequential")
@@ -24,11 +22,10 @@ class Game
     @player_type_next = ""  # view messaging - next player type
     @mark_current = ""  # view messaging - current player character (X/O)
     @mark_next = ""  # view messaging - next player character (O/X)
-    @feedback = ""  # view messaging - move status or reprompt
-    @prompt = ""  # view messaging - player advance prompt
     @move = ""  # view messaging - current player's move
     @board_index = ""  # board array index value (based on @move)
-    @wins = @board.wins  # constant needed by perfect player
+    @feedback = ""  # view messaging - move status or reprompt
+    @prompt = ""  # view messaging - player advance prompt
   end
 
   # Method to output the game board
@@ -84,7 +81,7 @@ class Game
 
   # Method to collect move from AI player instance
   def ai_move
-    @move = @player.get_move(@board.game_board, @round, @mark_current, @wins, @board.get_x, @board.get_o)
+    @move = @player.get_move(@board.game_board, @round, @mark_current, @board.wins, @board.get_x, @board.get_o)
   end
 
   # Method to convert human friendly location name to board array index position
