@@ -128,10 +128,14 @@ class PlayerPerfect
   def fork_check(wins, player, opponent)
     block_fork = find_fork(wins, opponent, player)
     get_fork = find_fork(wins, player, opponent)
-    if block_fork.size > 0
-      move = block_fork.sample
-    elsif get_fork.size > 0
+    if get_fork.size > 0
       move = get_fork.sample
+    elsif block_fork.size > 0
+      move = block_fork.sample
+    # if block_fork.size > 0
+    #   move = block_fork.sample
+    # elsif get_fork.size > 0
+    #   move = get_fork.sample
     else
       move = sel_rand(player, opponent)
     end
