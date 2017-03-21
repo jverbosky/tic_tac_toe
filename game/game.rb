@@ -1,21 +1,20 @@
-require_relative "messaging.rb"
-require_relative "win.rb"
-require_relative "../board/board.rb"
-require_relative "../board/position.rb"
-require_relative "../players/player_perf.rb"
-require_relative "../players/player_rand.rb"
-require_relative "../players/player_seq.rb"
+require_relative "messaging.rb"  # class to handle messaging
+require_relative "win.rb"  # class to handle endgame evaluation
+require_relative "../board/board.rb"  # class to handle board updates and queries
+require_relative "../board/position.rb"  # class to board locations to array indexes
+require_relative "../players/player_perf.rb"  # class for unbeatable AI player
+require_relative "../players/player_rand.rb"  # class for random AI player
+require_relative "../players/player_seq.rb"  # class for sequential AI player
 
 # class to handle game logic
 class Game
 
-  # attr_reader :p1_type, :p2_type, :feedback, :prompt
-  attr_reader :p1_type, :p2_type, :messaging, :m_current, :pt_next #, :winner
+  attr_reader :p1_type, :p2_type, :m_current, :pt_next, :messaging
   attr_accessor :move, :round
 
   def initialize
     @board = Board.new  # Board class instance
-    @messaging = Messaging.new  # Messaging class instance
+    @messaging = Messaging.new  # Messaging class instance, accessible to app.rb
     @position = Position.new  # Position class instance
     @win = Win.new  # Win class instance
     @round = 1  # current game round
@@ -30,9 +29,6 @@ class Game
     @m_next = ""  # view messaging - next player character (O/X)
     @move = ""  # view messaging - current player's move
     @board_index = ""  # board array index value (based on @move)
-    # @winner = ""
-    # @feedback = ""  # view messaging - move status or reprompt
-    # @prompt = ""  # view messaging - player advance prompt
   end
 
   # Method to output the game board
@@ -60,20 +56,12 @@ class Game
   def set_players
     if @round % 2 == 1  # X is current if odd-numbered round
       @player = @p1
-      # @player_type_current = @p1_type
-      # @player_type_next = @p2_type
-      # @mark_current = "X"
-      # @mark_next = "O"
       @pt_current = @p1_type
       @pt_next = @p2_type
       @m_current = "X"
       @m_next = "O"
     else  # otherwise O is current
       @player = @p2
-      # @player_type_current = @p2_type
-      # @player_type_next = @p1_type
-      # @mark_current = "O"
-      # @mark_next = "X"
       @pt_current = @p2_type
       @pt_next = @p1_type
       @m_current = "O"
@@ -85,9 +73,7 @@ class Game
   def make_move(move)
     set_players  # update @player_, @player_type_ and @mark_ variables for current round
     @pt_current == "Human" ? human_move(move) : ai_move  # move() call based on player type
-    # convert_move  # convert human friendly location name to board array index position
     @board_index = @position.get_index(@move)  # convert human friendly move to board index value
-    # update_messaging  # evaluate move and update messaging accordingly
     @round += 1 if valid_move?  # if the move is valid, increment the @round counter
   end
 
@@ -98,21 +84,12 @@ class Game
 
   # Method to collect move from AI player instance
   def ai_move
-    # @move = @player.get_move(@board.game_board, @round, @mark_current, @win.wins, @board.get_x, @board.get_o)
     @move = @player.get_move(@board.game_board, @round, @m_current, @win.wins, @board.get_x, @board.get_o)
   end
 
-  ### Merge convert_move into make_move - any real reason to be a standalone method?
-
-  # Method to convert human friendly location name to board array index position
-  def convert_move
-    @board_index = @position.get_index(@move)  # update @board_index with index value
-  end
-
-  # Method that updates the board if position is open, called by update_messaging
+  # Method that updates the board and messaging accordingly, called by make_move
   def valid_move?
     if @board.position_open?(@board_index) # determine if position open
-      # @board.set_position(@board_index, @mark_current)  # if so, update the board and messaging
       @board.set_position(@board_index, @m_current)  # if so, update the board and messaging
       @messaging.valid_move(@round, @move, @pt_current, @m_current, @pt_next, @m_next)
       return true  # drives round increment in make_move
@@ -122,82 +99,24 @@ class Game
     end
   end
 
-  # #Method to update round messaging and count if move is valid
-  # def update_messaging
-  #   if valid_move?  # if the move is valid, update messaing and increment round
-  #     @feedback = "#{@player_type_current} #{@mark_current} took #{@move} in round #{@round}."
-  #     @prompt = "Press <b>Next</b> for #{@player_type_next} #{@mark_next}'s move."
-  #     @round += 1  # increment the round count by 1
-  #   else  # otherwise, update @feedback with reprompt text
-  #     @feedback = "That position isn't open. Try again Human #{@mark_current}."
-  #   end
-  # end
-
-  # # Method to handle /play_human view messaging for human players
-  # def human_messaging
-  #   if @round <= 2  # if it's round 1 or 2, use messaging for X/O's first move
-  #     return "It's Human #{@mark_current}'s move!"
-  #   else  # otherwise use messaging for subsequent moves
-  #     return "It's Human #{@mark_current}'s move again!"
-  #   end
-  # end
-
-  # # Method to select appropriate route based on next player
-  # def get_route
-  #   if @round == 1  # select round 1 route based on player 1's type
-  #     @p1_type == "Human" ? route = "/play_human" : route = "/play_ai"
-  #   else  # otherwise select the route based on the next player's type
-  #     @player_type_next == "Human" ? route = "/play_human" : route = "/play_ai"
-  #   end
-  # end
-
   # Method to determine if game is over based on conditions (x won, o won, board full)
   def game_over?
-    @win.update_board(@board.game_board)  ## new ##
-    @win.x_won? || @win.o_won? || @win.board_full?  ## new ##
+    @win.update_board(@board.game_board)  # update the @win object's board for evaluation
+    @win.x_won? || @win.o_won? || @win.board_full?  # determine if the game is over
   end
 
+  # Method to handle endgame items (winning positions, scoring, winner)
   def end_game
-    @messaging.win = @position.map_win(@win.win)
-    if @win.x_won?
-      $x_score += 1
-      return "X"
-    elsif @win.o_won?
-      $o_score += 1
-      return "O"
-    else
-      return "tie"
+    @messaging.win = @position.map_win(@win.win)  # human friendly locations for messaging
+    if @win.x_won?  # if X won
+      $x_score += 1  # increment global $x_score
+      return "X"  # return "X" for messaging evaluation
+    elsif @win.o_won?  # if O won
+      $o_score += 1  # increment global $o_score
+      return "O"  # return "O" for messaging evaluation
+    else  # otherwise if neither player won
+      return "tie"  # return "tie" for messaging evaluation
     end
   end
 
-  # # Method to display endgame messaging
-  # def display_results
-  #   win = @position.map_win(@win.win)  # get the winning positions
-  #   if @win.x_won?  # if X won
-  #     $x_score += 1  # increment X's score by 1
-  #     return "#{@p1_type} X won the game!<br>The winning positions were: #{win}"  # advise on win
-  #   elsif @win.o_won?  # if O won
-  #     $o_score += 1  # increment O's score by 1
-  #     return "#{@p2_type} O won the game!<br>The winning positions were: #{win}"  # advise on win
-  #   elsif !@win.x_won? && !@win.o_won?  # if no one won
-  #     return "It was a tie!"  # advise on tie
-  #   end
-  # end
-
 end
-
-###  Endgame player and positions not displaying correctly
-
-# game = Game.new
-# win = Win.new
-# board = Board.new
-# $x_score = 0
-# $o_score = 0
-# board.game_board = ["X", "X", "X", "O", "O", "", "", "", ""]
-# game.game_over?
-# p "Win class game board:  #{win.game_board}"
-# game.end_game
-# p "x_score: #{$x_score}"
-# p "o_score: #{$o_score}"
-# p "winner: #{game.winner}"
-# p "winning positions: #{game.messaging.win}"
