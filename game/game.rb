@@ -5,6 +5,7 @@ require_relative "../players/player_perf.rb"
 require_relative "../players/player_rand.rb"
 require_relative "../players/player_seq.rb"
 
+# class to handle game logic
 class Game
 
   attr_reader :p1_type, :p2_type, :feedback, :prompt
@@ -83,7 +84,6 @@ class Game
 
   # Method to collect move from AI player instance
   def ai_move
-    # @move = @player.get_move(@board.game_board, @round, @mark_current, @board.wins, @board.get_x, @board.get_o)
     @move = @player.get_move(@board.game_board, @round, @mark_current, @win.wins, @board.get_x, @board.get_o)
   end
 
@@ -135,22 +135,17 @@ class Game
   def game_over?
     @win.update_board(@board.game_board)  ## new ##
     @win.x_won? || @win.o_won? || @win.board_full?  ## new ##
-    # @board.x_won?(@board.get_x) || @board.o_won?(@board.get_o) || @board.board_full?
   end
 
   # Method to display endgame messaging
   def display_results
-    # win = @position.map_win(@board.win)  # get the winning positions
     win = @position.map_win(@win.win)  # get the winning positions
-    # if @board.x_won?(@board.get_x)  # if X won
     if @win.x_won?  # if X won
       $x_score += 1  # increment X's score by 1
       return "#{@p1_type} X won the game!<br>The winning positions were: #{win}"  # advise on win
-    # elsif @board.o_won?(@board.get_o)  # if O won
     elsif @win.o_won?  # if O won
       $o_score += 1  # increment O's score by 1
       return "#{@p2_type} O won the game!<br>The winning positions were: #{win}"  # advise on win
-    # elsif !@board.x_won?(@board.get_x) && !@board.o_won?(@board.get_o)  # if no one won
     elsif !@win.x_won? && !@win.o_won?  # if no one won
       return "It was a tie!"  # advise on tie
     end
