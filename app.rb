@@ -3,7 +3,7 @@
 ####################################
 
 require 'sinatra'
-require_relative 'game.rb'
+require_relative './game/game.rb'
 
 class TicTacToeApp < Sinatra::Base
 
