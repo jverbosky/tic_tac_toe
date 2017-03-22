@@ -17,7 +17,7 @@ class PlayerPerfect
   end
 
   # Method to retrieve optimal position and convert it to a "human friendly" board position
-  def get_move(game_board, round, mark, wins, x_pos, o_pos)
+  def get_move(wins, x_pos, o_pos, round, mark)
     # Use current mark (X/O) to determine  current player, then call appropriate method to get position
     mark == "X" ? position = move_x(wins, x_pos, o_pos, round) : position = move_o(wins, o_pos, x_pos, round)
     # Translate the position's array index to a "human friendly" board position and return it

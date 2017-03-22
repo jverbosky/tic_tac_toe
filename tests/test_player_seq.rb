@@ -1,3 +1,5 @@
+# be sure to use the unit test versions of attr_reader in board.rb and game.rb
+
 require "minitest/autorun"
 require_relative "../players/player_seq.rb"
 require_relative "../game/game.rb"
@@ -7,12 +9,7 @@ class TestPlayerSequential < Minitest::Test
   def test_1_verify_t1_board_empty
     game = Game.new
     p1 = PlayerSequential.new
-    round = 1
-    mark = "X"
-    wins = game.win.wins
-    x_pos = game.board.get_x
-    o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(game.board.game_board)
     assert_equal("t1", result)
   end
 
@@ -20,12 +17,7 @@ class TestPlayerSequential < Minitest::Test
     game = Game.new
     p1 = PlayerSequential.new
     game.board.game_board = ["", "", "", "X", "", "", "O", "", ""]
-    round = 1
-    mark = "X"
-    wins = game.win.wins
-    x_pos = game.board.get_x
-    o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(game.board.game_board)
     assert_equal("t1", result)
   end
 
@@ -33,12 +25,7 @@ class TestPlayerSequential < Minitest::Test
     game = Game.new
     p1 = PlayerSequential.new
     game.board.game_board = ["X", "O", "O", "X", "", "", "", "X", "O"]
-    round = 1
-    mark = "X"
-    wins = game.win.wins
-    x_pos = game.board.get_x
-    o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(game.board.game_board)
     assert_equal("m2", result)
   end
 
@@ -46,12 +33,7 @@ class TestPlayerSequential < Minitest::Test
     game = Game.new
     p1 = PlayerSequential.new
     game.board.game_board = ["X", "O", "X", "O", "X", "O", "", "", ""]
-    round = 1
-    mark = "X"
-    wins = game.win.wins
-    x_pos = game.board.get_x
-    o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(game.board.game_board)
     assert_equal("b1", result)
   end
 
@@ -59,12 +41,7 @@ class TestPlayerSequential < Minitest::Test
     game = Game.new
     p1 = PlayerSequential.new
     game.board.game_board = ["X", "O", "X", "O", "O", "X", "O", "X", ""]
-    round = 1
-    mark = "X"
-    wins = game.win.wins
-    x_pos = game.board.get_x
-    o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(game.board.game_board)
     assert_equal("b3", result)
   end
 

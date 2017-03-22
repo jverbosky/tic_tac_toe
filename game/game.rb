@@ -85,7 +85,11 @@ class Game
 
   # Method to collect move from AI player instance
   def ai_move
-    @move = @player.get_move(@board.game_board, @round, @m_current, @win.wins, @board.get_x, @board.get_o)
+    if @pt_current == "Perfect"  # if AI player is perfect, pass the necessary info
+      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @round, @m_current)
+    else  # otherwise just pass the current board to the random or sequential AI player
+      @move = @player.get_move(@board.game_board)
+    end
   end
 
   # Method that updates the board and messaging accordingly, called by make_move

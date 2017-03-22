@@ -13,7 +13,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t1", "t3", "b1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -27,7 +27,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m2", result)
   end
 
@@ -41,7 +41,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t1", "t3", "b1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -55,7 +55,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m2", result)
   end
 
@@ -68,7 +68,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m2", result)
   end
 
@@ -81,7 +81,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b3", result)
   end
 
@@ -94,7 +94,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -107,7 +107,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -120,7 +120,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t1", result)
   end
 
@@ -133,7 +133,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m2", result)
   end
 
@@ -147,7 +147,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["b1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -162,7 +162,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["b1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -177,7 +177,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t3", "b1"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -192,7 +192,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -207,7 +207,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     edges = ["t2", "m1", "m3", "b2"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = edges.include? move
     assert_equal(true, result)
   end
@@ -222,7 +222,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     edges = ["t2", "m1", "m3", "b2"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = edges.include? move
     assert_equal(true, result)
   end
@@ -236,7 +236,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -249,7 +249,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -262,7 +262,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -275,7 +275,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b3", result)
   end
 
@@ -288,7 +288,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -301,7 +301,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -314,7 +314,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -327,7 +327,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t1", result)
   end
 
@@ -341,7 +341,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t3", "b1"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -356,7 +356,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -370,7 +370,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -383,7 +383,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -397,7 +397,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t1", "t3", "b1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -412,7 +412,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t1", "t3", "b1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -426,7 +426,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -439,7 +439,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b3", result)
   end
 
@@ -452,7 +452,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -465,7 +465,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -478,7 +478,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -491,7 +491,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -504,7 +504,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -517,7 +517,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -530,7 +530,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -543,7 +543,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -556,7 +556,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -569,7 +569,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m2", result)
   end
 
@@ -582,7 +582,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -595,7 +595,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t1", result)
   end
 
@@ -608,7 +608,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b3", result)
   end
 
@@ -621,7 +621,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -634,7 +634,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -647,7 +647,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b3", result)
   end
 
@@ -660,7 +660,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t1", result)
   end
 
@@ -674,7 +674,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["b1", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -689,7 +689,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     corners = ["t1", "b1"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = corners.include? move
     assert_equal(true, result)
   end
@@ -703,7 +703,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -716,7 +716,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -729,7 +729,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -742,7 +742,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -755,7 +755,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -768,7 +768,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -781,7 +781,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -794,7 +794,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -807,7 +807,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -820,7 +820,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -833,7 +833,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -846,7 +846,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -860,7 +860,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     positions = ["t1", "m1", "b2", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = positions.include? move
     assert_equal(true, result)
   end
@@ -875,7 +875,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     positions = ["t2", "t3", "m1", "b1"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = positions.include? move
     assert_equal(true, result)
   end
@@ -889,7 +889,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -902,7 +902,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -915,7 +915,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m2", result)
   end
 
@@ -928,7 +928,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -941,7 +941,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -954,7 +954,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -967,7 +967,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -980,7 +980,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -993,7 +993,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t1", result)
   end
 
@@ -1006,7 +1006,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b3", result)
   end
 
@@ -1020,7 +1020,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     blocks = ["t3", "b2", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = blocks.include? move
     assert_equal(true, result)
   end
@@ -1035,7 +1035,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     winners = ["t3", "b2", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = winners.include? move
     assert_equal(true, result)
   end
@@ -1049,7 +1049,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m3", result)
   end
 
@@ -1062,7 +1062,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -1075,7 +1075,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -1088,7 +1088,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -1101,7 +1101,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b3", result)
   end
 
@@ -1114,7 +1114,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t1", result)
   end
 
@@ -1127,9 +1127,9 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    open = ["b2", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
-    result = open.include? move
+    open_pos = ["b2", "b3"]
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = open_pos.include? move
     assert_equal(true, result)
   end
 
@@ -1142,9 +1142,9 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    open = ["m1", "b1"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
-    result = open.include? move
+    open_pos = ["m1", "b1"]
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = open_pos.include? move
     assert_equal(true, result)
   end
 
@@ -1157,7 +1157,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -1170,7 +1170,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -1183,7 +1183,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -1196,7 +1196,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -1209,7 +1209,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -1222,7 +1222,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -1235,7 +1235,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -1248,7 +1248,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -1261,7 +1261,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t3", result)
   end
 
@@ -1274,7 +1274,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -1287,7 +1287,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -1300,7 +1300,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -1313,7 +1313,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("m1", result)
   end
 
@@ -1326,7 +1326,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -1339,7 +1339,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -1352,7 +1352,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("t2", result)
   end
 
@@ -1365,7 +1365,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -1378,7 +1378,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b1", result)
   end
 
@@ -1391,7 +1391,7 @@ class TestPlayerSequential < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    result = p1.get_move(wins, x_pos, o_pos, round, mark)
     assert_equal("b2", result)
   end
 
@@ -1405,7 +1405,7 @@ class TestPlayerSequential < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     fork_blocks = ["t3", "b3"]
-    move = p1.get_move(game.board.game_board, round, mark, wins, x_pos, o_pos)
+    move = p1.get_move(wins, x_pos, o_pos, round, mark)
     result = fork_blocks.include? move
     assert_equal(true, result)
   end
