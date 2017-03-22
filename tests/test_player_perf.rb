@@ -1,8 +1,15 @@
+# be sure to use the unit test versions of attr_ in board.rb and game.rb
+# - attr_accessor in board.rb
+# - attr_reader in game.rb
+
+### Need to write tests for indidual methods in player_perf.rb
+### Currently only testing get_move() method
+
 require "minitest/autorun"
 require_relative "../players/player_perf.rb"
 require_relative "../game/game.rb"
 
-class TestPlayerSequential < Minitest::Test
+class TestPlayerPerfect < Minitest::Test
 
   def test_1_round_1_X_takes_a_random_corner
     game = Game.new

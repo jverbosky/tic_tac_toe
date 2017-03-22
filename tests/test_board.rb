@@ -1,3 +1,6 @@
+# be sure to use the unit test version of attr_ in board.rb
+# - attr_accessor in board.rb
+
 require "minitest/autorun"
 require_relative "../board/board.rb"
 

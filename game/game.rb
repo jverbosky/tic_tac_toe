@@ -10,8 +10,8 @@ require_relative "../players/player_seq.rb"  # class for sequential AI player
 class Game
 
   attr_accessor :move, :round
-  attr_reader :p1_type, :p2_type, :m_current, :pt_next, :messaging
-  # attr_reader :p1_type, :p2_type, :m_current, :pt_next, :messaging, :board, :win  # use for unit testing
+  # attr_reader :p1_type, :p2_type, :m_current, :pt_next, :messaging
+  attr_reader :p1_type, :p2_type, :m_current, :pt_next, :messaging, :board, :win  # use for unit testing
 
   def initialize
     @board = Board.new  # Board class instance
