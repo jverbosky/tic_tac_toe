@@ -66,4 +66,18 @@ class TestPosition < Minitest::Test
     assert_equal(8, result)
   end
 
+  def test_10_translate_positions_to_locations_v1
+    position = Position.new
+    win = [0, 4, 8]
+    result = position.map_win(win)
+    assert_equal("t1, m2, b3", result)
+  end
+
+  def test_11_translate_positions_to_locations_v2
+    position = Position.new
+    win = [0, 3, 6]
+    result = position.map_win(win)
+    assert_equal("t1, m1, b1", result)
+  end
+
 end

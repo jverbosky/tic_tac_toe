@@ -15,8 +15,6 @@
 #    -----------------------------
 class Position
 
-  attr_reader :map
-
   def initialize
     @map = {"t1" => 0, "t2" => 1, "t3" => 2, "m1" => 3, "m2" => 4, "m3" => 5, "b1" => 6, "b2" => 7, "b3" => 8}
   end
@@ -34,9 +32,3 @@ class Position
   end
 
 end
-
-# Sandbox testing
-# position = Position.new
-# win = [0, 4, 8]
-# print position.map_win(win)  # t1, m2, b3
-# print position.get_move(2)  # t3

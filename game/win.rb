@@ -3,6 +3,7 @@ class Win
 
   # @wins and @win need to be available to the Game class
   attr_reader :wins, :win
+  # attr_reader :game_board, :wins, :win  # use for unit testing
 
   def initialize
     @game_board = []  # populated with current game board by game_over? in Game class
@@ -20,7 +21,7 @@ class Win
     @game_board.count("") == 0
   end
 
-  # Method to update @win with the winning positions if player won
+  # Method to update @win with the winning positions and return true if player won
   def get_win(positions)
     won = false
     @wins.each { |win| (won = true; @win = win) if positions & win == win }

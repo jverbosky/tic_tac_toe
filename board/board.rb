@@ -1,9 +1,8 @@
 # class to handle game board
 class Board
 
-  # Method to access the variables in the class - attr_ is shorthand syntax for creating getter/setter methods
-  # attr_reader = read-only, attr_writer = write-only, attr_accessor = read/write
-  attr_accessor :game_board # needs to be read/write in order to change the value of board in tests
+  attr_reader :game_board
+  # attr_accessor :game_board  # use for unit testing
 
   def initialize
     @game_board = ["", "", "", "", "", "", "", "", ""]  # new empty game board
