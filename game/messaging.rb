@@ -8,7 +8,7 @@ class Messaging
   def initialize
     @feedback = ""  # view messaging - move status or reprompt
     @prompt = ""  # view messaging - player advance prompt
-    @win = []  # populated with winning locations by end_game in Game class
+    @win = ""  # populated with winning locations by end_game in Game class
   end
 
   # Method to update @feedback and @prompt if move is valid

@@ -1,0 +1,1 @@
+Game not working via Heroku in IE - the Play button isn't responsive.
