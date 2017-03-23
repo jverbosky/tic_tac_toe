@@ -48,8 +48,6 @@ class TicTacToeApp < Sinatra::Base
 
   # route to display game board, round and AI player move details
   get '/play_ai' do
-    session[:game] = Game.new  # use for front-end testing
-    session[:messaging] = session[:game].messaging  # use for front-end testing
     round = session[:game].round  # collect current round for messaging
     move = session[:game].make_move("")  # collect AI player move via make_move() > ai_move
     rows = session[:game].output_board  # grab the current board to display via layout.erb

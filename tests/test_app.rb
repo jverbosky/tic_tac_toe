@@ -24,6 +24,8 @@ class TestApp < Minitest::Test  # TestApp subclass inherits from Minitest::Test 
   end
 
   def test_post_players
+    get '/'  # use to instantiate objects and initialize variable sessions
+    assert(last_response.ok?)
     post '/players', player_type: {"p1_type"=>"Perfect", "p2_type"=>"Human"}
     # output = last_response.to_a  # use to put last_response object data in an array
     # puts "last response: #{output}"  # use to make last_response data visible for seeing errors
@@ -36,12 +38,12 @@ class TestApp < Minitest::Test  # TestApp subclass inherits from Minitest::Test 
     assert(last_response.body.include?('<button><a href=/play_ai>Play</a></button>'))
   end
 
-  def test_play_ai
-    get '/play_ai'  # verify a (get '/' do) route exists - doesn't need erb statement to pass
-    output = last_response.to_a  # use to put last_response object data in an array
-    puts "last response: #{output}"  # use to make last_response data visible for seeing errors
-    assert(last_response.ok?)  # verify server response == 200 for (get '/') action - doesn't need erb statement to pass
+  # def test_play_ai
+  #   get '/play_ai'  # verify a (get '/' do) route exists - doesn't need erb statement to pass
+  #   output = last_response.to_a  # use to put last_response object data in an array
+  #   puts "last response: #{output}"  # use to make last_response data visible for seeing errors
+  #   assert(last_response.ok?)  # verify server response == 200 for (get '/') action - doesn't need erb statement to pass
 
-  end
+  # end
 
 end
