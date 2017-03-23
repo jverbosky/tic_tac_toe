@@ -38,6 +38,7 @@ class TicTacToeApp < Sinatra::Base
     # collect player_type hash from form in start.erb, ex hash: {"p1_type"=>"Random", "p2_type"=>"Perfect"}
     player_type = params[:player_type]
     session[:game] = Game.new # use for front-end testing
+    session[:intro] = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]] # use for front-end testing
     session[:game].select_players(player_type)  # initialize player objects based on player_type hash
     session[:p1_type] = session[:game].p1_type  # assign p1_type session to @p1_type in game.rb
     session[:p2_type] = session[:game].p2_type  # assign p1_type session to @p2_type in game.rb

@@ -51,38 +51,30 @@ class TestApp < Minitest::Test  # TestApp subclass inherits from Minitest::Test 
   #   puts "round: #{session[:game].round}"
   # end
 
-  # def test_get_entry_page
-  #   get '/'  # verify a (get '/' do) route exists - doesn't need erb statement to pass
-  #   assert(last_response.ok?)  # verify server response == 200 for (get '/') action - doesn't need erb statement to pass
-  #   assert(last_response.body.include?('Please select the player types:'))
-  #   assert(last_response.body.include?('<form method="post" action="players">'))
-  #   assert(last_response.body.include?('<select type="text" name="player_type[p1_type]">'))
-  #   assert(last_response.body.include?('<select type="text" name="player_type[p2_type]">'))
-  #   assert(last_response.body.include?('<option value="Human">Human</option>'))
-  #   assert(last_response.body.include?('<option value="Perfect">Perfect</option>'))
-  #   assert(last_response.body.include?('<option value="Random">Random</option>'))
-  #   assert(last_response.body.include?('<option value="Sequential">Sequential</option>'))
-  # end
+  def test_get_entry_page
+    get '/'  # verify a (get '/' do) route exists - doesn't need erb statement to pass
+    assert(last_response.ok?)  # verify server response == 200 for (get '/') action - doesn't need erb statement to pass
+    assert(last_response.body.include?('Please select the player types:'))
+    assert(last_response.body.include?('<form method="post" action="players">'))
+    assert(last_response.body.include?('<select type="text" name="player_type[p1_type]">'))
+    assert(last_response.body.include?('<select type="text" name="player_type[p2_type]">'))
+    assert(last_response.body.include?('<option value="Human">Human</option>'))
+    assert(last_response.body.include?('<option value="Perfect">Perfect</option>'))
+    assert(last_response.body.include?('<option value="Random">Random</option>'))
+    assert(last_response.body.include?('<option value="Sequential">Sequential</option>'))
+  end
 
   def test_post_players
-    # session[:game] = Game.new
     post '/players', player_type: {"p1_type"=>"Perfect", "p2_type"=>"Human"}
-    # session[:game].select_players(player_type)
-    # session[:p1_type] = session[:game].p1_type
-    # session[:p2_type] = session[:game].p2_type
-    # get '/players', params = {"p1_type"=>"Human", "p2_type"=>"Human"}
-    # post '/players', player_type: {"p1_type"=>"Perfect", "p2_type"=>"Human"}
-    # post '/players', player_type: {"p1_type"=>"Perfect", "p2_type"=>"Human"}
     output = last_response.to_a  # use to put last_response object data in an array
     puts "last response: #{output}"  # use to make last_response data visible for seeing errors
     assert(last_response.ok?)
-    # game.p1_type = "Perfect"
-    # assert(last_response.body.include?('Got it!'))
-    # assert(last_response.body.include?('Perfect'))
-    # assert(last_response.body.include?('Human'))
-    # assert(last_response.body.include?('X is Perfect and O is Human.'))
-    # assert(last_response.body.include?('Press Play to begin the game'))
-    # assert(last_response.body.include?('<button<a href=/play_ai>Play</a></button>'))
+    assert(last_response.body.include?('Got it!'))
+    assert(last_response.body.include?('Perfect'))
+    assert(last_response.body.include?('Human'))
+    assert(last_response.body.include?('X is <u>Perfect</u> and O is <u>Human</u>.'))
+    assert(last_response.body.include?('Press <b>Play</b> to begin the game'))
+    assert(last_response.body.include?('<button><a href=/play_ai>Play</a></button>'))
   end
 
 end
