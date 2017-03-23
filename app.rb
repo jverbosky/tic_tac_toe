@@ -37,8 +37,6 @@ class TicTacToeApp < Sinatra::Base
   post '/players' do
     # collect player_type hash from form in start.erb, ex hash: {"p1_type"=>"Random", "p2_type"=>"Perfect"}
     player_type = params[:player_type]
-    session[:game] = Game.new  # use for front-end testing
-    session[:intro] = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]  # use for front-end testing
     session[:game].select_players(player_type)  # initialize player objects based on player_type hash
     session[:p1_type] = session[:game].p1_type  # assign p1_type session to @p1_type in game.rb
     session[:p2_type] = session[:game].p2_type  # assign p1_type session to @p2_type in game.rb
@@ -91,6 +89,18 @@ class TicTacToeApp < Sinatra::Base
       route = (session[:game].pt_next == "Human") ? "/play_human" : "/play_ai"  # route based on next player type
       erb :result_human, locals: {rows: rows, round: round, feedback: feedback, prompt: prompt, route: route}
     end
+  end
+
+  # route for front-end testing to use game_over views in /play_ai and /result_human
+  get '/game_over_test' do
+    session[:game].round = 5  # use for front-end testing
+    session[:game].board.game_board = ["X", "X", "", "", "O", "", "O", "", ""]
+  end
+
+  # route for front-end testing to use game_over views in /play_ai and /result_human
+  get '/location_taken_test' do
+    session[:game].round = 3  # use for front-end testing
+    session[:game].board.game_board = ["X", "", "", "", "O", "", "", "", ""]
   end
 
 end
