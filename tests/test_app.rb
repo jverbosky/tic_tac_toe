@@ -1,7 +1,6 @@
 require 'minitest/autorun'  # need for the Minitest::Test class
 require 'rack/test'  # need for the Rack::Test::Methods mixin
 require_relative '../app.rb'  # path to app file (one subdirectory higher than this file)
-require_relative '../game/game.rb'
 
 class TestApp < Minitest::Test  # TestApp subclass inherits from Minitest::Test class
   include Rack::Test::Methods  # Include the methods in the Rack::Test:Methods module (mixin)
@@ -35,6 +34,14 @@ class TestApp < Minitest::Test  # TestApp subclass inherits from Minitest::Test 
     assert(last_response.body.include?('X is <u>Perfect</u> and O is <u>Human</u>.'))
     assert(last_response.body.include?('Press <b>Play</b> to begin the game'))
     assert(last_response.body.include?('<button><a href=/play_ai>Play</a></button>'))
+  end
+
+  def test_play_ai
+    get '/play_ai'  # verify a (get '/' do) route exists - doesn't need erb statement to pass
+    output = last_response.to_a  # use to put last_response object data in an array
+    puts "last response: #{output}"  # use to make last_response data visible for seeing errors
+    assert(last_response.ok?)  # verify server response == 200 for (get '/') action - doesn't need erb statement to pass
+
   end
 
 end

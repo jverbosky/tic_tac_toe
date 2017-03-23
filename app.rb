@@ -37,8 +37,8 @@ class TicTacToeApp < Sinatra::Base
   post '/players' do
     # collect player_type hash from form in start.erb, ex hash: {"p1_type"=>"Random", "p2_type"=>"Perfect"}
     player_type = params[:player_type]
-    session[:game] = Game.new # use for front-end testing
-    session[:intro] = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]] # use for front-end testing
+    session[:game] = Game.new  # use for front-end testing
+    session[:intro] = [["", "", "X"], ["O", "O", "X"], ["X", "", ""]]  # use for front-end testing
     session[:game].select_players(player_type)  # initialize player objects based on player_type hash
     session[:p1_type] = session[:game].p1_type  # assign p1_type session to @p1_type in game.rb
     session[:p2_type] = session[:game].p2_type  # assign p1_type session to @p2_type in game.rb
@@ -48,6 +48,8 @@ class TicTacToeApp < Sinatra::Base
 
   # route to display game board, round and AI player move details
   get '/play_ai' do
+    session[:game] = Game.new  # use for front-end testing
+    session[:messaging] = session[:game].messaging  # use for front-end testing
     round = session[:game].round  # collect current round for messaging
     move = session[:game].make_move("")  # collect AI player move via make_move() > ai_move
     rows = session[:game].output_board  # grab the current board to display via layout.erb
