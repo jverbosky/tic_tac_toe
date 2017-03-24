@@ -2,7 +2,7 @@ require_relative "messaging.rb"  # class to handle messaging
 require_relative "win.rb"  # class to handle endgame evaluation
 require_relative "../board/board.rb"  # class to handle board updates and queries
 require_relative "../board/position.rb"  # class to board locations to array indexes
-# require_relative "../players/player_perf.rb"  # class for unbeatable AI player
+require_relative "../players/player_perf.rb"  # class for unbeatable AI player
 require_relative "../players/player_perf_ns.rb"  # class for Newell & Simon unbeatable AI player
 require_relative "../players/player_rand.rb"  # class for random AI player
 require_relative "../players/player_seq.rb"  # class for sequential AI player
@@ -14,7 +14,7 @@ class Game
 
   # attr_accessor :move, :round
   # attr_reader :p1_type, :p2_type, :m_current, :pt_next, :messaging
-  attr_accessor :move, :round, :board, :p1_type, :p2_type, :pt_current, :m_current, :pt_next, :m_next, :board_index  # use for unit testing
+  attr_accessor :move, :round, :board, :p1_type, :p2_type, :player, :pt_current, :m_current, :pt_next, :m_next, :board_index  # use for unit testing
   attr_reader :pt_next, :messaging, :win  # use for unit testing
 
   def initialize
@@ -46,12 +46,14 @@ class Game
     @p1_type = player_type["p1_type"]
     case @p1_type
       when "Perfect" then @p1 = PlayerPerfect.new
+      when "Unbeatable" then @p1 = PlayerPerfectNS.new
       when "Random" then @p1 = PlayerRandom.new
       when "Sequential" then @p1 = PlayerSequential.new
     end
     @p2_type = player_type["p2_type"]
     case @p2_type
       when "Perfect" then @p2 = PlayerPerfect.new
+      when "Unbeatable" then @p2 = PlayerPerfectNS.new
       when "Random" then @p2 = PlayerRandom.new
       when "Sequential" then @p2 = PlayerSequential.new
     end
@@ -89,9 +91,10 @@ class Game
 
   # Method to collect move from AI player instance
   def ai_move
-    if @pt_current == "Perfect"  # if AI player is perfect, pass the necessary info
-      # @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @round, @m_current)
-      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @m_current)  # player_per_ns
+    if @pt_current == "Perfect" # if AI player is perfect, pass the necessary info
+      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @round, @m_current)
+    elsif @pt_current == "Unbeatable"  # if AI player is unbeatable, no need to pass round
+      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @m_current)
     else  # otherwise just pass the current board to the random or sequential AI player
       @move = @player.get_move(@board.game_board)
     end

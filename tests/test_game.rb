@@ -174,7 +174,20 @@ class TestPosition < Minitest::Test
     assert_equal("m2", result)
   end
 
-  def test_18_verify_move_instance_variable_updated_by_sequential_AI_move
+  def test_18_verify_move_instance_variable_updated_by_unbeatable_AI_move
+    game = Game.new
+    player_type = {"p1_type"=>"Human", "p2_type"=>"Unbeatable"}
+    game.board.game_board = ["X", "", "", "", "", "", "", "", ""]
+    game.round = 2
+    game.select_players(player_type)
+    game.set_players
+    game.m_current = "O"
+    game.ai_move
+    result = game.move
+    assert_equal("m2", result)
+  end
+
+  def test_19_verify_move_instance_variable_updated_by_sequential_AI_move
     game = Game.new
     player_type = {"p1_type"=>"Human", "p2_type"=>"Sequential"}
     game.board.game_board = ["X", "", "", "", "", "", "", "", ""]
@@ -187,7 +200,7 @@ class TestPosition < Minitest::Test
     assert_equal("t2", result)
   end
 
-  def test_19_verify_move_instance_variable_updated_by_random_AI_move
+  def test_20_verify_move_instance_variable_updated_by_random_AI_move
     game = Game.new
     player_type = {"p1_type"=>"Human", "p2_type"=>"Random"}
     game.board.game_board = ["X", "X", "O", "O", "X", "X", "O", "", ""]
@@ -201,7 +214,7 @@ class TestPosition < Minitest::Test
     assert_equal(true, result)
   end
 
-  def test_20_verify_valid_move_returns_true
+  def test_21_verify_valid_move_returns_true
     game = Game.new
     game.board.game_board = ["X", "X", "O", "O", "X", "X", "O", "", ""]
     game.round = 8
@@ -215,7 +228,7 @@ class TestPosition < Minitest::Test
     assert_equal(true, result)
   end
 
-  def test_21_verify_valid_move_updates_board
+  def test_22_verify_valid_move_updates_board
     game = Game.new
     game.board.game_board = ["X", "X", "O", "O", "X", "X", "O", "", ""]
     game.round = 8
@@ -230,7 +243,7 @@ class TestPosition < Minitest::Test
     assert_equal(game.board.game_board, result)
   end
 
-  def test_22_verify_valid_move_updates_messaging_feedback
+  def test_23_verify_valid_move_updates_messaging_feedback
     game = Game.new
     game.board.game_board = ["X", "X", "O", "O", "X", "X", "O", "", ""]
     game.round = 8
@@ -245,7 +258,7 @@ class TestPosition < Minitest::Test
     assert_equal(game.messaging.feedback, result)
   end
 
-  def test_23_verify_valid_move_updates_messaging_prompt
+  def test_24_verify_valid_move_updates_messaging_prompt
     game = Game.new
     game.board.game_board = ["X", "X", "O", "O", "X", "X", "O", "", ""]
     game.round = 8
@@ -260,7 +273,7 @@ class TestPosition < Minitest::Test
     assert_equal(game.messaging.prompt, result)
   end
 
-  def test_24_verify_invalid_move_returns_false
+  def test_25_verify_invalid_move_returns_false
     game = Game.new
     game.board.game_board = ["X", "X", "O", "O", "X", "X", "O", "", ""]
     game.round = 8
@@ -274,7 +287,7 @@ class TestPosition < Minitest::Test
     assert_equal(false, result)
   end
 
-  def test_25_verify_invalid_move_updates_messaging_feedback
+  def test_26_verify_invalid_move_updates_messaging_feedback
     game = Game.new
     game.board.game_board = ["X", "X", "O", "O", "X", "X", "O", "", ""]
     game.round = 8
@@ -289,28 +302,28 @@ class TestPosition < Minitest::Test
     assert_equal(game.messaging.feedback, result)
   end
 
-  def test_26_verify_game_over_if_X_won
+  def test_27_verify_game_over_if_X_won
     game = Game.new
     game.board.game_board = ["X", "O", "X", "O", "O", "X", "", "", "X"]
     result = game.game_over?
     assert_equal(true, result)
   end
 
-  def test_27_verify_game_over_if_O_won
+  def test_28_verify_game_over_if_O_won
     game = Game.new
     game.board.game_board = ["X", "O", "X", "O", "O", "O", "X", "", "X"]
     result = game.game_over?
     assert_equal(true, result)
   end
 
-  def test_28_verify_game_over_if_board_full
+  def test_29_verify_game_over_if_board_full
     game = Game.new
     game.board.game_board = ["X", "X", "O", "O", "O", "X", "X", "X", "O"]
     result = game.game_over?
     assert_equal(true, result)
   end
 
-  def test_29_verify_end_game_returns_X_if_X_wins
+  def test_30_verify_end_game_returns_X_if_X_wins
     game = Game.new
     $x_score = 0
     game.board.game_board = ["X", "O", "X", "O", "O", "X", "", "", "X"]
@@ -320,7 +333,7 @@ class TestPosition < Minitest::Test
     assert_equal("X", result)
   end
 
-  def test_30_verify_end_game_increments_x_score_if_X_wins
+  def test_31_verify_end_game_increments_x_score_if_X_wins
     game = Game.new
     $x_score = 0
     game.board.game_board = ["X", "O", "X", "O", "O", "X", "", "", "X"]
@@ -331,9 +344,9 @@ class TestPosition < Minitest::Test
     assert_equal(1, result)
   end
 
-  def test_31_verify_end_game_returns_O_if_O_wins
+  def test_32_verify_end_game_returns_O_if_O_wins
     game = Game.new
-    $x_score = 0
+    $o_score = 0
     game.board.game_board = ["X", "O", "X", "O", "O", "O", "X", "", "X"]
     game.game_over?
     game.messaging.win = [3, 4, 5]
@@ -341,7 +354,7 @@ class TestPosition < Minitest::Test
     assert_equal("O", result)
   end
 
-  def test_32_verify_end_game_increments_o_score_if_O_wins
+  def test_33_verify_end_game_increments_o_score_if_O_wins
     game = Game.new
     $o_score = 0
     game.board.game_board = ["X", "O", "X", "O", "O", "O", "X", "", "X"]
@@ -352,7 +365,7 @@ class TestPosition < Minitest::Test
     assert_equal(1, result)
   end
 
-  def test_33_verify_end_game_returns_tie_if_board_full_and_no_wins
+  def test_34_verify_end_game_returns_tie_if_board_full_and_no_wins
     game = Game.new
     $x_score = 0
     game.board.game_board = ["X", "X", "O", "O", "O", "X", "X", "X", "O"]

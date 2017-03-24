@@ -1,7 +1,7 @@
 require_relative "../board/board.rb"
 
 # class for computer player that plays perfectly to a win or a tie
-class PlayerPerfect
+class PlayerPerfectNS
 
   def initialize
     @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]  # "human friendly" board positions
@@ -155,7 +155,7 @@ end
 #--------------sandbox testing----------------
 
 # board = Board.new
-# p1 = PlayerPerfect.new
+# p1 = PlayerPerfectNS.new
 # wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
 # board.game_board = ["X", "", "", "", "X", "", "", "", "O"]  # keep this one
 # # board.game_board = ["", "", "X", "", "O", "", "X", "", ""]

@@ -21,6 +21,7 @@ class TestApp < Minitest::Test  # TestApp subclass inherits from Minitest::Test 
     assert(last_response.body.include?('<option value="Perfect">Perfect</option>'))
     assert(last_response.body.include?('<option value="Random">Random</option>'))
     assert(last_response.body.include?('<option value="Sequential">Sequential</option>'))
+    assert(last_response.body.include?('<option value="Unbeatable">Unbeatable</option>'))
   end
 
   def test_post_players
