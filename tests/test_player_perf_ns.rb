@@ -6,7 +6,7 @@
 ### Currently only testing get_move() method
 
 require "minitest/autorun"
-require_relative "../players/player_perf_patternless.rb"
+require_relative "../players/player_perf_ns.rb"
 require_relative "../game/game.rb"
 
 class TestPlayerPerfect < Minitest::Test
@@ -18,10 +18,8 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["t1", "t3", "b1", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, mark)
-    result = corners.include? move
-    assert_equal(true, result)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
+    assert_equal("m2", result)
   end
 
   def test_2_round_2_O_takes_center
@@ -74,7 +72,7 @@ class TestPlayerPerfect < Minitest::Test
     assert_equal("m2", result)
   end
 
-  def test_6_round_3_perfect_O_took_center_X_takes_opposite_corner_v1
+  def test_6_round_3_perfect_O_took_center_X_takes_open_corner_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "", "O", "", "", "", ""]
@@ -82,11 +80,13 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, mark)
-    assert_equal("b3", result)
+    corners = ["t3", "b1", "b3"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = corners.include? move
+    assert_equal(true, result)
   end
 
-  def test_7_round_3_perfect_O_took_center_X_takes_opposite_corner_v2
+  def test_7_round_3_perfect_O_took_center_X_takes_open_corner_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "", "O", "", "", "", ""]
@@ -94,11 +94,13 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, mark)
-    assert_equal("b1", result)
+    corners = ["t1", "b1", "b3"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = corners.include? move
+    assert_equal(true, result)
   end
 
-  def test_8_round_3_perfect_O_took_center_X_takes_opposite_corner_v3
+  def test_8_round_3_perfect_O_took_center_X_takes_open_corner_v3
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "", "", "O", "", "X", "", ""]
@@ -106,11 +108,13 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, mark)
-    assert_equal("t3", result)
+    corners = ["t1", "t3", "b3"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = corners.include? move
+    assert_equal(true, result)
   end
 
-  def test_9_round_3_perfect_O_took_center_X_takes_opposite_corner_v4
+  def test_9_round_3_perfect_O_took_center_X_takes_open_corner_v4
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "", "", "O", "", "", "", "X"]
@@ -118,8 +122,10 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, mark)
-    assert_equal("t1", result)
+    corners = ["t1", "t3", "b1"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = corners.include? move
+    assert_equal(true, result)
   end
 
   def test_10_round_3_O_took_edge_X_takes_center
@@ -134,7 +140,7 @@ class TestPlayerPerfect < Minitest::Test
     assert_equal("m2", result)
   end
 
-  def test_11_round_3_O_took_corner_X_takes_open_corner_v1
+  def test_11_round_3_O_took_corner_X_takes_center_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "O", "", "", "", "", "", ""]
@@ -142,13 +148,11 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["b1", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, mark)
-    result = corners.include? move
-    assert_equal(true, result)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
+    assert_equal("m2", result)
   end
 
-  def test_12_round_3_O_took_corner_X_takes_open_corner_v2
+  def test_12_round_3_O_took_corner_X_takes_center_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "X", "", "", "", "", "", ""]
@@ -156,13 +160,11 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["b1", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, mark)
-    result = corners.include? move
-    assert_equal(true, result)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
+    assert_equal("m2", result)
   end
 
-  def test_13_round_3_O_took_opposite_corner_X_takes_corner_v1
+  def test_13_round_3_O_took_opposite_corner_X_takes_center_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "", "", "", "", "", "O"]
@@ -170,13 +172,11 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["t3", "b1"]
-    move = p1.get_move(wins, x_pos, o_pos, mark)
-    result = corners.include? move
-    assert_equal(true, result)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
+    assert_equal("m2", result)
   end
 
-  def test_14_round_3_O_took_opposite_corner_X_takes_corner_v2
+  def test_14_round_3_O_took_opposite_corner_X_takes_center_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "", "", "", "O", "", ""]
@@ -184,13 +184,11 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["t1", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, mark)
-    result = corners.include? move
-    assert_equal(true, result)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
+    assert_equal("m2", result)
   end
 
-  def test_15_round_4_perfect_X_took_opposite_corner_O_takes_a_random_edge_v1
+  def test_15_round_4_perfect_X_took_opposite_corner_O_forces_block_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "", "O", "", "", "", "X"]
@@ -204,7 +202,7 @@ class TestPlayerPerfect < Minitest::Test
     assert_equal(true, result)
   end
 
-  def test_16_round_4_perfect_X_took_opposite_corner_O_takes_a_random_edge_v2
+  def test_16_round_4_perfect_X_took_opposite_corner_O_forces_block_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "", "O", "", "X", "", ""]
@@ -266,7 +264,7 @@ class TestPlayerPerfect < Minitest::Test
     assert_equal("b3", result)
   end
 
-  def test_21_round_4_X_took_corner_and_non_adjacent_edge_O_takes_edge_opposite_corner_X_v1
+  def test_21_round_4_X_took_corner_and_non_adjacent_edge_O_blocks_fork_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "", "O", "", "", "X", ""]
@@ -275,10 +273,10 @@ class TestPlayerPerfect < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     result = p1.get_move(wins, x_pos, o_pos, mark)
-    assert_equal("m3", result)
+    assert_equal("b1", result)
   end
 
-  def test_22_round_4_X_took_corner_and_non_adjacent_edge_O_takes_edge_opposite_corner_X_v2
+  def test_22_round_4_X_took_corner_and_non_adjacent_edge_O_blocks_fork_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "", "O", "X", "", "", ""]
@@ -287,7 +285,7 @@ class TestPlayerPerfect < Minitest::Test
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     result = p1.get_move(wins, x_pos, o_pos, mark)
-    assert_equal("b2", result)
+    assert_equal("t3", result)
   end
 
   def test_23_round_4_X_took_center_and_corner_O_blocks_at_opposite_corner_v1
@@ -314,7 +312,7 @@ class TestPlayerPerfect < Minitest::Test
     assert_equal("t1", result)
   end
 
-  def test_25_round_4_X_took_center_and_corner_opposite_O_O_takes_corner_v1
+  def test_25_round_4_X_took_center_and_corner_opposite_O_O_forces_block_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "", "", "X", "", "", "", "X"]
@@ -322,13 +320,13 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["t3", "b1"]
+    edges = ["t3", "b1"]
     move = p1.get_move(wins, x_pos, o_pos, mark)
-    result = corners.include? move
+    result = edges.include? move
     assert_equal(true, result)
   end
 
-  def test_26_round_4_X_took_center_and_corner_opposite_O_O_takes_corner_v2
+  def test_26_round_4_X_took_center_and_corner_opposite_O_O_forces_block_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "", "X", "", "O", "", ""]
@@ -336,9 +334,9 @@ class TestPlayerPerfect < Minitest::Test
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["t1", "b3"]
+    edges = ["t1", "b3"]
     move = p1.get_move(wins, x_pos, o_pos, mark)
-    result = corners.include? move
+    result = edges.include? move
     assert_equal(true, result)
   end
 
@@ -530,12 +528,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "", "", "O", "X", "", "O"]
-    round = 5
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m2", result)
   end
 
@@ -543,12 +540,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "X", "", "", "", "O", "", "O"]
-    round = 5
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -556,12 +552,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "O", "O", "X", "", "", "", "X"]
-    round = 5
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t1", result)
   end
 
@@ -569,12 +564,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "O", "O", "X", "", "", "", ""]
-    round = 5
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b3", result)
   end
 
@@ -582,12 +576,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "", "", "O", "", "", "X", "X"]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -595,12 +588,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "", "", "O", "", "", "O", "X"]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t3", result)
   end
 
@@ -608,12 +600,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "O", "O", "X", "X", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b3", result)
   end
 
@@ -621,42 +612,39 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "X", "O", "O", "X", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t1", result)
   end
 
-  def test_50_round_6_X_took_adjacent_corners_and_opposite_edge_O_takes_open_corner_v1
+  def test_50_round_6_X_took_adjacent_corners_and_opposite_edge_O_forces_block_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "", "O", "", "", "X", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["b1", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
-    result = corners.include? move
+    edges = ["m1", "m3"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = edges.include? move
     assert_equal(true, result)
   end
 
-  def test_51_round_6_X_took_adjacent_corners_and_opposite_edge_O_takes_open_corner_v2
+  def test_51_round_6_X_took_adjacent_corners_and_opposite_edge_O_forces_block_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "X", "O", "O", "", "", "X"]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    corners = ["t1", "b1"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
-    result = corners.include? move
+    edges = ["t2", "b2"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = edges.include? move
     assert_equal(true, result)
   end
 
@@ -664,12 +652,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "O", "", "O", "", "X", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -677,12 +664,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "X", "", "O", "X", "", "", "O"]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -690,12 +676,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "X", "O", "O", "", "X", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -703,12 +688,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "", "", "O", "X", "", "O", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t3", result)
   end
 
@@ -716,12 +700,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "X", "X", "X", "", "O", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m3", result)
   end
 
@@ -729,12 +712,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "O", "", "X", "", "X", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b2", result)
   end
 
@@ -742,12 +724,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "", "X", "X", "O", "", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b2", result)
   end
 
@@ -755,12 +736,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "", "X", "X", "", "", "O", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m3", result)
   end
 
@@ -768,12 +748,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "", "X", "X", "O", "X", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t3", result)
   end
 
@@ -781,12 +760,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "X", "", "X", "", "", "O", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -794,12 +772,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "", "", "O", "", "", "X", "X"]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -807,41 +784,38 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "X", "O", "X", "", "", "O"]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
-  def test_64_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_random_v1
+  def test_64_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_random_corner_v1
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "X", "O", "", "O", "X", "X", "", ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    positions = ["t1", "m1", "b2", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    positions = ["t1", "b3"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
     result = positions.include? move
     assert_equal(true, result)
   end
 
-  def test_65_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_random_v2
+  def test_65_round_6_X_took_adjacent_edges_and_opposite_corner_O_takes_random_corner_v2
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "", "", "O", "X", "", "X", "O"]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    positions = ["t2", "t3", "m1", "b1"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    positions = ["t3", "b1"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
     result = positions.include? move
     assert_equal(true, result)
   end
@@ -850,12 +824,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "O", "O", "O", "", "X", "", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b2", result)
   end
 
@@ -863,12 +836,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "O", "", "O", "", "X", "O", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -876,12 +848,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "O", "", "", "X", "", "O"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m2", result)
   end
 
@@ -889,12 +860,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "", "O", "", "X", "", "O"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -902,12 +872,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "", "O", "", "O", "", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m3", result)
   end
 
@@ -915,12 +884,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "X", "", "O", "O", "O", "", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -928,12 +896,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "", "", "O", "", "O", "X", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t3", result)
   end
 
@@ -941,12 +908,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "O", "O", "O", "X", "", "", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -954,12 +920,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "", "X", "O", "O", "X", "X", "", "O"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t1", result)
   end
 
@@ -967,12 +932,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "X", "X", "O", "O", "X", "", ""]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b3", result)
   end
 
@@ -980,13 +944,12 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "O", "", "X", "O", "X", "X", "", ""]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     blocks = ["t3", "b2", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    move = p1.get_move(wins, x_pos, o_pos, mark)
     result = blocks.include? move
     assert_equal(true, result)
   end
@@ -995,13 +958,12 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "", "O", "X", "O", "O", "", ""]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     winners = ["t3", "b2", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    move = p1.get_move(wins, x_pos, o_pos, mark)
     result = winners.include? move
     assert_equal(true, result)
   end
@@ -1010,12 +972,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "", "O", "", "O", "X", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m3", result)
   end
 
@@ -1023,12 +984,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "O", "", "O", "", "X", "O", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -1036,12 +996,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "X", "O", "O", "X", "X", "", "O"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -1049,12 +1008,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "X", "X", "O", "O", "X", "", "X"]
-    round = 7
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b2", result)
   end
 
@@ -1062,12 +1020,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "O", "O", "X", "", "X", ""]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b3", result)
   end
 
@@ -1075,12 +1032,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "X", "X", "X", "O", "O", "", "O", "X"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t1", result)
   end
 
@@ -1088,13 +1044,12 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "O", "O", "O", "X", "X", "", ""]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     open_pos = ["b2", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    move = p1.get_move(wins, x_pos, o_pos, mark)
     result = open_pos.include? move
     assert_equal(true, result)
   end
@@ -1103,13 +1058,12 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "", "O", "X", "", "X", "O"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
     open_pos = ["m1", "b1"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
+    move = p1.get_move(wins, x_pos, o_pos, mark)
     result = open_pos.include? move
     assert_equal(true, result)
   end
@@ -1118,12 +1072,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "X", "X", "O", "O", "O", "X", ""]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -1131,12 +1084,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "O", "", "O", "X", "X", "O", ""]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -1144,12 +1096,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "X", "X", "X", "O", "O", "X", ""]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -1157,12 +1108,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "O", "", "X", "X", "", "O", "X"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -1170,12 +1120,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "", "X", "X", "O", "X", "O", ""]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t3", result)
   end
 
@@ -1183,12 +1132,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "X", "X", "X", "O", "", "O", ""]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -1196,12 +1144,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "O", "X", "X", "O", "X", "", "X"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -1209,12 +1156,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "X", "", "X", "", "O", "O", "X"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -1222,12 +1168,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "", "X", "O", "", "O", "X", "X"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t3", result)
   end
 
@@ -1235,12 +1180,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "X", "X", "O", "X", "O", "", "O"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b2", result)
   end
 
@@ -1248,12 +1192,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "X", "O", "", "O", "X", "X", "", "O"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -1261,12 +1204,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "O", "", "O", "X", "X", "X", "O"]
-    round = 8
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -1274,12 +1216,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "", "O", "O", "O", "X", "X"]
-    round = 9
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("m1", result)
   end
 
@@ -1287,12 +1228,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "", "O", "O", "O", "X", "X", "O", "X"]
-    round = 9
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -1300,12 +1240,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "O", "O", "X", "X", "", "O"]
-    round = 9
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b2", result)
   end
 
@@ -1313,12 +1252,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "", "X", "X", "O", "O", "X", "O", "X"]
-    round = 9
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("t2", result)
   end
 
@@ -1326,12 +1264,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["X", "O", "X", "O", "O", "X", "", "X", "O"]
-    round = 9
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -1339,12 +1276,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "X", "X", "X", "O", "O", "", "O", "X"]
-    round = 9
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b1", result)
   end
 
@@ -1352,12 +1288,11 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["O", "O", "", "", "", "", "X", "", "X"]
-    round = 5
     mark = "X"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    result = p1.get_move(wins, x_pos, o_pos, round, mark)
+    result = p1.get_move(wins, x_pos, o_pos, mark)
     assert_equal("b2", result)
   end
 
@@ -1365,14 +1300,27 @@ class TestPlayerPerfect < Minitest::Test
     game = Game.new
     p1 = PlayerPerfect.new
     game.board.game_board = ["", "X", "", "O", "O", "X", "X", "" ""]
-    round = 6
     mark = "O"
     wins = game.win.wins
     x_pos = game.board.get_x
     o_pos = game.board.get_o
-    fork_blocks = ["t3", "b3"]
-    move = p1.get_move(wins, x_pos, o_pos, round, mark)
-    result = fork_blocks.include? move
+    force_block = ["t1", "b3"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = force_block.include? move
+    assert_equal(true, result)
+  end
+
+  def test_106_O_blocks_multiple_forks
+    game = Game.new
+    p1 = PlayerPerfect.new
+    game.board.game_board = ["X", "", "", "", "X", "", "", "", "O"]
+    mark = "O"
+    wins = game.win.wins
+    x_pos = game.board.get_x
+    o_pos = game.board.get_o
+    force_block = ["t3", "b1"]
+    move = p1.get_move(wins, x_pos, o_pos, mark)
+    result = force_block.include? move
     assert_equal(true, result)
   end
 
