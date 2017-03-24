@@ -7,6 +7,8 @@ require_relative "../players/player_perf_ns.rb"  # class for Newell & Simon unbe
 require_relative "../players/player_rand.rb"  # class for random AI player
 require_relative "../players/player_seq.rb"  # class for sequential AI player
 
+# Expand to allow 2 different perfect player types (different moves)
+
 # class to handle game logic
 class Game
 
@@ -89,8 +91,7 @@ class Game
   def ai_move
     if @pt_current == "Perfect"  # if AI player is perfect, pass the necessary info
       # @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @round, @m_current)
-      # Use this version for Newell & Simon unbeatable player
-      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @m_current)
+      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @m_current)  # player_per_ns
     else  # otherwise just pass the current board to the random or sequential AI player
       @move = @player.get_move(@board.game_board)
     end
