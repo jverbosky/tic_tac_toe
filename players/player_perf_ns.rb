@@ -1,6 +1,6 @@
 require_relative "../board/board.rb"
 
-# class for computer player that plays perfectly to a win or a tie
+# class for computer player that plays perfectly to a win or a tie (based on Newell & Simon rules)
 class PlayerPerfectNS
 
   def initialize
