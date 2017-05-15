@@ -158,7 +158,7 @@ Once the required "unit test" versions of *attr\_accessor* and *attr\_reader* st
 1. Navigate to the **/tests** directory in a terminal (command prompt) session
 2. Run the following command for the desired unit test:
 
-	ruby <test\_file_name.rb>
+	'ruby <test\_file_name.rb>'
 
 For example, to run the unit tests for **board.rb** (the Board class), run the following command from the **/tests** directory:
 
