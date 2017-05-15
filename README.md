@@ -90,7 +90,7 @@ To open the game locally once it is running via *rackup*, use the following URL:
 
 ----------
 
-- If player X or O wins a game, the corresponding **X Score** or **O Score** will be incremented by 1 accordingly.
+- If player X or O wins a game, the corresponding **X Score** or **O Score** at the top of the screen will be incremented by 1 accordingly.
 - If the game ends in a tie, neither score will be incremented.
 
 ----------
