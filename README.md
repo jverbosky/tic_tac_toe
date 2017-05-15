@@ -52,7 +52,7 @@ To open the game locally once it is running via *rackup*, use the following URL:
 
 ----------
 
-1. On the initial screen, use the Player 1 (X) and Player 2 (O) drop-downs to specify the desired player type.
+1. On the initial screen, use the **Player 1 (X)** and **Player 2 (O)** drop-downs to specify the desired player type.
 
 	**Human** - a human player where moves can be specified by the player
 
