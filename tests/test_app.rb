@@ -1,3 +1,7 @@
+# be sure to use the unit test versions of attr_ in board.rb and game.rb
+# - attr_accessor in /board/board.rb
+# - attr_reader in /game/game.rb
+
 require 'minitest/autorun'  # need for the Minitest::Test class
 require 'rack/test'  # need for the Rack::Test::Methods mixin
 require_relative '../app.rb'  # path to app file (one subdirectory higher than this file)

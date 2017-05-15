@@ -1,7 +1,7 @@
 # be sure to use the unit test versions of attr_ in board.rb and game.rb
 # - attr_accessor in board.rb
-# - attr_reader in game.rb
-# - attr_reader in player_rand.rb
+# - attr_reader in /game/game.rb
+# - attr_reader in /players/player_rand.rb
 
 require "minitest/autorun"
 require_relative "../players/player_rand.rb"

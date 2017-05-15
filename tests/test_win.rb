@@ -1,5 +1,5 @@
 # be sure to use the unit test versions of attr_ in win.rb
-# - attr_reader in win.rb
+# - attr_reader in /game/win.rb
 
 require "minitest/autorun"
 require_relative "../game/win.rb"
