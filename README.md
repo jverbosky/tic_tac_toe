@@ -1,7 +1,5 @@
 ## Tic Tac Toe ##
 
-----------
-
 A web app developed using Ruby, Sinatra, HTML and CSS.
 
 Highlights include:
