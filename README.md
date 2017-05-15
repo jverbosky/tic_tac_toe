@@ -77,12 +77,12 @@ To open the game locally once it is running via *rackup*, use the following URL:
 
 	1. Use the drop-down to specify the desired location.
 	2. Select the **Submit** button.
-	3. On the subsequent move summary screen, select the **Next** button to advance to the next player's move.<br><br>
+	3. On the subsequent move summary screen, select the **Next** button to advance to the next player's move.<br>
 
 - Computer players:
 
 	1. The computer player's move will be reflected.
-	2. Select the **Next** button on the move summary screen.
+	2. Select the **Next** button on the move summary screen to advance to the next player's move.
 
 ----------
 
