@@ -203,5 +203,6 @@ The resulting output will indicate the success of the front-end tests and assert
     
     8 runs, 86 assertions, 0 failures, 0 errors, 0 skips
 
-
 ----------
+
+Enjoy!
