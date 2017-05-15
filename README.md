@@ -14,7 +14,12 @@ Highlights include:
 
 ## Gameplay ##
 
-Please refer to the following sections for details on how to run and play the game.
+Please refer to the following sections for details on how to run and play the game:
+
+- Running the Game
+- Player Selection
+- Move Selection
+- Cumulative Scoring
 
 ----------
 
