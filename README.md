@@ -186,7 +186,7 @@ The **/tests/test\_app.rb** file contains front-end tests for the web app routes
 
 As with the unit tests, the required "unit test" versions of *attr\_accessor* and *attr\_reader* statements must be used (this time in **/board/board.rb** and **/game/game.rb**).  Once the required "unit test" versions of *attr\_accessor* and *attr\_reader* statements are available, front-end tests can be run by doing the following:
 
-1. Navigate to the **/tests** directory in a terminal (command prompt) session
+1. Navigate to the **/tests** directory in a terminal (command prompt) session.
 2. Run the following command for the desired unit test:
 
 	`ruby <test\_file_name.rb>`
