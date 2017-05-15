@@ -36,7 +36,7 @@ To open the game from any Internet-connected device, use the following URL:
 To run the game locally:
 
 1. Make sure that [Ruby](https://www.ruby-lang.org/en/documentation/installation/) is installed.
-2. Make sure that the [Sinatra](https://github.com/sinatra/sinatra) gem is installed.  *Note that the Sinatra gem will include other gems necessary to run the game locally, such as rack.*
+2. Make sure that the [Sinatra](https://github.com/sinatra/sinatra) gem is installed.  *Note that installing the Sinatra gem will install other gems necessary to run the game locally, such as rack.*
 3. Navigate to the directory which contains **app.rb** in a terminal (command prompt) session.
 4. Run the following command to launch the Sinatra web server:
 
