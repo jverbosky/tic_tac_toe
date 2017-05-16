@@ -114,10 +114,10 @@ Unit Tests:
 - **test_messaging.rb** > **/game/messaging.rb** (13 tests)
 - **test\_player_perf.rb** > **/players/player\_perf.rb** (105 tests)
 - **test\_player\_perf_ns.rb** > **/players/player\_perf\_ns.rb** (106 tests)
-- **test\_player_rand** > **/players/player\_rand.rb** (2 tests)
-- **test\_player_seq** > **/players/player\_seq.rb** (5 tests)
-- **test_position** > **/board/position.rb** (11 tests)
-- **test_win** > **/game/win.rb** (11 tests)
+- **test\_player_rand.rb** > **/players/player\_rand.rb** (2 tests)
+- **test\_player_seq.rb** > **/players/player\_seq.rb** (5 tests)
+- **test_position.rb** > **/board/position.rb** (11 tests)
+- **test_win.rb** > **/game/win.rb** (11 tests)
 
 Front-End Tests:
 
