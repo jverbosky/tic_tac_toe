@@ -1,8 +1,8 @@
 # class to handle game board
 class Board
 
-  # attr_reader :game_board
-  attr_accessor :game_board  # use for unit testing
+  attr_reader :game_board
+  # attr_accessor :game_board  # use for unit testing
 
   def initialize
     @game_board = ["", "", "", "", "", "", "", "", ""]  # new empty game board

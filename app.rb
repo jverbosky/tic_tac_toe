@@ -91,16 +91,16 @@ class TicTacToeApp < Sinatra::Base
     end
   end
 
+  # route for front-end testing to verify feedback if taken position is selected
+  get '/location_taken_test' do
+    session[:game].round = 3  # use for front-end testing
+    session[:game].board.game_board = ["X", "", "", "", "O", "", "", "", ""]
+  end
+
   # route for front-end testing to use game_over views in /play_ai and /result_human
   get '/game_over_test' do
     session[:game].round = 5  # use for front-end testing
     session[:game].board.game_board = ["X", "X", "", "", "O", "", "O", "", ""]
-  end
-
-  # route for front-end testing to use game_over views in /play_ai and /result_human
-  get '/location_taken_test' do
-    session[:game].round = 3  # use for front-end testing
-    session[:game].board.game_board = ["X", "", "", "", "O", "", "", "", ""]
   end
 
 end
